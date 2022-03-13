@@ -1,11 +1,4 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+@import url("https://velocity-ui.netlify.app/css/components.css");
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
