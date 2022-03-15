@@ -1,0 +1,19 @@
+
+.card,
+.card .card-image img {
+  border-radius: 0;
+}
+
+.card .card-image img {
+  border: none;
+}
+
+.card {
+  box-shadow: none;
+  max-width: 100%;
+  transition: box-shadow 0.3s;
+}
+
+.card .price {
+  display: block;
+}

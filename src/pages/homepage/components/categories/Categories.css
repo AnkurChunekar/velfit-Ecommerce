@@ -1,0 +1,31 @@
+
+.category {
+    text-decoration: none;
+    color: inherit;
+    padding: 2rem;
+    background-color: var(--lynx-white);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2rem;
+    justify-content: center;
+    min-height: 28rem;
+    transition: background-color 0.3s;
+  }
+  
+  .category:hover {
+    background-color: rgb(230, 230, 230);
+  }
+  
+  .category img {
+    height: 8rem;
+    width: 8rem;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
