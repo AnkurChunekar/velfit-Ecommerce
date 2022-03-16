@@ -1,0 +1,70 @@
+/* Cart style starts */
+
+.cart-management-page {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    column-gap: 3rem;
+    height: max-content;
+    padding: 1rem;
+    max-width: 1024px;
+    margin: auto;
+  }
+  
+  .cart-management-page .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  /* Card styles */
+  
+  .cart-management-page .card {
+    background-color: white;
+  }
+  
+  .cart-management-page .card .price {
+    font-weight: 600;
+  }
+  
+  /* order box starts */
+  
+  .cart-management-page .order-box ul {
+    border-radius: var(--sm-radius);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  }
+  
+  .cart-management-page .order-box ul li {
+    font-size: 1.4rem;
+    padding: var(--spacing-xxs) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cart-management-page .order-box .checkout-btn {
+    width: 100%;
+  }
+  
+  .card .ecom-qty {
+    align-items: center;
+  }
+  
+  .card .ecom-qty .qty-btn {
+    padding: 3px 8px;
+  }
+  
+  /* order box ends */
+  
+  /* media query starts */
+  
+  @media screen and (max-width: 900px) {
+    .cart-management-page {
+      grid-template-columns: 1fr;
+      max-width: 435px;
+      row-gap: 2rem;
+    }
+  }
+  
+  /* media query ends */
+  

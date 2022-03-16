@@ -1,0 +1,21 @@
+
+
+.homepage-main-section .card,
+.card .card-image img {
+  border-radius: 0;
+}
+
+.homepage-main-section  .card .card-image img {
+  border: none;
+}
+
+.homepage-main-section .card {
+  box-shadow: none;
+  max-width: 100%;
+  transition: box-shadow 0.3s;
+}
+
+.card .price {
+  display: block;
+  font-weight: 600;
+}
