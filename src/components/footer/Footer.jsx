@@ -1,4 +1,6 @@
 import "./Footer.css";
+import { Link } from "react-router-dom";
+import { ProductListing } from "../../pages";
 
 export default function Footer() {
   return (
@@ -10,13 +12,13 @@ export default function Footer() {
             <h4>Company</h4>
             <ul className="list-style-none">
               <li>
-                <a href="">About Us</a>
+                <a>About Us</a>
               </li>
               <li>
-                <a href="">Our Services</a>
+                <a>Our Services</a>
               </li>
               <li>
-                <a href="">FAQ</a>
+                <a>FAQ</a>
               </li>
             </ul>
           </div>
@@ -24,16 +26,16 @@ export default function Footer() {
             <h4>Categories</h4>
             <ul className="list-style-none">
               <li>
-                <a href="">Weights</a>
+                <Link to="/products" element={<ProductListing />}>Weights</Link>
               </li>
               <li>
-                <a href="">Equipments</a>
+                <Link to="/products" element={<ProductListing />}>Equipments</Link>
               </li>
               <li>
-                <a href="">Accessories</a>
+                <Link to="/products" element={<ProductListing />}>Accessories</Link>
               </li>
               <li>
-                <a href="">Supplements</a>
+                <Link to="/products" element={<ProductListing />}>Supplements</Link>
               </li>
             </ul>
           </div>
@@ -54,16 +56,16 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Follow Us</h4>
             <div className="social-links">
-              <a href="">
+              <a href="https://twitter.com/ankur_chunekar" target="_blank">
                 <i className="fa-brands fa-twitter" />
               </a>
-              <a href="">
+              <a href="https://www.linkedin.com/in/ankur-chunekar-8071bb211" target="_blank">
                 <i className="fa-brands fa-linkedin" />
               </a>
-              <a href="">
+              <a href="https://github.com/AnkurChunekar" target="_blank">
                 <i className="fa-brands fa-github" />
               </a>
-              <a href="">
+              <a href="https://ankurchunekar.hashnode.dev/" target="_blank">
                 <i className="fa-brands fa-hashnode" />
               </a>
             </div>
