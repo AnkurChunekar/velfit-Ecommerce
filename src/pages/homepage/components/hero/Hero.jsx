@@ -1,6 +1,7 @@
 import "./Hero.css";
-import bannerImage from "../../../../images/banner-image.webp";
-
+import { heroBanner } from "../../../../images";
+import ProductListing from "../../../productListing/ProductListing";
+import { Link } from "react-router-dom";
 
 export default function Hero(){
     return (
@@ -11,13 +12,13 @@ export default function Hero(){
             Shop for Quality Fitness Equipments, Supplements and Accessories at
             best prices and discounts.
           </p>
-          <button className="btn btn-primary btn-lg">Explore Now</button>
+          <Link to="./products" element={ProductListing} > <button className="btn btn-primary btn-lg">Explore Now</button></Link>
         </div>
         <div className="hero-img-container">
           <img
             className="hero-img img-responsive"
-            src={bannerImage}
-            alt=""
+            src={heroBanner}
+            alt="Man Performing Deadlift"
           />
         </div>
       </header>
