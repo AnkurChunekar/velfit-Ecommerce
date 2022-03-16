@@ -1,9 +1,5 @@
 import "./Categories.css"
-import categorySupplements from "../../../../images/category-supplements.png";
-import categoryWeights from "../../../../images/category-weights.png";
-import categoryAccessories from "../../../../images/category-accessories.png";
-import categoryEquipments from "../../../../images/category-equipments.png";
-
+import {categorySupplements, categoryAccessories, categoryEquipments, categoryWeights } from "../../../../images/index";
 
 export default function Categories(){
     return (
