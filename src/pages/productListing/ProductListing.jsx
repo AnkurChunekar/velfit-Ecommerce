@@ -1,4 +1,5 @@
 import "./ProductListing.css";
+import { dumbellPI } from "../../images/index";
 import { Card, Navbar } from "../../components/index";
 
 export default function ProductListing() {
@@ -97,11 +98,11 @@ export default function ProductListing() {
         </header>
         {/* grid starts */}
         <div className="products-grid">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          <Card cardImage={dumbellPI} className={"card-ecom"} />
+          <Card cardImage={dumbellPI} className={"card-ecom"} />
+          <Card cardImage={dumbellPI} className={"card-ecom"} />
+          <Card cardImage={dumbellPI} className={"card-ecom"} />
+          <Card cardImage={dumbellPI} className={"card-ecom"} />
         </div>
         {/* grid ends */}
       </section>

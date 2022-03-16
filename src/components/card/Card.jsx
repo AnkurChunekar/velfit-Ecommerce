@@ -1,11 +1,11 @@
 import { dumbellPI } from "../../images";
 
-export default function Card() {
+export default function Card({className, cardImage}) {
     return(
         <>
-         <div className="card card-ecom">
+         <div className={`card ${className}`}>
             <header className="card-image">
-              <img src={dumbellPI} alt="product image" />
+              <img src={cardImage} alt="product image" />
             </header>
             <section className="card-body">
               {/* Card icons */}
@@ -41,7 +41,6 @@ export default function Card() {
               {/* buttons */}
               <footer className="card-actions m-xs">
                 <button className="btn btn-primary">Buy Now</button>
-                <button className="btn btn-secondary">Add to Cart</button>
               </footer>
               {/* buttons */}
             </section>
