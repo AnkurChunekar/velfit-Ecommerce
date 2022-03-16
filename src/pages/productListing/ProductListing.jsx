@@ -1,11 +1,10 @@
 import "./ProductListing.css";
 import { dumbellPI } from "../../images/index";
-import { Card, Navbar } from "../../components/index";
+import { Card } from "../../components/index";
 
 export default function ProductListing() {
   return (
       <>
-      <Navbar />
     <main className="product-listing-page">
       <aside className="filters-container p-xs">
         {/* Header starts  */}

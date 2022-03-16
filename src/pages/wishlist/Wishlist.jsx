@@ -1,11 +1,10 @@
 import "./Wishlist.css";
 import { dumbellPI } from "../../images";
-import { Card, Navbar } from "../../components";
+import { Card } from "../../components";
 
 export default function Wishlist() {
   return (
       <>
-      <Navbar />
     <section className="wishlist-page">
       <header className="title center-align-text m-lg">
         <div className="fs-2">

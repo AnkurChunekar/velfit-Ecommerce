@@ -4,7 +4,6 @@ import { Navbar } from "../../components";
 export default function Login() {
   return (
       <>
-      <Navbar/>
     <main className="main-container flex ai-start jc-center">
       <form className="authentication-container flex flex-column ai-left p-md2 m-xs">
         <h1 className="title m-s m-rl0 fs-3 fw-600">Log in</h1>

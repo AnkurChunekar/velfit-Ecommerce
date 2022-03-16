@@ -1,12 +1,20 @@
 import "./App.css";
-import { Homepage, ProductListing, Wishlist } from "./pages/index.js";
+import { Navbar } from "./components";
+import { Homepage, ProductListing, Wishlist, CartManagement, Login, Signup } from "./pages/index.js";
 
 function App() {
   return (
+    <>
+    <Navbar />
     <div className="App">
-      {/* <Homepage /> */}
-      <Wishlist />
+      {/* <CartManagement /> */}
+      <Homepage />
+      {/* <ProductListing /> */}
+      {/* <Wishlist /> */}
+      {/* <Login /> */}
+      {/* <Signup /> */}
     </div>
+    </>
   );
 }
 
