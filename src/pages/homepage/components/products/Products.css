@@ -10,7 +10,6 @@
 }
 
 .homepage-main-section .card {
-  box-shadow: none;
   max-width: 100%;
   transition: box-shadow 0.3s;
 }

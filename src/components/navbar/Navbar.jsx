@@ -1,4 +1,6 @@
 import "./Navbar.css";
+import { Link } from "react-router-dom";
+import { CartManagement, Homepage, Wishlist } from "../../pages";
 
 export default function Navbar() {
   return (
@@ -6,7 +8,9 @@ export default function Navbar() {
       <nav className="navigation">
         <div className="nav-brand">
           <i className="fas fa-bars ham-icon" id="ham-icon" />
-          <a className="brand-name">Velfit</a>
+          <Link to="/" element={<Homepage />} className="brand-name">
+            Velfit
+          </Link>
         </div>
         <div className="navigation-ham-menu" id="navigation-ham-menu">
           <i className="fas fa-times" id="ham-close-icon" />
@@ -26,18 +30,18 @@ export default function Navbar() {
           <a href="">
             <i className="fas fa-user" />
           </a>
-          <a href="/pages/wishlist/wishlist.html">
+          <Link to="/wishlist" element={<Wishlist />}>
             <span className="icon-container badge-container">
               <i className="fas fa-heart icon" />
               <span className="icon-badge">2</span>
             </span>
-          </a>
-          <a href="/pages/cart-management/cart-management.html">
+          </Link>
+          <Link to="/cart" element={<CartManagement />}>
             <span className="icon-container badge-container">
               <i className="fas fa-shopping-cart icon" />
               <span className="icon-badge">2</span>
             </span>
-          </a>
+          </Link>
         </div>
       </nav>
       {/* Search bar starts */}
