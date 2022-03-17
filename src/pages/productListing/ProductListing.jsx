@@ -16,10 +16,6 @@ export default function ProductListing() {
 
           <div className="products-grid">
             <Card cardImage={dumbbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbbellPI} className={"card-ecom"} />
           </div>
         </section>
       </main>
