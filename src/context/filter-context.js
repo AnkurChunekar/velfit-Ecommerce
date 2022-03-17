@@ -1,43 +1,30 @@
 import { createContext, useContext, useReducer } from "react";
 
 const defaultValue = {
-  state: {
-    sortBy: null,
-    includeOutOfStock: false,
-    onlyFastDelivery: false,
-    maxRangePrice: 10000
-  },
-  dispatch: () => {}
+  sortBy: null,
+  maxPriceRange: 10000
 };
 
 const FilterContext = createContext(defaultValue);
 
+
 const FilterProvider = ({ children }) => {
+
   const reducerFn = (state, action) => {
     switch (action.type) {
       case "SORT_BY":
-        return { ...state, sortBy: action.payload };
-      case "INCLUDE_OUT_OF_STOCK":
-        return { ...state, includeOutOfStock: !state.includeOutOfStock };
-      case "FAST_DELIVERY":
-        return { ...state, onlyFastDelivery: !state.onlyFastDelivery };
-      case "MAX_RANGE_PRICE":
-        return { ...state, maxRangePrice: action.payload };
-      case "RESET":
-        return initialState;
+        return { ...state, sortBy: action.payload }
       default:
         return state;
     }
-  };
+  }
 
-  const initialState = {
+  const initialstate = {
     sortBy: null,
-    includeOutOfStock: false,
-    onlyFastDelivery: false,
-    maxRangePrice: 10000
-  };
+    maxPriceRange: 10000
+  }
 
-  const [state, dispatch] = useReducer(reducerFn, initialState);
+  const [state, dispatch] = useReducer(reducerFn, initialstate);
 
   return (
     <FilterContext.Provider value={{ state, dispatch }}>
