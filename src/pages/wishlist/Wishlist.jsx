@@ -1,5 +1,5 @@
 import "./Wishlist.css";
-import { dumbellPI } from "../../images";
+import { dumbbellPI } from "../../images";
 import { Card } from "../../components";
 
 export default function Wishlist() {
@@ -14,9 +14,9 @@ export default function Wishlist() {
       </header>
 
       <div className="products-grid">
-        <Card className={"card-w-dismiss"} cardImage={dumbellPI} />
-        <Card className={"card-w-dismiss"} cardImage={dumbellPI} />
-        <Card className={"card-w-dismiss"} cardImage={dumbellPI} />
+        <Card className={"card-w-dismiss"} cardImage={dumbbellPI} />
+        <Card className={"card-w-dismiss"} cardImage={dumbbellPI} />
+        <Card className={"card-w-dismiss"} cardImage={dumbbellPI} />
       </div>
     </section>
     </>
