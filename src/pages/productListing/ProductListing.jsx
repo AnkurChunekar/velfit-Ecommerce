@@ -1,5 +1,5 @@
 import "./ProductListing.css";
-import { dumbellPI } from "../../images/index";
+import { dumbbellPI } from "../../images/index";
 import { Card } from "../../components/index";
 import Filters from "./components/Filters";
 
@@ -15,11 +15,11 @@ export default function ProductListing() {
           </header>
 
           <div className="products-grid">
-            <Card cardImage={dumbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbellPI} className={"card-ecom"} />
-            <Card cardImage={dumbellPI} className={"card-ecom"} />
+            <Card cardImage={dumbbellPI} className={"card-ecom"} />
+            <Card cardImage={dumbbellPI} className={"card-ecom"} />
+            <Card cardImage={dumbbellPI} className={"card-ecom"} />
+            <Card cardImage={dumbbellPI} className={"card-ecom"} />
+            <Card cardImage={dumbbellPI} className={"card-ecom"} />
           </div>
         </section>
       </main>

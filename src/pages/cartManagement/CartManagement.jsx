@@ -1,5 +1,5 @@
 import "./CartManagement.css";
-import { dumbellPI } from "../../images";
+import { dumbbellPI } from "../../images";
 import { Card } from "../../components";
 
 export default function CartManagement() {
@@ -10,8 +10,8 @@ export default function CartManagement() {
       </header>
       <div className="cart-management-page">
         <section className="card-container">
-          <Card className={"card-horizontal"} cardImage={dumbellPI} />
-          <Card className={"card-horizontal"} cardImage={dumbellPI} />
+          <Card className={"card-horizontal"} cardImage={dumbbellPI} />
+          <Card className={"card-horizontal"} cardImage={dumbbellPI} />
         </section>
         <section className="order-box">
           <ul className="list list-style-none p-s">

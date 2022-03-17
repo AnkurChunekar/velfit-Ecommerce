@@ -1,5 +1,5 @@
 import "./Products.css";
-import { dumbellPI } from "../../../../images/index";
+import { dumbbellPI } from "../../../../images/index";
 
 export default function Products(){
     return (
@@ -10,7 +10,7 @@ export default function Products(){
             <div className="card">
               <div className="card-image">
                 <img
-                  src={dumbellPI}
+                  src={dumbbellPI}
                   alt="product image"
                 />
               </div>
@@ -26,7 +26,7 @@ export default function Products(){
             <div className="card">
               <div className="card-image">
                 <img
-                  src={dumbellPI}
+                  src={dumbbellPI}
                   alt="product image"
                 />
               </div>
@@ -42,7 +42,7 @@ export default function Products(){
             <div className="card">
               <div className="card-image">
                 <img
-                  src={dumbellPI}
+                  src={dumbbellPI}
                   alt="product image"
                 />
               </div>
@@ -58,7 +58,7 @@ export default function Products(){
             <div className="card">
               <div className="card-image">
                 <img
-                  src={dumbellPI}
+                  src={dumbbellPI}
                   alt="product image"
                 />
               </div>
