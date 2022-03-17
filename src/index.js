@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
-import { FilterProvider } from "./context/filter-context";
+import { FilterProvider } from "./context/index";
 
 
 // Call make Server

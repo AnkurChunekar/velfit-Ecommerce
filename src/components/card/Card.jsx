@@ -21,7 +21,7 @@ function CardIcons({ isFastDelivered }) {
 
       {isFastDelivered ? (
         <div className="badge-container tag tag-danger">
-          <span className="icon-badge">New</span>
+          <span className="icon-badge">Super Fast</span>
         </div>
       ) : null}
     </>

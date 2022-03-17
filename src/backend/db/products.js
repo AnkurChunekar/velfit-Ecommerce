@@ -8,8 +8,8 @@ import { abRollerPI, waterBottlePI, legPressPI, pecDeckPI, platesPI, squatRackPI
 export const products = [
   {
     _id: uuid(),
-    title: "Optimum Nutrition Protien",
-    description: "Gold Standard 100% Whey Protein",
+    title: "ON Protien",
+    description: "100% Whey Protein.",
     categoryName: "supplements",
     price: "3049",
     inStock: true,
@@ -20,7 +20,7 @@ export const products = [
   {
     _id: uuid(),
     title: "Aurion Hex Dumbbells",
-    description: "Best for home gym.",
+    description: "Rubber Coated.",
     categoryName: "weights",
     price: "1100",
     inStock: true,
@@ -30,7 +30,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "45deg Leg Press",
+    title: "Leg Press",
     description: "Best suited for leg exercises.",
     categoryName: "equipments",
     price: "7499",
@@ -42,7 +42,7 @@ export const products = [
   {
     _id: uuid(),
     title: "16KG Kettlebell",
-    description: "Wide Grip suited for all exercises",
+    description: "Wide Rubber Grip.",
     categoryName: "weights",
     price: "799",
     inStock: true,
@@ -52,8 +52,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Boldfit Skipping Rope",
-    description: "Tangle Free Jumping Rope for Kids",
+    title: "kipping Rope",
+    description: "Tangle Free for Kids",
     categoryName: "accessories",
     price: "199",
     inStock: true,
@@ -63,8 +63,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Bigmuscles Nutrition BCAA",
-    description: "30 Serving, Lychee, Advanced Intra Workout",
+    title: "BCAA Energy",
+    description: "30 Serving, Lychee",
     categoryName: "supplements",
     price: "999",
     inStock: true,
@@ -74,8 +74,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Ab Blaster Fitness Roller",
-    description: "with Knee Mat for Men & Women",
+    title: "Ab Roller",
+    description: "Crush Ab exercises",
     categoryName: "accessories",
     price: "199",
     inStock: true,
@@ -85,8 +85,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Pec Deck Machine",
-    description: "Best for chest exercises for Men",
+    title: "Pec Deck",
+    description: "Best for chest exercises",
     categoryName: "equipments",
     price: "9999",
     inStock: true,
@@ -96,8 +96,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Muscle Blaze Whey",
-    description: "USA Certified (Rich Chocolate)",
+    title: "MB Whey",
+    description: "Rich Chocolate Flavor",
     categoryName: "supplements",
     price: "4699",
     inStock: true,
@@ -107,8 +107,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "JX FITNESS Squat Rack",
-    description: "Multi-Function Weight Lifting",
+    title: "Squat Rack",
+    description: "Best Build Quality",
     categoryName: "equipments",
     price: "7999",
     inStock: true,
@@ -118,8 +118,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Rogue's Dumbbell full set",
-    description: "Rubber Encased Hex Dumbbell ",
+    title: "Dumbbells full set",
+    description: "Rubber Encased Dumbbell",
     categoryName: "weights",
     price: "9999",
     inStock: true,
@@ -129,8 +129,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Velfit's Water Bottle",
-    description: "Leakproof Guarantee Sipper Bottle",
+    title: "Water Bottle",
+    description: "Leakproof Sipper",
     categoryName: "accessories",
     price: "89",
     inStock: true,
@@ -140,8 +140,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Rogue's Weighted Plates",
-    description: "Rubber coated plates for better grip",
+    title: "Weighted Plates",
+    description: "Rubber coated plates",
     categoryName: "weights",
     price: "3999",
     inStock: false,
@@ -151,8 +151,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Olimps Beta Alanine ",
-    description: "Amino acid supplement raw powder",
+    title: "Beta Alanine ",
+    description: "Amino acid supplement",
     categoryName: "supplements",
     price: "1499",
     inStock: true,
@@ -162,7 +162,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "MuscleX Designer Yoga Mat",
+    title: "MuscleX Yoga Mat",
     description: "Pure EVA Material",
     categoryName: "accessories",
     price: "149",
@@ -173,8 +173,8 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "GDLF Lat Pull Down Machine",
-    description: "Strength Training Bar Machine",
+    title: "Lat Pull Down",
+    description: "For Strength Training",
     categoryName: "equipments",
     price: "7449.99",
     inStock: true,
