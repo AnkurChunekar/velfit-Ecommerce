@@ -14,8 +14,14 @@ const FilterProvider = ({ children }) => {
     switch (action.type) {
       case "SORT_BY":
         return { ...state, sortBy: action.payload }
-        case "CATEGORIZE":
-          return { ...state }
+        case "CATEGORY_WEIGHTS":
+          return {...state, categoryWeights: !state.categoryWeights};
+        case "CATEGORY_SUPPLEMENTS":
+          return {...state, categorySupplements: !state.categorySupplements};
+        case "CATEGORY_EQUIPMENTS":
+          return {...state, categoryEquipments: !state.categoryEquipments};
+        case "CATEGORY_ACCESSORIES":
+          return {...state, categoryAccessories: !state.categoryAccessories};
       case "PRICE_RANGE":
         return { ...state, maxPriceRange: action.payload }
       default:
@@ -25,7 +31,10 @@ const FilterProvider = ({ children }) => {
 
   const initialstate = {
     sortBy: null,
-    category: null,
+    categoryWeights: false,
+    categorySupplements: false,
+    categoryEquipments: false,
+    categoryAccessories: false,
     maxPriceRange: 10000
   }
 

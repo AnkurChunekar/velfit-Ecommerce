@@ -12,7 +12,39 @@ const sortData = (data, sortBy) => {
 }
 
 const filterProductsUptoPriceRange = (data, maxPriceRange) => {
-  return data.filter(product => product.price < maxPriceRange);
+    return data.filter(product => product.price < maxPriceRange);
 }
 
-export { sortData, filterProductsUptoPriceRange }
+const categorizeData = (data, categoryWeights,
+    categorySupplements,
+    categoryEquipments,
+    categoryAccessories) => {
+
+    let returnValue = [];
+
+    if (!categoryAccessories && !categorySupplements && !categoryEquipments && !categoryWeights) {
+        return data;
+    }
+    
+    if(categoryAccessories) {
+        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "accessories"));
+    }
+    
+    if(categorySupplements) {
+        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "supplements"));
+    }
+    
+    if(categoryWeights) {
+        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "weights"));
+    }
+    
+    if(categoryEquipments) {
+        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "equipments"));
+    }
+
+    return returnValue;
+}
+
+
+
+export { sortData, filterProductsUptoPriceRange, categorizeData }
