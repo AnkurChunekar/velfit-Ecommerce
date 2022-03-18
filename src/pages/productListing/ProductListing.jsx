@@ -42,7 +42,7 @@ export default function ProductListing() {
 
   useEffect(() => {
     getProducts();
-  }, [productData]);
+  }, []);
 
   const getCategorizedData = categorizeData(
     productData,
