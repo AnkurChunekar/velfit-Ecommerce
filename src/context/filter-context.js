@@ -14,6 +14,8 @@ const FilterProvider = ({ children }) => {
     switch (action.type) {
       case "SORT_BY":
         return { ...state, sortBy: action.payload }
+        case "CATEGORIZE":
+          return { ...state }
       case "PRICE_RANGE":
         return { ...state, maxPriceRange: action.payload }
       default:
@@ -23,6 +25,7 @@ const FilterProvider = ({ children }) => {
 
   const initialstate = {
     sortBy: null,
+    category: null,
     maxPriceRange: 10000
   }
 

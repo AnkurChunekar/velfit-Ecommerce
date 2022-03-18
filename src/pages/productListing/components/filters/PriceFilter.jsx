@@ -1,8 +1,6 @@
-import { useFilter } from "../../../../context/index";
 
-export default function PriceFilter() {
-  const { state, dispatch } = useFilter();
-  const { maxPriceRange } = state;
+
+export default function PriceFilter({ maxPriceRange, dispatch }) {
 
   const handleMaxPriceRangeChange = (e) => {
     dispatch({ type: "PRICE_RANGE", payload: e.target.value });

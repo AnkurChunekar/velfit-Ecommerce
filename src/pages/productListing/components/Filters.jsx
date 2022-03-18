@@ -9,12 +9,12 @@ import { useFilter } from "../../../context/index";
 export default function Filters() {
 
 const {state, dispatch} = useFilter();
-const {sortBy} = state;
+const {sortBy, maxPriceRange} = state;
 
   return (
     <aside className="filters-container p-xs">
       <FilterHeader />
-      <PriceFilter />
+      <PriceFilter maxPriceRange={maxPriceRange} dispatch={dispatch} />
       <CategoryFilter />
       <RatingFilter />
       <SortFilter sortBy={sortBy} dispatch={dispatch} />
