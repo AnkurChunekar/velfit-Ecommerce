@@ -54,13 +54,13 @@ export default function ProductListing() {
 
   const getRatedData = rateData(getCategorizedData, rating);
 
-  const getMaxPriceRangedData = filterProductsUptoPriceRange(
+  const getPriceRangedData = filterProductsUptoPriceRange(
     getRatedData,
     maxPriceRange
   );
 
   const fastDeliveredData = getOnlyFastDeliveryData(
-    getMaxPriceRangedData,
+    getPriceRangedData,
     fastDeliveryOnly
   );
   const OutOfStockData = getOutOfStockData(
@@ -87,7 +87,9 @@ export default function ProductListing() {
               <Fragment key={item.id}>
                 <Card
                   cardImage={item.image}
-                  className={"card-ecom card-w-badge"}
+                  className={`card-ecom card-w-badge ${
+                    item.inStock ? "" : "disabled"
+                  }`}
                   title={item.title}
                   description={item.description}
                   ratingValue={item.rating}

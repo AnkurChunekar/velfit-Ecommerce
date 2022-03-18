@@ -74,6 +74,17 @@ export const products = [
   },
   {
     _id: uuid(),
+    title: "Weighted Plates",
+    description: "Rubber coated plates",
+    categoryName: "weights",
+    price: 3999,
+    inStock: false,
+    isDeliveredFast: false,
+    rating: 1,
+    image: platesPI
+  },
+  {
+    _id: uuid(),
     title: "Ab Roller",
     description: "Crush Ab exercises",
     categoryName: "accessories",
@@ -137,17 +148,6 @@ export const products = [
     isDeliveredFast: true,
     rating: 2,
     image: waterBottlePI
-  },
-  {
-    _id: uuid(),
-    title: "Weighted Plates",
-    description: "Rubber coated plates",
-    categoryName: "weights",
-    price: 3999,
-    inStock: false,
-    isDeliveredFast: false,
-    rating: 1,
-    image: platesPI
   },
   {
     _id: uuid(),
