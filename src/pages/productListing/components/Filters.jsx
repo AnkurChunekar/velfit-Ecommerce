@@ -14,11 +14,12 @@ export default function Filters() {
     categorySupplements,
     categoryEquipments,
     categoryAccessories,
+    rating
   } = state;
 
   return (
     <aside className="filters-container p-xs">
-      <FilterHeader />
+      <FilterHeader dispatch={dispatch} />
       <PriceFilter maxPriceRange={maxPriceRange} dispatch={dispatch} />
       <CategoryFilter
         categoryAccessories={categoryAccessories}
@@ -27,7 +28,7 @@ export default function Filters() {
         categoryEquipments={categoryEquipments}
         dispatch={dispatch}
       />
-      <RatingFilter />
+      <RatingFilter rating={rating} dispatch={dispatch} />
       <SortFilter sortBy={sortBy} dispatch={dispatch} />
     </aside>
   );

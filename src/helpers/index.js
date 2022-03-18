@@ -1,1 +1,1 @@
-export { sortData, filterProductsUptoPriceRange, categorizeData } from "./filterHelpers";
+export { sortData, filterProductsUptoPriceRange, categorizeData, rateData } from "./filterHelpers";

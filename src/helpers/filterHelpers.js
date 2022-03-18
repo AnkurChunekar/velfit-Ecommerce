@@ -25,26 +25,29 @@ const categorizeData = (data, categoryWeights,
     if (!categoryAccessories && !categorySupplements && !categoryEquipments && !categoryWeights) {
         return data;
     }
-    
-    if(categoryAccessories) {
+
+    if (categoryAccessories) {
         returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "accessories"));
     }
-    
-    if(categorySupplements) {
+
+    if (categorySupplements) {
         returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "supplements"));
     }
-    
-    if(categoryWeights) {
+
+    if (categoryWeights) {
         returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "weights"));
     }
-    
-    if(categoryEquipments) {
+
+    if (categoryEquipments) {
         returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "equipments"));
     }
 
     return returnValue;
 }
 
+const rateData = (data, rating) => {
+    return data.filter(p => p.rating >= rating)
+}
 
 
-export { sortData, filterProductsUptoPriceRange, categorizeData }
+export { sortData, filterProductsUptoPriceRange, categorizeData, rateData }

@@ -8,6 +8,7 @@ import {
   sortData,
   filterProductsUptoPriceRange,
   categorizeData,
+  rateData,
 } from "../../helpers/index";
 import { useFilter } from "../../context";
 
@@ -21,6 +22,7 @@ export default function ProductListing() {
     categorySupplements,
     categoryEquipments,
     categoryAccessories,
+    rating,
   } = state;
 
   const getProducts = () => {
@@ -46,8 +48,10 @@ export default function ProductListing() {
     categoryAccessories
   );
 
+  const getRatedData = rateData(getCategorizedData, rating);
+
   const getMaxPriceRangedData = filterProductsUptoPriceRange(
-    getCategorizedData,
+    getRatedData,
     maxPriceRange
   );
   const sortedData = sortData(getMaxPriceRangedData, sortBy);
@@ -59,7 +63,7 @@ export default function ProductListing() {
 
         <section className="product-listing p-xs">
           <header className="m-xs m-rl0 center-align-text">
-            <div className="fs-">Showing all Products (20)</div>
+            <div className="fs-">Showing all Products ({sortData.length}))</div>
           </header>
 
           <div className="products-grid">

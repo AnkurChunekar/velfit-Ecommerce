@@ -10,7 +10,7 @@ export default function PriceFilter({ maxPriceRange, dispatch }) {
     <div className="price m-md1 m-rl0">
       <h5 className="fw-600">Price</h5>
       <div className="flex ai-center jc-space-b m-xxs m-rl0 endpoint-container">
-        <span className="endpoint">0</span>
+        <span className="endpoint">0K</span>
         <span className="endpoint">2K</span>
         <span className="endpoint">4k</span>
         <span className="endpoint">6k</span>
@@ -25,8 +25,8 @@ export default function PriceFilter({ maxPriceRange, dispatch }) {
         value={maxPriceRange}
         onChange={handleMaxPriceRangeChange}
       />
-      <p className="m-s m-rl0">
-        Maxiumum Upto: {maxPriceRange} <span id="slider-value" />
+      <p className="m-xxs m-rl0">
+        Maxiumum Upto: ₹ {maxPriceRange} <span id="slider-value" />
       </p>
     </div>
   );
