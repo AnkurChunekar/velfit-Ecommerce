@@ -24,7 +24,6 @@ export default function PriceFilter() {
         min={0}
         max={10000}
         step={"2000"}
-        defaultValue={0}
         value={maxPriceRange}
         onChange={handleMaxPriceRangeChange}
       />
