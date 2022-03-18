@@ -3,6 +3,7 @@ import SortFilter from "./filters/SortFilter";
 import RatingFilter from "./filters/RatingFilter";
 import PriceFilter from "./filters/PriceFilter";
 import CategoryFilter from "./filters/CategoryFilter";
+import OtherFilters from "./filters/OtherFilters";
 import { useFilter } from "../../../context/index";
 
 export default function Filters() {
@@ -14,7 +15,9 @@ export default function Filters() {
     categorySupplements,
     categoryEquipments,
     categoryAccessories,
-    rating
+    rating,
+    includeOutOfStock,
+    fastDeliveryOnly,
   } = state;
 
   return (
@@ -30,6 +33,7 @@ export default function Filters() {
       />
       <RatingFilter rating={rating} dispatch={dispatch} />
       <SortFilter sortBy={sortBy} dispatch={dispatch} />
+      <OtherFilters includeOutOfStock={includeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} dispatch={dispatch}  />
     </aside>
   );
 }

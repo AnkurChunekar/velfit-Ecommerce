@@ -14,6 +14,10 @@ const filterReducer = (state, action) => {
         return { ...state, categoryAccessories: !state.categoryAccessories };
       case "PRICE_RANGE":
         return { ...state, maxPriceRange: action.payload }
+      case "INCLUDE_OUT_OF_STOCK":
+        return { ...state, includeOutOfStock: !state.includeOutOfStock }
+      case "FAST_DELIVERY_ONLY":
+        return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly }
       case "RESET":
         return initialstate;
       default:

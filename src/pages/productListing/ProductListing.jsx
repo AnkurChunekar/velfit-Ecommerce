@@ -4,13 +4,15 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useFilter } from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
   categorizeData,
   rateData,
+  getOnlyFastDeliveryData,
+  getOutOfStockData,
 } from "../../helpers/index";
-import { useFilter } from "../../context";
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
@@ -23,6 +25,8 @@ export default function ProductListing() {
     categoryEquipments,
     categoryAccessories,
     rating,
+    includeOutOfStock,
+    fastDeliveryOnly,
   } = state;
 
   const getProducts = () => {
@@ -54,7 +58,17 @@ export default function ProductListing() {
     getRatedData,
     maxPriceRange
   );
-  const sortedData = sortData(getMaxPriceRangedData, sortBy);
+
+  const fastDeliveredData = getOnlyFastDeliveryData(
+    getMaxPriceRangedData,
+    fastDeliveryOnly
+  );
+  const OutOfStockData = getOutOfStockData(
+    fastDeliveredData,
+    includeOutOfStock
+  );
+
+  const sortedData = sortData(OutOfStockData, sortBy);
 
   return (
     <>
@@ -63,7 +77,9 @@ export default function ProductListing() {
 
         <section className="product-listing p-xs">
           <header className="m-xs m-rl0 center-align-text">
-            <div className="fs-">Showing all Products ({sortData.length}))</div>
+            <div className="fs-">
+              Showing all Products ({sortedData.length})
+            </div>
           </header>
 
           <div className="products-grid">

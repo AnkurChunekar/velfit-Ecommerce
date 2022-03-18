@@ -15,6 +15,8 @@ const FilterProvider = ({ children }) => {
     categoryEquipments: false,
     categoryAccessories: false,
     rating: null,
+    includeOutOfStock: true,
+    fastDeliveryOnly: false,
     maxPriceRange: 10000
   }
 

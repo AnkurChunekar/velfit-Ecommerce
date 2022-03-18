@@ -88,7 +88,7 @@ export const products = [
     title: "Pec Deck",
     description: "Best for chest exercises",
     categoryName: "equipments",
-    price: 9999,
+    price: 9000.99,
     inStock: true,
     isDeliveredFast: false,
     rating: 5,

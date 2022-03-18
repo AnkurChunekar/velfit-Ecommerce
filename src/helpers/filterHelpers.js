@@ -49,5 +49,12 @@ const rateData = (data, rating) => {
     return data.filter(p => p.rating >= rating)
 }
 
+const getOnlyFastDeliveryData = (data, fastDeliveryOnly) => {
+    return fastDeliveryOnly ? data.filter(p => p.isDeliveredFast) : data;
+}
 
-export { sortData, filterProductsUptoPriceRange, categorizeData, rateData }
+const getOutOfStockData = (data, includeOutOfStock) => {
+  return includeOutOfStock ? data : data.filter(p => p.inStock)
+}
+
+export { sortData, filterProductsUptoPriceRange, categorizeData, rateData, getOnlyFastDeliveryData, getOutOfStockData }
