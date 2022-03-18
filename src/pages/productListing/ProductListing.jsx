@@ -4,13 +4,13 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { sortData } from "../../helpers/index";
+import { sortData, filterProductsUptoPriceRange } from "../../helpers/index";
 import { useFilter } from "../../context";
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const { state } = useFilter();
-  const { sortBy } = state;
+  const { sortBy, maxPriceRange } = state;
 
   const getProducts = () => {
     try {
@@ -27,8 +27,9 @@ export default function ProductListing() {
     getProducts();
   }, [productData]);
 
-  const sortedData = sortData(productData, sortBy);
-
+  const getMaxPriceRangedData = filterProductsUptoPriceRange(productData, maxPriceRange)
+  const sortedData = sortData(getMaxPriceRangedData, sortBy);
+  
   return (
     <>
       <main className="product-listing-page">

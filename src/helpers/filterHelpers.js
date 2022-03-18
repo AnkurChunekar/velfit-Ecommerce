@@ -1,4 +1,4 @@
-export const sortData = (data, sortBy) => {
+const sortData = (data, sortBy) => {
 
     if (sortBy === "HIGH_TO_LOW") {
         return [...data].sort((a, b) => b.price - a.price);
@@ -10,3 +10,9 @@ export const sortData = (data, sortBy) => {
 
     return data;
 }
+
+const filterProductsUptoPriceRange = (data, maxPriceRange) => {
+  return data.filter(product => product.price < maxPriceRange);
+}
+
+export { sortData, filterProductsUptoPriceRange }

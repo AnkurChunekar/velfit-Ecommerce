@@ -14,6 +14,8 @@ const FilterProvider = ({ children }) => {
     switch (action.type) {
       case "SORT_BY":
         return { ...state, sortBy: action.payload }
+      case "PRICE_RANGE":
+        return { ...state, maxPriceRange: action.payload }
       default:
         return state;
     }
