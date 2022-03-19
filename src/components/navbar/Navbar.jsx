@@ -1,7 +1,9 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/index";
 
 export default function Navbar() {
+  const { authState } = useAuth();
   return (
     <>
       <nav className="navigation">
@@ -26,23 +28,50 @@ export default function Navbar() {
               <i id="nav-search-icon" className="fas fa-search icon" />
             </span>
           </a>
-          <Link to="/login">
-          <span>
-            <i className="fas fa-user" />
-          </span>
-          </Link>
-          <Link to="/wishlist">
-            <span className="icon-container badge-container">
-              <i className="fas fa-heart icon" />
-              <span className="icon-badge">2</span>
-            </span>
-          </Link>
-          <Link to="/cart">
-            <span className="icon-container badge-container">
-              <i className="fas fa-shopping-cart icon" />
-              <span className="icon-badge">2</span>
-            </span>
-          </Link>
+
+          {authState.user ? (
+            <Link to="/user">
+              <span>
+                <i className="fa-solid fa-user-check" />
+              </span>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <span>
+                <i className="fa-solid fa-user-xmark" />
+              </span>
+            </Link>
+          )}
+
+          {authState.user ? (
+            <Link to="/wishlist">
+              <span className="icon-container badge-container">
+                <i className="fas fa-heart icon" />
+                <span className="icon-badge">2</span>
+              </span>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <span className="icon-container badge-container">
+                <i className="fas fa-heart icon" />
+              </span>
+            </Link>
+          )}
+
+          {authState.user ? (
+            <Link to="/cart">
+              <span className="icon-container badge-container">
+                <i className="fas fa-shopping-cart icon" />
+                <span className="icon-badge">2</span>
+              </span>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <span className="icon-container badge-container">
+                <i className="fas fa-shopping-cart icon" />
+              </span>
+            </Link>
+          )}
         </div>
       </nav>
       {/* Search bar starts */}
