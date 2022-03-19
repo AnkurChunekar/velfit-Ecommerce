@@ -1,4 +1,4 @@
-import "./Authentication.css";
+import "./Auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
