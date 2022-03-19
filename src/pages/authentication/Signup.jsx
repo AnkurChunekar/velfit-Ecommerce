@@ -2,70 +2,8 @@ import "./Authentication.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
-function TextInput({
-  labelText,
-  id,
-  name,
-  placeholder,
-  type,
-  setUserData,
-  userData,
-}) {
-  return (
-    <div className="input-wrapper m-xxxs m-rl0">
-      <label htmlFor={id}> {labelText} </label>
-      <input
-        type={type}
-        id={id}
-        placeholder={placeholder}
-        name={name}
-        onChange={(e) => setUserData({ ...userData, [name]: e.target.value })}
-        value={userData[name]}
-        className="input p-xxs m-xxs m-rl0 bd-rad-sm"
-        required
-      />
-    </div>
-  );
-}
-
-function PasswordInput({
-  labelText,
-  id,
-  name,
-  placeholder,
-  setUserData,
-  userData,
-}) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  return (
-    <div
-      className={`input-wrapper m-xxxs m-rl0 ${
-        userData.passwordsDifferent ? "error" : ""
-      }`}
-    >
-      <label htmlFor={id}> {labelText} </label>
-      <div className="input-wrapper bd-rad-sm input-w-btn flex flex-row ai-center m-xxs m-rl0">
-        <input
-          type={isVisible ? "text" : "password"}
-          className="p-xxs input"
-          placeholder={placeholder}
-          name={name}
-          value={userData[name]}
-          onChange={(e) => setUserData({ ...userData, [name]: e.target.value })}
-        />
-        <div
-          className="p-xxs gray-text input-btn"
-          onClick={() => setIsVisible((v) => !v)}
-        >
-          <i className={`fa-solid ${isVisible ? "fa-eye" : "fa-eye-slash"}`} />
-        </div>
-      </div>
-      <label className="error-msg fs-6">Passwords Don't Match</label>
-    </div>
-  );
-}
+import { TextInput } from "./components/TextInput";
+import { PasswordInput } from "./components/PasswordInput";
 
 export default function Signup() {
   const [userData, setUserData] = useState({
@@ -78,6 +16,7 @@ export default function Signup() {
   });
 
   const doSignupNetworkCall = () => {
+
     try {
       const { firstName, lastName, email, password } = userData;
 
@@ -99,18 +38,23 @@ export default function Signup() {
             throw new Error("Server Error");
         }
       })();
+
     } catch (error) {
       alert("Unknown Error Occurred", error);
     }
+
   };
 
   const handleSubmitClick = (e) => {
+
     e.preventDefault();
+
     if (userData.password !== userData.confirmPassword) {
       setUserData({ ...userData, passwordsDifferent: true });
     } else {
       doSignupNetworkCall();
     }
+    
   };
 
   return (
