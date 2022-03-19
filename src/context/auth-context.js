@@ -13,6 +13,8 @@ const AuthProvider = ({ children }) => {
         switch (action.type) {
             case "SIGN_UP":
                 return { user: action.payload.user, token: action.payload.token };
+            case "LOGIN":
+                return { user: action.payload.user, token: action.payload.token };
             default:
                 return state;
         }

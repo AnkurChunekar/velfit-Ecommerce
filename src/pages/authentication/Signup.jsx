@@ -14,33 +14,38 @@ export default function Signup() {
     confirmPassword: "",
     passwordsDifferent: false,
   });
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const { authState, authDispatch } = useAuth();
 
-  const doSignupNetworkCall = () => {
+  const doSignupNetworkCall = async () => {
     try {
       const { firstName, lastName, email, password } = userData;
 
-      (async () => {
-        const response = await axios.post("/api/auth/signup", {
-          firstName,
-          lastName,
-          email,
-          password,
-        });
+      const response = await axios.post("/api/auth/signup", {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
 
-        switch (response.status) {
-          case 201:
-            localStorage.setItem("token", response.data.encodedToken);
-            authDispatch({type: "SIGN_UP", payload: {user: response.data.createdUser, token: response.data.encodedToken}});
-            navigate("/");
-            break;
-          case 422:
-            throw new Error("User already exists");
-          case 500:
-            throw new Error("Server Error");
-        }
-      })();
+      switch (response.status) {
+        case 201:
+          localStorage.setItem("token", response.data.encodedToken);
+          authDispatch({
+            type: "SIGN_UP",
+            payload: {
+              user: response.data.createdUser,
+              token: response.data.encodedToken,
+            },
+          });
+          alert("Signup Successfull!");
+          navigate("/");
+          break;
+        case 422:
+          throw new Error("User already exists");
+        case 500:
+          throw new Error("Server Error");
+      }
     } catch (error) {
       alert("Unknown Error Occurred", error);
     }

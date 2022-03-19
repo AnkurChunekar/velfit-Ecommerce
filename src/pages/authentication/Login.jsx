@@ -1,7 +1,8 @@
 import "./Authentication.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
+import { useAuth } from "../../context";
 import axios from "axios";
 
 export default function Login() {
@@ -10,14 +11,59 @@ export default function Login() {
     password: "",
   });
 
-const handleGuestLoginClick = (e) => {
-  e.preventDefault();
-   setUserData({email: "johndoe@gmail.com", password: "johnDoe123"});
-}
+  const navigate = useNavigate();
+  const { authDispatch } = useAuth();
 
-const handleLoginClick = (e) => {
-  e.preventDefault();
-}
+  const doLoginNetworkCall = async () => {
+    try {
+      const response = await axios.post("/api/auth/login", {
+        email: userData.email,
+        password: userData.password,
+      });
+      console.log(response);
+
+      switch (response.status) {
+        case 200:
+          localStorage.setItem("token", response.data.encodedToken);
+          authDispatch({
+            type: "LOGIN",
+            payload: {
+              user: response.data.foundUser,
+              token: response.data.encodedToken,
+            },
+          });
+          alert("Login Successfull!")
+          navigate("/");
+          break;
+        case 404:
+          throw new Error("Invalid Email ID");
+        case 401:
+          throw new Error("Incorrect password");
+        case 500:
+          throw new Error("Error occured while getting response from server");
+      }
+    } catch (error) {
+      alert(
+        "Error Occured: please check credentials or try again later.",
+        error
+      );
+    }
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+
+    if (userData.email === "" && userData.password === "") {
+      alert("please enter appropriate fields");
+    } else {
+      doLoginNetworkCall();
+    }
+  };
+
+  const handleGuestLoginClick = (e) => {
+    e.preventDefault();
+    setUserData({ email: "johndoe@gmail.com", password: "johnDoe123" });
+  };
 
   return (
     <>
@@ -44,7 +90,11 @@ const handleLoginClick = (e) => {
             setUserData={setUserData}
           />
 
-          <button type="submit" className="btn btn-primary m-xxs m-rl0" onClick={handleLoginClick} >
+          <button
+            type="submit"
+            className="btn btn-primary m-xxs m-rl0"
+            onClick={handleLoginClick}
+          >
             LOGIN
           </button>
           <p className="m-xxs m-rl0 center-align-text gray-text">
@@ -54,7 +104,10 @@ const handleLoginClick = (e) => {
             </Link>
             .
           </p>
-          <button onClick={handleGuestLoginClick} className="primary-color-text center-align-text m-xxs m-rl0 transparent-bg">
+          <button
+            onClick={handleGuestLoginClick}
+            className="primary-color-text center-align-text m-xxs m-rl0 transparent-bg"
+          >
             Use Guest Credentials.
           </button>
         </form>
