@@ -28,3 +28,15 @@
   background-color: var(--plain-white);
   color: var(--plain-black);
 }
+
+.fullname-container {
+  column-gap: 1rem;
+}
+
+.c-gap-1rem {
+  column-gap: 1rem;
+}
+
+.input-wrapper.error {
+  padding: 0;
+}

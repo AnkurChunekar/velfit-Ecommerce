@@ -1,12 +1,23 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useReducer } from "react";
 
-const defaultValue = {items: 22};
+const defaultValue = { items: 22 };
 
 const AuthContext = createContext(defaultValue);
 
 const AuthProvider = ({ children }) => {
+
+    const initialAuthState = {
+    }
+
+    const authReducer = () => {
+
+    }
+
+    const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
+
+
     return (
-        <AuthContext.Provider value={{items: 22}} >
+        <AuthContext.Provider value={{ authDispatch, authState }} >
             {children}
         </AuthContext.Provider>
     )
