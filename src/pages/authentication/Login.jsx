@@ -10,6 +10,15 @@ export default function Login() {
     password: "",
   });
 
+const handleGuestLoginClick = (e) => {
+  e.preventDefault();
+   setUserData({email: "johndoe@gmail.com", password: "johnDoe123"});
+}
+
+const handleLoginClick = (e) => {
+  e.preventDefault();
+}
+
   return (
     <>
       <main className="main-container flex ai-start jc-center">
@@ -35,7 +44,7 @@ export default function Login() {
             setUserData={setUserData}
           />
 
-          <button type="submit" className="btn btn-primary m-xxs m-rl0">
+          <button type="submit" className="btn btn-primary m-xxs m-rl0" onClick={handleLoginClick} >
             LOGIN
           </button>
           <p className="m-xxs m-rl0 center-align-text gray-text">
@@ -45,7 +54,7 @@ export default function Login() {
             </Link>
             .
           </p>
-          <button className="primary-color-text center-align-text m-xxs m-rl0 transparent-bg">
+          <button onClick={handleGuestLoginClick} className="primary-color-text center-align-text m-xxs m-rl0 transparent-bg">
             Use Guest Credentials.
           </button>
         </form>

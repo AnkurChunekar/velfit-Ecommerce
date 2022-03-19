@@ -1,6 +1,6 @@
 import "./Authentication.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TextInput, PasswordInput } from "./components/index";
 import { useAuth } from "../../context";
@@ -14,7 +14,7 @@ export default function Signup() {
     confirmPassword: "",
     passwordsDifferent: false,
   });
-
+ const navigate = useNavigate();
   const { authState, authDispatch } = useAuth();
 
   const doSignupNetworkCall = () => {
@@ -33,6 +33,7 @@ export default function Signup() {
           case 201:
             localStorage.setItem("token", response.data.encodedToken);
             authDispatch({type: "SIGN_UP", payload: {user: response.data.createdUser, token: response.data.encodedToken}});
+            navigate("/");
             break;
           case 422:
             throw new Error("User already exists");
