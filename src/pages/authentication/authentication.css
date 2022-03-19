@@ -40,3 +40,8 @@
 .input-wrapper.error {
   padding: 0;
 }
+
+/* utils */
+.transparent-bg {
+  background-color: transparent;
+}
