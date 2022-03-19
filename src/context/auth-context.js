@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 
-const defaultValue = { items: 22 };
+const defaultValue = { user: "", token: "" };
 
 const AuthContext = createContext(defaultValue);
 
@@ -9,12 +9,16 @@ const AuthProvider = ({ children }) => {
     const initialAuthState = {
     }
 
-    const authReducer = () => {
-
+    const authReducer = (state, action) => {
+        switch (action.type) {
+            case "SIGN_UP":
+                return { user: action.payload.user, token: action.payload.token };
+            default:
+                return state;
+        }
     }
 
     const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
-
 
     return (
         <AuthContext.Provider value={{ authDispatch, authState }} >

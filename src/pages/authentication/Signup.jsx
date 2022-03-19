@@ -2,8 +2,8 @@ import "./Authentication.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { TextInput } from "./components/TextInput";
-import { PasswordInput } from "./components/PasswordInput";
+import { TextInput, PasswordInput } from "./components/index";
+import { useAuth } from "../../context";
 
 export default function Signup() {
   const [userData, setUserData] = useState({
@@ -15,8 +15,9 @@ export default function Signup() {
     passwordsDifferent: false,
   });
 
-  const doSignupNetworkCall = () => {
+  const { authState, authDispatch } = useAuth();
 
+  const doSignupNetworkCall = () => {
     try {
       const { firstName, lastName, email, password } = userData;
 
@@ -31,6 +32,7 @@ export default function Signup() {
         switch (response.status) {
           case 201:
             localStorage.setItem("token", response.data.encodedToken);
+            authDispatch({type: "SIGN_UP", payload: {user: response.data.createdUser, token: response.data.encodedToken}});
             break;
           case 422:
             throw new Error("User already exists");
@@ -38,15 +40,12 @@ export default function Signup() {
             throw new Error("Server Error");
         }
       })();
-
     } catch (error) {
       alert("Unknown Error Occurred", error);
     }
-
   };
 
   const handleSubmitClick = (e) => {
-
     e.preventDefault();
 
     if (userData.password !== userData.confirmPassword) {
@@ -54,7 +53,6 @@ export default function Signup() {
     } else {
       doSignupNetworkCall();
     }
-    
   };
 
   return (
