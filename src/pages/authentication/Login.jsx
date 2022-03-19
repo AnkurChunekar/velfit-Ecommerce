@@ -20,7 +20,6 @@ export default function Login() {
         email: userData.email,
         password: userData.password,
       });
-      console.log(response);
 
       switch (response.status) {
         case 200:
