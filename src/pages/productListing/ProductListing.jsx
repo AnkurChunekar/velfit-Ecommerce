@@ -83,18 +83,19 @@ export default function ProductListing() {
           </header>
 
           <div className="products-grid">
-            {sortedData.map((item) => (
-              <Fragment key={item.id}>
+            {sortedData.map((product) => (
+              <Fragment key={product._id}>
                 <Card
-                  cardImage={item.image}
+                product={product}
+                  cardImage={product.image}
                   className={`card-ecom card-w-badge ${
-                    item.inStock ? "" : "disabled"
+                    product.inStock ? "" : "disabled"
                   }`}
-                  title={item.title}
-                  description={item.description}
-                  ratingValue={item.rating}
-                  price={item.price}
-                  isFastDelivered={item.isDeliveredFast}
+                  title={product.title}
+                  description={product.description}
+                  ratingValue={product.rating}
+                  price={product.price}
+                  isFastDelivered={product.isDeliveredFast}
                 />
               </Fragment>
             ))}

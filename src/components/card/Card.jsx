@@ -1,4 +1,5 @@
 import { dumbellPI } from "../../images";
+import { CardFooter } from "./CardFooter";
 
 function CardHeader({ cardImage }) {
   return (
@@ -57,22 +58,11 @@ function CardTextContent({
   );
 }
 
-function CardFooter({ inWishlist }) {
-  return (
-    <footer className="card-actions m-xs">
-      <button className="btn btn-primary">
-        {" "}
-        {inWishlist ? "Go to Cart" : "Add to Cart"}{" "}
-      </button>
-    </footer>
-  );
-}
-
 export default function Card({
+  product,
   className,
   cardImage,
   isFastDelivered,
-  inWishlist,
   title,
   description,
   price,
@@ -95,7 +85,7 @@ export default function Card({
             ratingValue={ratingValue}
           />
 
-          <CardFooter inWishlist={inWishlist} />
+          <CardFooter product={product} />
         </section>
       </div>
     </>

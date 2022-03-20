@@ -3,8 +3,6 @@ import axios from "axios";
 export const loginService = async (userData, authDispatch, navigate) => {
 
     try {
-
-
         const response = await axios.post("/api/auth/login", {
             email: userData.email,
             password: userData.password,

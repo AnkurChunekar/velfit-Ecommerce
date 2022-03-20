@@ -1,13 +1,15 @@
 import "./App.css";
 import { Navbar } from "./components";
-import { Homepage, ProductListing, Wishlist, CartManagement, Login, Signup, User } from "./pages/index.js";
+import { Homepage, ProductListing, Wishlist, CartManagement, Login, Signup, User } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
 
 function App() {
+
+
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="App">
         <Routes>
           <Route path="/" element={<Homepage />} />
