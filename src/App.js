@@ -1,7 +1,8 @@
 import "./App.css";
 import { Navbar } from "./components";
-import { Homepage, ProductListing, Wishlist, CartManagement, Login, Signup } from "./pages/index.js";
+import { Homepage, ProductListing, Wishlist, CartManagement, Login, Signup, User } from "./pages/index.js";
 import { Routes, Route } from "react-router-dom";
+import Mockman from "mockman-js";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
           <Route path="/cart" element={<CartManagement />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/mock" element={<Mockman />} />
+          <Route path="/user" element={<User />} />
         </Routes>
       </div>
     </>

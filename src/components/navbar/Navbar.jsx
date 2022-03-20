@@ -1,14 +1,15 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { CartManagement, Homepage, Wishlist } from "../../pages";
+import { useAuth } from "../../context/index";
 
 export default function Navbar() {
+  const { authState } = useAuth();
   return (
     <>
       <nav className="navigation">
         <div className="nav-brand">
           <i className="fas fa-bars ham-icon" id="ham-icon" />
-          <Link to="/" element={<Homepage />} className="brand-name">
+          <Link to="/" className="brand-name">
             Velfit
           </Link>
         </div>
@@ -27,21 +28,31 @@ export default function Navbar() {
               <i id="nav-search-icon" className="fas fa-search icon" />
             </span>
           </a>
-          <a href="">
-            <i className="fas fa-user" />
-          </a>
-          <Link to="/wishlist" element={<Wishlist />}>
+
+          <Link to={authState.user ? "/user" : "/login"}>
+            <span>
+              <i
+                className={`fa-solid fa-user-${
+                  authState.user ? "check" : "xmark"
+                }`}
+              />
+            </span>
+          </Link>
+
+          <Link to={authState.user ? "/wishlist" : "/login"}>
             <span className="icon-container badge-container">
               <i className="fas fa-heart icon" />
-              <span className="icon-badge">2</span>
+              {authState.user ? <span className="icon-badge">2</span> : null}
             </span>
           </Link>
-          <Link to="/cart" element={<CartManagement />}>
+
+          <Link to={authState.user ? "/cart" : "/login"}>
             <span className="icon-container badge-container">
               <i className="fas fa-shopping-cart icon" />
-              <span className="icon-badge">2</span>
+              {authState.user ? <span className="icon-badge">2</span> : null}
             </span>
           </Link>
+          
         </div>
       </nav>
       {/* Search bar starts */}
