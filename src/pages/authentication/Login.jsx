@@ -52,7 +52,7 @@ export default function Login() {
     e.preventDefault();
 
     if (userData.email === "" && userData.password === "") {
-      alert("please enter appropriate fields");
+      alert("Email and Password cannot be empty!");
     } else {
       handleLoginNetworkCall();
     }

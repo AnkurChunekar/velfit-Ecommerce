@@ -20,7 +20,7 @@ export function PasswordInput({
           onChange={(e) => setUserData({ ...userData, [name]: e.target.value })} />
         <div
           className="p-xxs gray-text input-btn"
-          onClick={() => setIsVisible((v) => !v)}
+          onClick={() => setIsVisible((pv) => !pv)}
         >
           <i className={`fa-solid ${isVisible ? "fa-eye" : "fa-eye-slash"}`} />
         </div>
