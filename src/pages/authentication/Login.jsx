@@ -4,6 +4,7 @@ import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
 import { useAuth } from "../../context";
 import { loginService } from "./services/login.service";
+import { checkIfAllInputsAreNotEmpty } from "../../helpers";
 
 export default function Login() {
   const [userData, setUserData] = useState({
@@ -14,21 +15,13 @@ export default function Login() {
   const navigate = useNavigate();
   const { authDispatch } = useAuth();
 
-  const handleLoginNetworkCall = () => {
-    try {
-      loginService(userData, authDispatch);
-    } catch (error) {
-      alert("Error Occured: please try again", error);
-    }
-  };
-
   const handleLoginClick = (e) => {
     e.preventDefault();
 
-    if (userData.email === "" && userData.password === "") {
+    if (!checkIfAllInputsAreNotEmpty(userData)) {
       alert("Email and Password cannot be empty!");
     } else {
-      handleLoginNetworkCall();
+      loginService(userData, authDispatch, navigate);
     }
   };
 
