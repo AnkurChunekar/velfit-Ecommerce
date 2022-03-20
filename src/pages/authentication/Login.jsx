@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
 import { useAuth } from "../../context";
-import axios from "axios";
+import { loginService } from "./services/login.service";
 
 export default function Login() {
   const [userData, setUserData] = useState({
@@ -14,35 +14,9 @@ export default function Login() {
   const navigate = useNavigate();
   const { authDispatch } = useAuth();
 
-  const handleLoginNetworkCall = async () => {
+  const handleLoginNetworkCall = () => {
     try {
-      const response = await axios.post("/api/auth/login", {
-        email: userData.email,
-        password: userData.password,
-      });
-
-      switch (response.status) {
-        case 200:
-          localStorage.setItem("token", response.data.encodedToken);
-          authDispatch({
-            type: "LOGIN",
-            payload: {
-              user: response.data.foundUser,
-              token: response.data.encodedToken,
-            },
-          });
-          alert("Login Successfull!");
-          navigate("/");
-          break;
-        case 404:
-          throw new Error("Invalid Email ID");
-        case 401:
-          throw new Error("Incorrect password");
-        case 500:
-          throw new Error("Error occured while getting response from server");
-        default:
-          throw new Error("Unknown Error Occured.");
-      }
+      loginService(userData, authDispatch);
     } catch (error) {
       alert("Error Occured: please try again", error);
     }
