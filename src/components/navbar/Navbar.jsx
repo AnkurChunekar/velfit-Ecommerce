@@ -29,49 +29,30 @@ export default function Navbar() {
             </span>
           </a>
 
-          {authState.user ? (
-            <Link to="/user">
-              <span>
-                <i className="fa-solid fa-user-check" />
-              </span>
-            </Link>
-          ) : (
-            <Link to="/login">
-              <span>
-                <i className="fa-solid fa-user-xmark" />
-              </span>
-            </Link>
-          )}
+          <Link to={authState.user ? "/user" : "/login"}>
+            <span>
+              <i
+                className={`fa-solid fa-user-${
+                  authState.user ? "check" : "xmark"
+                }`}
+              />
+            </span>
+          </Link>
 
-          {authState.user ? (
-            <Link to="/wishlist">
-              <span className="icon-container badge-container">
-                <i className="fas fa-heart icon" />
-                <span className="icon-badge">2</span>
-              </span>
-            </Link>
-          ) : (
-            <Link to="/login">
-              <span className="icon-container badge-container">
-                <i className="fas fa-heart icon" />
-              </span>
-            </Link>
-          )}
+          <Link to={authState.user ? "/wishlist" : "/login"}>
+            <span className="icon-container badge-container">
+              <i className="fas fa-heart icon" />
+              {authState.user ? <span className="icon-badge">2</span> : null}
+            </span>
+          </Link>
 
-          {authState.user ? (
-            <Link to="/cart">
-              <span className="icon-container badge-container">
-                <i className="fas fa-shopping-cart icon" />
-                <span className="icon-badge">2</span>
-              </span>
-            </Link>
-          ) : (
-            <Link to="/login">
-              <span className="icon-container badge-container">
-                <i className="fas fa-shopping-cart icon" />
-              </span>
-            </Link>
-          )}
+          <Link to={authState.user ? "/cart" : "/login"}>
+            <span className="icon-container badge-container">
+              <i className="fas fa-shopping-cart icon" />
+              {authState.user ? <span className="icon-badge">2</span> : null}
+            </span>
+          </Link>
+          
         </div>
       </nav>
       {/* Search bar starts */}
