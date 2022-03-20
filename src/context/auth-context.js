@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { authReducer } from "../redux/index";
+import { authReducer } from "../redux";
 
 const defaultValue = { user: "", token: "" };
 
