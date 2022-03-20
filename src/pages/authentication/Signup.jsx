@@ -45,6 +45,8 @@ export default function Signup() {
           throw new Error("User already exists");
         case 500:
           throw new Error("Server Error");
+        default:
+          throw new Error("Unknown Error Occured.");
       }
     } catch (error) {
       alert("Unknown Error Occurred", error);

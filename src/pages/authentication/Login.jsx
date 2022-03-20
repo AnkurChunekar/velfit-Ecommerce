@@ -31,7 +31,7 @@ export default function Login() {
               token: response.data.encodedToken,
             },
           });
-          alert("Login Successfull!")
+          alert("Login Successfull!");
           navigate("/");
           break;
         case 404:
@@ -40,12 +40,11 @@ export default function Login() {
           throw new Error("Incorrect password");
         case 500:
           throw new Error("Error occured while getting response from server");
+        default:
+          throw new Error("Unknown Error Occured.");
       }
     } catch (error) {
-      alert(
-        "Error Occured: please check credentials or try again later.",
-        error
-      );
+      alert("Error Occured: please try again", error);
     }
   };
 
