@@ -1,9 +1,11 @@
 import "./Auth.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { TextInput, PasswordInput } from "./components/index";
 import { useAuth } from "../../context";
+import { signupService } from "./services/signup.service";
+import { checkIfAllInputsAreNotEmpty } from "../../helpers";
+
 
 export default function Signup() {
   const [userData, setUserData] = useState({
@@ -15,51 +17,16 @@ export default function Signup() {
     passwordsDifferent: false,
   });
   const navigate = useNavigate();
-  const { authState, authDispatch } = useAuth();
-
-  const handleSignupNetworkCall = async () => {
-    try {
-      const { firstName, lastName, email, password } = userData;
-
-      const response = await axios.post("/api/auth/signup", {
-        firstName,
-        lastName,
-        email,
-        password,
-      });
-
-      switch (response.status) {
-        case 201:
-          localStorage.setItem("token", response.data.encodedToken);
-          authDispatch({
-            type: "SIGN_UP",
-            payload: {
-              user: response.data.createdUser,
-              token: response.data.encodedToken,
-            },
-          });
-          alert("Signup Successfull!");
-          navigate("/");
-          break;
-        case 422:
-          throw new Error("User already exists");
-        case 500:
-          throw new Error("Server Error");
-        default:
-          throw new Error("Unknown Error Occured.");
-      }
-    } catch (error) {
-      alert("Unknown Error Occurred", error);
-    }
-  };
+  const { authDispatch } = useAuth();
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
-
-    if (userData.password !== userData.confirmPassword) {
+    if (!checkIfAllInputsAreNotEmpty(userData)) {
+      alert("Inputs cannot be Empty");
+    } else if (userData.password !== userData.confirmPassword) {
       setUserData({ ...userData, passwordsDifferent: true });
     } else {
-      handleSignupNetworkCall();
+      signupService(userData, authDispatch, navigate);
     }
   };
 
