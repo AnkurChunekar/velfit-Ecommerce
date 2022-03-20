@@ -14,7 +14,7 @@ export default function Login() {
   const navigate = useNavigate();
   const { authDispatch } = useAuth();
 
-  const doLoginNetworkCall = async () => {
+  const handleLoginNetworkCall = async () => {
     try {
       const response = await axios.post("/api/auth/login", {
         email: userData.email,
@@ -54,7 +54,7 @@ export default function Login() {
     if (userData.email === "" && userData.password === "") {
       alert("please enter appropriate fields");
     } else {
-      doLoginNetworkCall();
+      handleLoginNetworkCall();
     }
   };
 

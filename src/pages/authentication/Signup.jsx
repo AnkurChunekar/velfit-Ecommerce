@@ -17,7 +17,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const { authState, authDispatch } = useAuth();
 
-  const doSignupNetworkCall = async () => {
+  const handleSignupNetworkCall = async () => {
     try {
       const { firstName, lastName, email, password } = userData;
 
@@ -59,7 +59,7 @@ export default function Signup() {
     if (userData.password !== userData.confirmPassword) {
       setUserData({ ...userData, passwordsDifferent: true });
     } else {
-      doSignupNetworkCall();
+      handleSignupNetworkCall();
     }
   };
 
