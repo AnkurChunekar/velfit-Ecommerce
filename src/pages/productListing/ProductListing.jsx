@@ -4,7 +4,7 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useFilter } from "../../context";
+import { useFilter, useCart } from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
@@ -16,7 +16,12 @@ import {
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
+  const [loader, setLoader] = useState(true);
   const { state } = useFilter();
+  const {
+    cartState: { cart },
+  } = useCart();
+
   const {
     sortBy,
     maxPriceRange,
@@ -33,10 +38,20 @@ export default function ProductListing() {
     try {
       (async () => {
         const response = await axios.get("/api/products");
-        setProductData(response.data.products);
+
+        switch (response.status) {
+          case 200:
+            setProductData(response.data.products);
+            setLoader(false);
+            break;
+          case 500:
+            throw new Error("Error while fetching data");
+          default:
+            throw new Error("Unknown Error Occured!");
+        }
       })();
     } catch (error) {
-      console.log(error, "error in fetching products");
+      alert(error);
     }
   };
 
@@ -83,21 +98,31 @@ export default function ProductListing() {
           </header>
 
           <div className="products-grid">
-            {sortedData.map((item) => (
-              <Fragment key={item.id}>
-                <Card
-                  cardImage={item.image}
-                  className={`card-ecom card-w-badge ${
-                    item.inStock ? "" : "disabled"
-                  }`}
-                  title={item.title}
-                  description={item.description}
-                  ratingValue={item.rating}
-                  price={item.price}
-                  isFastDelivered={item.isDeliveredFast}
-                />
-              </Fragment>
-            ))}
+            {loader ? (
+              <h1> Loading.... </h1>
+            ) : (
+              sortedData.map((product) => (
+                <Fragment key={product._id}>
+                  <Card
+                    product={product}
+                    cardImage={product.image}
+                    className={`card-ecom card-w-badge ${
+                      product.inStock ? "" : "disabled"
+                    }`}
+                    title={product.title}
+                    description={product.description}
+                    ratingValue={product.rating}
+                    price={product.price}
+                    isFastDelivered={product.isDeliveredFast}
+                    inCart={
+                      cart.findIndex((item) => item._id === product._id) === -1
+                        ? false
+                        : true
+                    }
+                  />
+                </Fragment>
+              ))
+            )}
           </div>
         </section>
       </main>
