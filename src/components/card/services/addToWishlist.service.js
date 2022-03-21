@@ -6,7 +6,6 @@ const addToWishlistService = async ({ token, product, wishlistDispatch }) => {
         const response = await axios.post("/api/user/wishlist", { product }, {
             headers: { authorization: token },
         });
-        console.log(response);
         if (response.status === 201) {
             wishlistDispatch({
                 type: "ADD_TO_WISHLIST",

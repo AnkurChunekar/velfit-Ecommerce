@@ -1,6 +1,10 @@
 import { useCart, useAuth, useWishlist } from "../../context";
 import { useNavigate } from "react-router-dom";
-import { addToWishlistService, removeFromCartService } from "./services";
+import {
+  addToWishlistService,
+  removeFromCartService,
+  removeFromWishlistService,
+} from "./services";
 
 export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const {
@@ -33,11 +37,9 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
 
   const handleAddToWishlistClick = () => {
     if (user) {
-      if (inWishlist) {
-        
-      } else {
-        addToWishlistService({ token, product, wishlistDispatch });
-      }
+      inWishlist
+        ? removeFromWishlistService({ token, product, wishlistDispatch })
+        : addToWishlistService({ token, product, wishlistDispatch });
     } else {
       navigate("/login");
     }
