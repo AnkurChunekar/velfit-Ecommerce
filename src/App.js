@@ -5,8 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
 
 function App() {
-
-
   return (
     <>
       <Navbar />
