@@ -13,15 +13,13 @@ export function CardIcons({ isFastDelivered, className, product }) {
   } = useCart();
 
   const handleDeleteFromCartClick = async () => {
-    if (cart.findIndex((item) => item._id === product._id) !== -1) {
-      const requestObj = {
-        token,
-        cartDispatch,
-        product,
-      };
+    const requestObj = {
+      token,
+      cartDispatch,
+      product,
+    };
 
-      removeFromCartService(requestObj);
-    }
+    removeFromCartService(requestObj);
   };
 
   return (
