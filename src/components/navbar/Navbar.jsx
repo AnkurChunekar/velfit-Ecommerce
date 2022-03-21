@@ -9,7 +9,7 @@ export default function Navbar() {
       <nav className="navigation">
         <div className="nav-brand">
           <i className="fas fa-bars ham-icon" id="ham-icon" />
-          <Link to="/mock" className="brand-name">
+          <Link to="/" className="brand-name">
             Velfit
           </Link>
         </div>

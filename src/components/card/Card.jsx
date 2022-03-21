@@ -1,5 +1,6 @@
 import { CardFooter } from "./CardFooter";
 import { CardTextContent } from "./CardTextContent";
+import { CardIcons } from "./CardIcons";
 import "./Card.css";
 
 function CardHeader({ cardImage }) {
@@ -7,26 +8,6 @@ function CardHeader({ cardImage }) {
     <header className="card-image">
       <img src={cardImage} alt="product image" />
     </header>
-  );
-}
-
-function CardIcons({ isFastDelivered }) {
-  return (
-    <>
-      <div className="card-dismiss">
-        <i className="fa-solid fa-trash fs-5" />
-      </div>
-
-      <div className="card-like">
-        <i className="fas fa-heart icon" />
-      </div>
-
-      {isFastDelivered ? (
-        <div className="badge-container tag tag-danger">
-          <span className="icon-badge">Super Fast</span>
-        </div>
-      ) : null}
-    </>
   );
 }
 
@@ -47,7 +28,7 @@ export default function Card({
         <CardHeader cardImage={cardImage} />
 
         <section className="card-body">
-          <CardIcons isFastDelivered={isFastDelivered} />
+          <CardIcons isFastDelivered={isFastDelivered} className={className} product={product} />
 
           <div className="card-overlay">Out of Stock</div>
 

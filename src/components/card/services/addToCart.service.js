@@ -8,7 +8,7 @@ const addToCartService = async ({ url, body, token, successStatus, cartDispatch,
         });
         if (response.status === successStatus) {
             cartDispatch({
-                type: "ADD_TO_CART",
+                type: "UPDATE_CART",
                 payload: { cart: response.data.cart },
             });
             setCtaBtnText("Go To Cart");
