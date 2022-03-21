@@ -1,7 +1,10 @@
 import { createContext, useContext, useReducer } from "react";
 import { cartReducer, initialCartState } from "../redux";
 
-const defaultValue = {};
+const defaultValue = {
+    cartState: {},
+    cartDispatch: () => {}
+};
 
 const CartContext = createContext(defaultValue);
 
