@@ -21,7 +21,8 @@ export default function Card({
   price,
   ratingValue,
   quantity,
-  inCart = false
+  inCart = false,
+  inWishlist = false
 }) {
   return (
     <>
@@ -29,7 +30,7 @@ export default function Card({
         <CardHeader cardImage={cardImage} />
 
         <section className="card-body">
-          <CardIcons isFastDelivered={isFastDelivered} className={className} product={product} />
+          <CardIcons isFastDelivered={isFastDelivered} className={className} product={product} inWishlist={inWishlist} />
 
           <div className="card-overlay">Out of Stock</div>
 

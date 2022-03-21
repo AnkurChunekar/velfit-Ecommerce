@@ -2,8 +2,8 @@ const initialWishlistState = { wishlist: [] }
 
 const wishlistReducer = (state, action) => {
     switch (action.type) {
-        case "TRIAL":
-            return state;
+        case "ADD_TO_WISHLIST":
+            return { ...state, wishlist: action.payload.wishlist };
         default:
             return state;
     }

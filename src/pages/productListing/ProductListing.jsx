@@ -4,7 +4,7 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useFilter, useCart } from "../../context";
+import { useFilter, useCart, useWishlist } from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
@@ -21,6 +21,10 @@ export default function ProductListing() {
   const {
     cartState: { cart },
   } = useCart();
+
+  const {
+    wishlistState: { wishlist },
+  } = useWishlist();
 
   const {
     sortBy,
@@ -116,6 +120,11 @@ export default function ProductListing() {
                     isFastDelivered={product.isDeliveredFast}
                     inCart={
                       cart.findIndex((item) => item._id === product._id) === -1
+                        ? false
+                        : true
+                    }
+                    inWishlist={
+                      wishlist.findIndex((item) => item._id === product._id) === -1
                         ? false
                         : true
                     }

@@ -1,11 +1,16 @@
-import { useCart, useAuth } from "../../context";
-import { removeFromCartService } from "./services/removeFromCart.service";
+import { useCart, useAuth, useWishlist } from "../../context";
+import { useNavigate } from "react-router-dom";
+import { addToWishlistService, removeFromCartService } from "./services";
 
-export function CardIcons({ isFastDelivered, className, product }) {
+export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const {
-    authState: { token },
+    authState: { token, user },
     authDispatch,
   } = useAuth();
+
+  const navigate = useNavigate();
+
+  // Cart fuctionalities
 
   const {
     cartState: { cart },
@@ -22,6 +27,22 @@ export function CardIcons({ isFastDelivered, className, product }) {
     removeFromCartService(requestObj);
   };
 
+  // Wishlist Functionalities
+
+  const { wishlistDispatch } = useWishlist();
+
+  const handleAddToWishlistClick = () => {
+    if (user) {
+      if (inWishlist) {
+        
+      } else {
+        addToWishlistService({ token, product, wishlistDispatch });
+      }
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       {className === "card-horizontal" ? (
@@ -36,9 +57,12 @@ export function CardIcons({ isFastDelivered, className, product }) {
         </button>
       )}
 
-      <div className="card-like">
+      <button
+        className={`card-like ${inWishlist ? "active" : ""}`}
+        onClick={handleAddToWishlistClick}
+      >
         <i className="fas fa-heart icon" />
-      </div>
+      </button>
 
       {isFastDelivered ? (
         <div className="badge-container tag tag-danger">
