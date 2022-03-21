@@ -20,7 +20,7 @@ export default function Card({
   description,
   price,
   ratingValue,
-  quantity
+  quantity,
 }) {
   return (
     <>

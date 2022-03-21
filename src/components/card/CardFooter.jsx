@@ -12,7 +12,7 @@ export function CardFooter({ product }) {
   const [loader, setLoader] = useState(false);
   const [ctaBtnText, setCtaBtnText] = useState("Add To Cart");
 
-  const handleCtaBtnClickClick = () => {
+  const handleCtaBtnClick = () => {
     if (user) {
       setLoader(true);
       const { cart } = cartState;
@@ -24,6 +24,7 @@ export function CardFooter({ product }) {
           successStatus: 201,
           token,
           cartDispatch,
+          product,
           setLoader,
           setCtaBtnText,
         };
@@ -40,8 +41,8 @@ export function CardFooter({ product }) {
     <footer className="card-actions m-xs">
       <button
         disabled={loader}
-        onClick={handleCtaBtnClickClick}
-        className="btn btn-primary"
+        onClick={handleCtaBtnClick}
+        className={`btn btn-primary ${ctaBtnText !== "Add To Cart" ? "btn-outline" : ""} `}
       >
         {loader ? "Adding..." : ctaBtnText}
       </button>

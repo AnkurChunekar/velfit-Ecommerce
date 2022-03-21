@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const addToCartService = async ({ url, body, token, successStatus, cartDispatch, setLoader, setCtaBtnText }) => {
+const addToCartService = async ({ url, body, token, successStatus, cartDispatch, setLoader, setCtaBtnText, product }) => {
 
     try {
         const response = await axios.post(url, body, {
@@ -8,8 +8,8 @@ const addToCartService = async ({ url, body, token, successStatus, cartDispatch,
         });
         if (response.status === successStatus) {
             cartDispatch({
-                type: "UPDATE_CART",
-                payload: { cart: response.data.cart },
+                type: "ADD_TO_CART",
+                payload: { cart: response.data.cart, price: product.price },
             });
             setCtaBtnText("Go To Cart");
         } else {

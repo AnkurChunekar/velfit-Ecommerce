@@ -10,8 +10,8 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
         switch (response.status) {
             case 200:
                 cartDispatch({
-                    type: "UPDATE_CART",
-                    payload: { cart: response.data.cart },
+                    type: "REMOVE_FROM_CART",
+                    payload: { cart: response.data.cart, price: product.price },
                 });
                 break;
             case 404:

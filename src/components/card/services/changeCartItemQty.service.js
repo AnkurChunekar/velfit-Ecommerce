@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const changeCartItemQtyService = async ({ setLoader, token, cartDispatch, changeType, product }) => {
+    const dispatchType = changeType === "increment" ? "ADD_TO_CART" : "REMOVE_FROM_CART";
 
     try {
         const response = await axios.post(`/api/user/cart/${product._id}`, { action: { type: changeType } }, {
@@ -8,8 +9,8 @@ const changeCartItemQtyService = async ({ setLoader, token, cartDispatch, change
         });
         if (response.status === 200) {
             cartDispatch({
-                type: "ADD_TO_CART",
-                payload: { cart: response.data.cart },
+                type: dispatchType,
+                payload: { cart: response.data.cart, price: product.price },
             });
         } else {
             throw new Error(response.status, "<-- error code");

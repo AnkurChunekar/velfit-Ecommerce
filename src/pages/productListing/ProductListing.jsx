@@ -4,7 +4,7 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useFilter } from "../../context";
+import { useFilter, useCart } from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
@@ -17,6 +17,10 @@ import {
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const { state } = useFilter();
+  const {
+    cartState: { cart },
+  } = useCart();
+
   const {
     sortBy,
     maxPriceRange,
@@ -86,7 +90,7 @@ export default function ProductListing() {
             {sortedData.map((product) => (
               <Fragment key={product._id}>
                 <Card
-                product={product}
+                  product={product}
                   cardImage={product.image}
                   className={`card-ecom card-w-badge ${
                     product.inStock ? "" : "disabled"
