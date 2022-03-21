@@ -11,7 +11,7 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
             case 200:
                 cartDispatch({
                     type: "REMOVE_FROM_CART",
-                    payload: { cart: response.data.cart, price: product.price },
+                    payload: { cart: response.data.cart, price: product.price, qty: product.qty },
                 });
                 break;
             case 404:
