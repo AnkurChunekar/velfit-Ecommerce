@@ -3,21 +3,21 @@ import { useState } from "react";
 import { useAuth, useCart } from "../../context";
 import { addToCartService } from "./services/addToCart.service";
 
-export function CardFooter({ product }) {
+export function CardFooter({ product, inCart }) {
   const navigate = useNavigate();
   const { authState } = useAuth();
   const { user, token } = authState;
   const { cartState, cartDispatch } = useCart();
 
   const [loader, setLoader] = useState(false);
-  const [ctaBtnText, setCtaBtnText] = useState("Add To Cart");
+  const [ctaBtnText, setCtaBtnText] = useState(inCart ? "Go To Cart" : "Add To Cart");
 
   const handleCtaBtnClick = () => {
     if (user) {
       setLoader(true);
       const { cart } = cartState;
 
-      if (cart.findIndex((item) => item._id === product._id) === -1) {
+      if (!inCart) {
         const requestObj = {
           url: "/api/user/cart",
           body: { product },

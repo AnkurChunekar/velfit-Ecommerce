@@ -21,6 +21,7 @@ export default function Card({
   price,
   ratingValue,
   quantity,
+  inCart = false
 }) {
   return (
     <>
@@ -41,7 +42,7 @@ export default function Card({
             quantity={quantity}
           />
 
-          <CardFooter product={product} />
+          <CardFooter product={product} inCart={inCart} />
         </section>
       </div>
     </>
