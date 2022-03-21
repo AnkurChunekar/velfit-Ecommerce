@@ -27,5 +27,4 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
 
 }
 
-
 export { removeFromCartService };
