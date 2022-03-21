@@ -1,4 +1,5 @@
 import "./CartManagement.css";
+import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Card } from "../../components";
 import { useCart } from "../../context";
@@ -76,7 +77,12 @@ export default function CartManagement() {
           </div>
         </>
       ) : (
-        <h1> Cart is Empty. </h1>
+        <div className="center-align-text m-xxxl">
+          <h1 className="m-lg" > Cart is Empty. </h1>
+          <Link to="/products">
+            <button className="btn btn-primary"> Continue Shopping </button>
+          </Link>
+        </div>
       )}
     </>
   );
