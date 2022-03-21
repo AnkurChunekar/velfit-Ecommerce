@@ -5,8 +5,7 @@ import { useCart } from "../../context";
 
 export default function CartManagement() {
   const { cartState } = useCart();
-  const { cart } = cartState;
-
+  const { cart, totalPrice } = cartState;
   return (
     <>
       {cart.length > 0 ? (
@@ -47,30 +46,29 @@ export default function CartManagement() {
                   </div>
                 </li>
                 <li>
-                  <span>Price (2 items)</span>
-                  <span>$ 4999</span>
+                  <span>Price ({cart.length} items)</span>
+                  <span>₹ {totalPrice} </span>
                 </li>
                 <li>
                   <span>Discount</span>
-                  <span>-$1999</span>
+                  <span>-₹ 0</span>
                 </li>
                 <li>
                   <span>Delivery Charge</span>
-                  <span>$499</span>
+                  <span>₹ 0</span>
                 </li>
                 <div className="divider" />
                 <li className="total">
                   <strong>TOTAL AMOUNT</strong>
-                  <strong>$3499</strong>
+                  <strong> Rs. {totalPrice} </strong>
                 </li>
                 <div className="divider" />
                 <li>
-                  <span>You will save $1999 on this order</span>
+                  <span>You will save ₹ 0 on this order.</span>
                 </li>
                 <li>
                   <button className="btn btn-primary checkout-btn">
-                    {" "}
-                    Checkout{" "}
+                    Checkout
                   </button>
                 </li>
               </ul>
