@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const changeCartItemQtyService = async ({ setLoader, token, cartDispatch, changeType, product }) => {
-    const dispatchType = changeType === "increment" ? "ADD_TO_CART" : "REMOVE_FROM_CART";
+    const dispatchType = changeType === "increment" ? "ADD_TO_CART" : "DEC_ITEM_IN_CART";
 
     try {
         const response = await axios.post(`/api/user/cart/${product._id}`, { action: { type: changeType } }, {
