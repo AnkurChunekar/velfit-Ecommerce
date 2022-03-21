@@ -1,8 +1,12 @@
 import "./CartManagement.css";
-import { dumbbellPI } from "../../images";
+import { Fragment } from "react";
 import { Card } from "../../components";
+import { useCart } from "../../context";
 
 export default function CartManagement() {
+  const { cartState } = useCart();
+  const { cart } = cartState;
+
   return (
     <>
       <header className="center-align-text m-lg">
@@ -10,8 +14,25 @@ export default function CartManagement() {
       </header>
       <div className="cart-management-page">
         <section className="card-container">
-          <Card className={"card-horizontal"} cardImage={dumbbellPI} />
-          <Card className={"card-horizontal"} cardImage={dumbbellPI} />
+          {cart.length > 0 ? (
+            cart.map((product) => (
+              <Fragment key={product._id}>
+                <Card
+                  product={product}
+                  cardImage={product.image}
+                  className="card-horizontal"
+                  title={product.title}
+                  description={product.description}
+                  ratingValue={product.rating}
+                  price={product.price}
+                  isFastDelivered={false}
+                  quantity={product.qty}
+                />
+              </Fragment>
+            ))
+          ) : (
+            <h1> Cart is Empty </h1>
+          )}
         </section>
         <section className="order-box">
           <ul className="list list-style-none p-s">

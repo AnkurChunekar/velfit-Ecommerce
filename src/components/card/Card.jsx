@@ -1,5 +1,6 @@
-import { dumbellPI } from "../../images";
 import { CardFooter } from "./CardFooter";
+import { CardTextContent } from "./CardTextContent";
+import "./Card.css";
 
 function CardHeader({ cardImage }) {
   return (
@@ -29,35 +30,6 @@ function CardIcons({ isFastDelivered }) {
   );
 }
 
-function CardTextContent({
-  title = "Velfit's Dumbbell",
-  description = "Best Quality Products",
-  price = 100,
-  quantity = 1,
-  ratingValue = 1,
-}) {
-  return (
-    <div className="card-text-content m-xs">
-      <p className="card-title"> {title} </p>
-      <p className="subtitle"> {description} </p>
-      <p className="price"> ₹ {price} </p>
-      <div className="ecom-qty">
-        <span className="qty-btn fs-3 p-xxs dec"> - </span>
-        <span className="qty-num p-xxs">3</span>
-        <span className="qty-btn fs-3 p-xxs inc"> + </span>
-      </div>
-      <div className={`rating s${ratingValue} fs-6`}>
-        <i className="fas fa-star" />
-        <i className="fas fa-star" />
-        <i className="fas fa-star" />
-        <i className="fas fa-star" />
-        <i className="fas fa-star" />
-        <span className="rating-info"> {ratingValue} </span>
-      </div>
-    </div>
-  );
-}
-
 export default function Card({
   product,
   className,
@@ -67,6 +39,7 @@ export default function Card({
   description,
   price,
   ratingValue,
+  quantity
 }) {
   return (
     <>
@@ -83,6 +56,8 @@ export default function Card({
             description={description}
             price={price}
             ratingValue={ratingValue}
+            product={product}
+            quantity={quantity}
           />
 
           <CardFooter product={product} />
