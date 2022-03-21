@@ -43,7 +43,7 @@ export default function Card({
             quantity={quantity}
           />
 
-          <CardFooter product={product} inCart={inCart} />
+          <CardFooter product={product} inCart={inCart} inWishlist={inWishlist} className={className} />
         </section>
       </div>
     </>
