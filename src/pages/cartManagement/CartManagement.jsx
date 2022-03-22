@@ -7,6 +7,7 @@ import { useCart } from "../../context";
 export default function CartManagement() {
   const { cartState } = useCart();
   const { cart, totalPrice } = cartState;
+
   return (
     <>
       {cart.length > 0 ? (
@@ -78,7 +79,7 @@ export default function CartManagement() {
         </>
       ) : (
         <div className="center-align-text m-xxxl">
-          <h1 className="m-lg" > Cart is Empty. </h1>
+          <h1 className="m-lg"> Cart is Empty. </h1>
           <Link to="/products">
             <button className="btn btn-primary"> Continue Shopping </button>
           </Link>

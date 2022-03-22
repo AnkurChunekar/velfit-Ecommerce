@@ -1,11 +1,18 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useAuth, useCart } from "../../context/index";
-
+import { useAuth, useCart, useWishlist } from "../../context/index";
 
 export default function Navbar() {
   const { authState } = useAuth();
-  const { cartState: {cart} } = useCart()
+
+  const {
+    cartState: { cart },
+  } = useCart();
+
+  const {
+    wishlistState: { wishlist },
+  } = useWishlist();
+
   return (
     <>
       <nav className="navigation">
@@ -44,16 +51,20 @@ export default function Navbar() {
           <Link to={authState.user ? "/wishlist" : "/login"}>
             <span className="icon-container badge-container">
               <i className="fas fa-heart icon" />
+              {authState.user && wishlist.length > 0 ? (
+                <span className="icon-badge"> {wishlist.length} </span>
+              ) : null}
             </span>
           </Link>
 
           <Link to={authState.user ? "/cart" : "/login"}>
             <span className="icon-container badge-container">
               <i className="fas fa-shopping-cart icon" />
-              {authState.user && cart.length > 0 ? <span className="icon-badge"> {cart.length} </span> : null}
+              {authState.user && cart.length > 0 ? (
+                <span className="icon-badge"> {cart.length} </span>
+              ) : null}
             </span>
           </Link>
-          
         </div>
       </nav>
       {/* Search bar starts */}

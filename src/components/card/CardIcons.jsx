@@ -1,18 +1,26 @@
-import { useCart, useAuth } from "../../context";
-import { removeFromCartService } from "./services/removeFromCart.service";
+import { useCart, useAuth, useWishlist } from "../../context";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  addToWishlistService,
+  removeFromCartService,
+  removeFromWishlistService,
+} from "./services";
 
-export function CardIcons({ isFastDelivered, className, product }) {
+export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const {
-    authState: { token },
-    authDispatch,
+    authState: { token, user },
   } = useAuth();
 
+  const navigate = useNavigate();
+
+  // Cart fuctionalities
   const {
     cartState: { cart },
     cartDispatch,
   } = useCart();
 
-  const handleDeleteFromCartClick = async () => {
+  const handleDeleteFromCart = async () => {
     const requestObj = {
       token,
       cartDispatch,
@@ -22,23 +30,52 @@ export function CardIcons({ isFastDelivered, className, product }) {
     removeFromCartService(requestObj);
   };
 
+  // Wishlist Functionalities
+  const [isAddToWishlistLoading, setIsAddToWishlistLoading] = useState(false);
+  const { wishlistDispatch } = useWishlist();
+
+  const handleAddOrRemoveFromWishlist = () => {
+    if (user) {
+      if (inWishlist) {
+        removeFromWishlistService({ token, product, wishlistDispatch });
+      } else {
+        setIsAddToWishlistLoading(true);
+        addToWishlistService({
+          token,
+          product,
+          wishlistDispatch,
+          setIsAddToWishlistLoading,
+        });
+      }
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       {className === "card-horizontal" ? (
         // Remove From Cart
-        <div className="card-dismiss" onClick={handleDeleteFromCartClick}>
+        <div className="card-dismiss" onClick={handleDeleteFromCart}>
           <i className="fa-solid fa-trash fs-5" />
         </div>
       ) : (
         // Remove From Wishlist
-        <button className="card-dismiss">
+        <button
+          className="card-dismiss"
+          onClick={handleAddOrRemoveFromWishlist}
+        >
           <i className="fa-solid fa-trash fs-5" />
         </button>
       )}
 
-      <div className="card-like">
+      <button
+        className={`card-like ${inWishlist ? "active" : ""}`}
+        onClick={handleAddOrRemoveFromWishlist}
+        disabled={isAddToWishlistLoading ? true : false}
+      >
         <i className="fas fa-heart icon" />
-      </div>
+      </button>
 
       {isFastDelivered ? (
         <div className="badge-container tag tag-danger">
