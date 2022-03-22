@@ -10,15 +10,12 @@ const FilterProvider = ({ children }) => {
 
   const initialstate = {
     sortBy: null,
-    categoryWeights: false,
-    categorySupplements: false,
-    categoryEquipments: false,
-    categoryAccessories: false,
     rating: null,
     includeOutOfStock: true,
     fastDeliveryOnly: false,
-    maxPriceRange: 10000
-  }
+    maxPriceRange: 10000,
+    categories: []
+}
 
   const [state, dispatch] = useReducer(filterReducer, initialstate);
 

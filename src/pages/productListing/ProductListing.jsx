@@ -4,7 +4,7 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useFilter} from "../../context";
+import { useFilter } from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
@@ -18,14 +18,11 @@ export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { state } = useFilter();
-  
+
   const {
     sortBy,
     maxPriceRange,
-    categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories,
+    categories,
     rating,
     includeOutOfStock,
     fastDeliveryOnly,
@@ -56,13 +53,7 @@ export default function ProductListing() {
     getProducts();
   }, []);
 
-  const getCategorizedData = categorizeData(
-    productData,
-    categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories
-  );
+  const getCategorizedData = categorizeData(productData, categories);
 
   const getRatedData = rateData(getCategorizedData, rating);
 

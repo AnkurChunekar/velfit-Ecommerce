@@ -13,10 +13,7 @@ export default function Filters() {
   const {
     sortBy,
     maxPriceRange,
-    categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories,
+    categories,
     rating,
     includeOutOfStock,
     fastDeliveryOnly,
@@ -28,10 +25,7 @@ export default function Filters() {
       <div className="mobile-filters-menu" >
       <PriceFilter maxPriceRange={maxPriceRange} dispatch={dispatch} />
       <CategoryFilter
-        categoryAccessories={categoryAccessories}
-        categoryWeights={categoryWeights}
-        categorySupplements={categorySupplements}
-        categoryEquipments={categoryEquipments}
+        categories={categories}
         dispatch={dispatch}
       />
       <RatingFilter rating={rating} dispatch={dispatch} />
