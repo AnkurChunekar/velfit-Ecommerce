@@ -15,7 +15,6 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const navigate = useNavigate();
 
   // Cart fuctionalities
-
   const {
     cartState: { cart },
     cartDispatch,

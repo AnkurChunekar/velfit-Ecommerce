@@ -75,31 +75,3 @@ export default function Card({
     </>
   );
 }
-
-/* 
-
-                    inCart={
-                      cart.findIndex((item) => item._id === product._id) === -1
-                        ? false
-                        : true
-                    }
-                    inWishlist={
-                      wishlist.findIndex((item) => item._id === product._id) === -1
-                        ? false
-                        : true
-                    }
-
-
-  const {
-    cartState: { cart },
-  } = useCart();
-
-  const {
-    wishlistState: { wishlist },
-  } = useWishlist();
-
-
-
-
-
-*/
