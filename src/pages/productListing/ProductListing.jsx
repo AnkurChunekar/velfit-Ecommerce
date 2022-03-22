@@ -18,14 +18,7 @@ export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { state } = useFilter();
-  const {
-    cartState: { cart },
-  } = useCart();
-
-  const {
-    wishlistState: { wishlist },
-  } = useWishlist();
-
+  
   const {
     sortBy,
     maxPriceRange,
@@ -118,16 +111,6 @@ export default function ProductListing() {
                     ratingValue={product.rating}
                     price={product.price}
                     isFastDelivered={product.isDeliveredFast}
-                    inCart={
-                      cart.findIndex((item) => item._id === product._id) === -1
-                        ? false
-                        : true
-                    }
-                    inWishlist={
-                      wishlist.findIndex((item) => item._id === product._id) === -1
-                        ? false
-                        : true
-                    }
                   />
                 </Fragment>
               ))

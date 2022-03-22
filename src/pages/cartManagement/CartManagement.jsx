@@ -2,15 +2,11 @@ import "./CartManagement.css";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Card } from "../../components";
-import { useCart, useWishlist } from "../../context";
+import { useCart } from "../../context";
 
 export default function CartManagement() {
   const { cartState } = useCart();
   const { cart, totalPrice } = cartState;
-
-  const {
-    wishlistState: { wishlist },
-  } = useWishlist();
 
   return (
     <>
@@ -33,12 +29,6 @@ export default function CartManagement() {
                     price={product.price}
                     isFastDelivered={false}
                     quantity={product.qty}
-                    inWishlist={
-                      wishlist.findIndex((item) => item._id === product._id) ===
-                      -1
-                        ? false
-                        : true
-                    }
                   />
                 </Fragment>
               ))}

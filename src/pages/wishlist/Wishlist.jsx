@@ -9,10 +9,6 @@ export default function Wishlist() {
     wishlistState: { wishlist },
   } = useWishlist();
 
-  const {
-    cartState: { cart },
-  } = useCart();
-
   return (
     <>
       {wishlist.length > 0 ? (
@@ -34,18 +30,6 @@ export default function Wishlist() {
                   title={product.title}
                   description={product.description}
                   price={product.price}
-                  inWishlist={
-                    wishlist.findIndex((item) => item._id === product._id) ===
-                    -1
-                      ? false
-                      : true
-                  }
-                  inCart={
-                    cart.findIndex((item) => item._id === product._id) ===
-                    -1
-                      ? false
-                      : true
-                  }
                 />
               </Fragment>
             ))}
