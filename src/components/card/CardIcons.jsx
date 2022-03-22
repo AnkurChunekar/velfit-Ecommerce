@@ -9,7 +9,6 @@ import {
 export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const {
     authState: { token, user },
-    authDispatch,
   } = useAuth();
 
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
     cartDispatch,
   } = useCart();
 
-  const handleDeleteFromCartClick = async () => {
+  const handleDeleteFromCart = async () => {
     const requestObj = {
       token,
       cartDispatch,
@@ -35,7 +34,7 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
 
   const { wishlistDispatch } = useWishlist();
 
-  const handleAddToWishlistClick = () => {
+  const handleAddOrRemoveFromWishlist = () => {
     if (user) {
       inWishlist
         ? removeFromWishlistService({ token, product, wishlistDispatch })
@@ -49,19 +48,22 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
     <>
       {className === "card-horizontal" ? (
         // Remove From Cart
-        <div className="card-dismiss" onClick={handleDeleteFromCartClick}>
+        <div className="card-dismiss" onClick={handleDeleteFromCart}>
           <i className="fa-solid fa-trash fs-5" />
         </div>
       ) : (
         // Remove From Wishlist
-        <button className="card-dismiss">
+        <button
+          className="card-dismiss"
+          onClick={handleAddOrRemoveFromWishlist}
+        >
           <i className="fa-solid fa-trash fs-5" />
         </button>
       )}
 
       <button
         className={`card-like ${inWishlist ? "active" : ""}`}
-        onClick={handleAddToWishlistClick}
+        onClick={handleAddOrRemoveFromWishlist}
       >
         <i className="fas fa-heart icon" />
       </button>

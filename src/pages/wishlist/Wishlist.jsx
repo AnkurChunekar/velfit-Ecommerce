@@ -21,7 +21,7 @@ export default function Wishlist() {
             <div className="fs-2">
               <i className="fa-regular fa-heart" />
             </div>
-            <h1 className="fw-600 fs-2">My wishlist</h1>
+            <h1 className="fw-600 fs-2">My wishlist ({wishlist.length}) </h1>
           </header>
 
           <div className="products-grid">
