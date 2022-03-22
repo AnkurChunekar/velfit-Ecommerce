@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getCategoriesService } from "../../../homepage/services/getCategories.service";
 import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
-export default function CategoryFilter({ categories, dispatch }) {
+export default function CategoryFilter({ categories, filterDispatch }) {
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function CategoryFilter({ categories, dispatch }) {
   }, []);
 
   const handleCategoryClick = (e) => {
-    dispatch({ type: `CATEGORY_CHANGE`, payload: e.target.name });
+    filterDispatch({ type: `CATEGORY_CHANGE`, payload: e.target.name });
   };
 
   return (

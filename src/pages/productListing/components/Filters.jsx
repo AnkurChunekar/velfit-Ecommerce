@@ -8,7 +8,7 @@ import { useFilter } from "../../../context/index";
 import {useState} from "react";
 
 export default function Filters() {
-  const { state, dispatch } = useFilter();
+  const { filterState, filterDispatch } = useFilter();
   const [ isFiltersTabVisible, setIsFiltersTabVisible ] = useState(false);
   const {
     sortBy,
@@ -17,20 +17,20 @@ export default function Filters() {
     rating,
     removeOutOfStock,
     fastDeliveryOnly,
-  } = state;
+  } = filterState;
 
   return (
     <aside className={`filters-container p-xs ${isFiltersTabVisible ? "active" : ""}`}>
-      <FilterHeader dispatch={dispatch} setIsFiltersTabVisible={setIsFiltersTabVisible} isFiltersTabVisible={isFiltersTabVisible} />
+      <FilterHeader filterDispatch={filterDispatch} setIsFiltersTabVisible={setIsFiltersTabVisible} isFiltersTabVisible={isFiltersTabVisible} />
       <div className="mobile-filters-menu" >
-      <PriceFilter maxPriceRange={maxPriceRange} dispatch={dispatch} />
+      <PriceFilter maxPriceRange={maxPriceRange} filterDispatch={filterDispatch} />
       <CategoryFilter
         categories={categories}
-        dispatch={dispatch}
+        filterDispatch={filterDispatch}
       />
-      <RatingFilter rating={rating} dispatch={dispatch} />
-      <SortFilter sortBy={sortBy} dispatch={dispatch} />
-      <OtherFilters removeOutOfStock={removeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} dispatch={dispatch}  />
+      <RatingFilter rating={rating} filterDispatch={filterDispatch} />
+      <SortFilter sortBy={sortBy} filterDispatch={filterDispatch} />
+      <OtherFilters removeOutOfStock={removeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} filterDispatch={filterDispatch}  />
       </div>
     </aside>
   );

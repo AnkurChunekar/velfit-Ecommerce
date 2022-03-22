@@ -17,7 +17,7 @@ import {
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const { state } = useFilter();
+  const { filterState } = useFilter();
 
   const {
     sortBy,
@@ -26,7 +26,7 @@ export default function ProductListing() {
     rating,
     removeOutOfStock,
     fastDeliveryOnly,
-  } = state;
+  } = filterState;
 
   const getProducts = () => {
     try {

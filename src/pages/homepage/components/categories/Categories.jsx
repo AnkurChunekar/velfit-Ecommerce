@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Categories() {
   const [categoryData, setCategoryData] = useState([]);
-  const { dispatch } = useFilter();
+  const { filterDispatch } = useFilter();
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function Categories() {
   }, []);
 
   const handleCategoryClick = (categoryName) => {
-    dispatch({type: "SINGLE_CATEGORY", payload: categoryName});
+    filterDispatch({type: "SINGLE_CATEGORY", payload: categoryName});
     navigate("/products");
   };
 

@@ -1,14 +1,14 @@
 export default function OtherFilters({
   removeOutOfStock,
   fastDeliveryOnly,
-  dispatch,
+  filterDispatch,
 }) {
   const handleFastDeliveryChange = () => {
-    dispatch({ type: "FAST_DELIVERY_ONLY" });
+    filterDispatch({ type: "FAST_DELIVERY_ONLY" });
   };
 
   const handleRemoveOutOfStockChange = () => {
-    dispatch({ type: "REMOVE_OUT_OF_STOCK" });
+    filterDispatch({ type: "REMOVE_OUT_OF_STOCK" });
   };
 
   return (
