@@ -1,4 +1,6 @@
 
 const isItemInArrayOfObjects = (array, callback) => array.findIndex(callback) === -1 ? false : true;
 
-export { isItemInArrayOfObjects };
+const capitalizeFirstWordOfString = str =>  str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
+
+export { isItemInArrayOfObjects, capitalizeFirstWordOfString };

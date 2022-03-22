@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getCategoriesService } from "../../../homepage/services/getCategories.service";
+import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
 export default function CategoryFilter({ categories, dispatch }) {
   const [categoryData, setCategoryData] = useState([]);
@@ -25,10 +26,7 @@ export default function CategoryFilter({ categories, dispatch }) {
             checked={categories.includes(category.categoryName)}
             onChange={handleCategoryClick}
           />
-          <label htmlFor={category.categoryName}>
-            {" "}
-            {category.categoryName}{" "}
-          </label>
+          <label htmlFor={category.categoryName}>{ capitalizeFirstWordOfString(category.categoryName) }</label>
         </div>
       ))}
     </div>
