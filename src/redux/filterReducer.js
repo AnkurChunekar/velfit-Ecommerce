@@ -19,12 +19,14 @@ const filterReducer = (state, action) => {
                 return { ...state, categories: state.categories.filter(c => c !== action.payload) };
             }
             return { ...state, categories: [...state.categories, action.payload] };
+        case "SINGLE_CATEGORY":
+            return { ...state, categories: [action.payload] };
         case "PRICE_RANGE":
-            return { ...state, maxPriceRange: action.payload }
+            return { ...state, maxPriceRange: action.payload };
         case "REMOVE_OUT_OF_STOCK":
-            return { ...state, removeOutOfStock: !state.removeOutOfStock }
+            return { ...state, removeOutOfStock: !state.removeOutOfStock };
         case "FAST_DELIVERY_ONLY":
-            return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly }
+            return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly };
         case "RESET":
             return initialstate;
         default:

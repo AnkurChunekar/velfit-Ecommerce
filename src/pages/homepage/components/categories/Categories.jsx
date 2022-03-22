@@ -1,15 +1,22 @@
 import "./Categories.css";
 import { useEffect, useState } from "react";
 import { getCategoriesService } from "../../services/getCategories.service";
+import { useFilter } from "../../../../context";
+import { useNavigate } from "react-router-dom";
 
 export default function Categories() {
   const [categoryData, setCategoryData] = useState([]);
-
+  const { dispatch } = useFilter();
+  const navigate = useNavigate();
+  
   useEffect(() => {
     getCategoriesService(setCategoryData);
-  });
+  }, []);
 
-  const handleCategoryClick = (categoryName) => {};
+  const handleCategoryClick = (categoryName) => {
+    dispatch({type: "SINGLE_CATEGORY", payload: categoryName});
+    navigate("/products");
+  };
 
   return (
     <section className="category-section">
