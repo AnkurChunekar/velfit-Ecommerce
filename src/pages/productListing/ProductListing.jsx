@@ -11,7 +11,7 @@ import {
   categorizeData,
   rateData,
   getOnlyFastDeliveryData,
-  getOutOfStockData,
+  getStockData,
 } from "../../helpers/index";
 
 export default function ProductListing() {
@@ -24,7 +24,7 @@ export default function ProductListing() {
     maxPriceRange,
     categories,
     rating,
-    includeOutOfStock,
+    removeOutOfStock,
     fastDeliveryOnly,
   } = state;
 
@@ -66,12 +66,12 @@ export default function ProductListing() {
     getPriceRangedData,
     fastDeliveryOnly
   );
-  const OutOfStockData = getOutOfStockData(
+  const stockedData = getStockData(
     fastDeliveredData,
-    includeOutOfStock
+    removeOutOfStock
   );
 
-  const sortedData = sortData(OutOfStockData, sortBy);
+  const sortedData = sortData(stockedData, sortBy);
 
   return (
     <>

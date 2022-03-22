@@ -15,7 +15,7 @@ export default function Filters() {
     maxPriceRange,
     categories,
     rating,
-    includeOutOfStock,
+    removeOutOfStock,
     fastDeliveryOnly,
   } = state;
 
@@ -30,7 +30,7 @@ export default function Filters() {
       />
       <RatingFilter rating={rating} dispatch={dispatch} />
       <SortFilter sortBy={sortBy} dispatch={dispatch} />
-      <OtherFilters includeOutOfStock={includeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} dispatch={dispatch}  />
+      <OtherFilters removeOutOfStock={removeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} dispatch={dispatch}  />
       </div>
     </aside>
   );

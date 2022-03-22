@@ -11,7 +11,7 @@ const FilterProvider = ({ children }) => {
   const initialstate = {
     sortBy: null,
     rating: null,
-    includeOutOfStock: true,
+    removeOutOfStock: false,
     fastDeliveryOnly: false,
     maxPriceRange: 10000,
     categories: []
