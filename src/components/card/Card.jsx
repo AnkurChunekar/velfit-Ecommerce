@@ -2,6 +2,7 @@ import { CardFooter } from "./CardFooter";
 import { CardTextContent } from "./CardTextContent";
 import { CardIcons } from "./CardIcons";
 import { useCart, useWishlist } from "../../context";
+import { isItemInArrayOfObjects } from "../../helpers";
 import "./Card.css";
 
 function CardHeader({ cardImage }) {
@@ -32,13 +33,8 @@ export default function Card({
     wishlistState: { wishlist },
   } = useWishlist();
 
-  const inCart =
-    cart.findIndex((item) => item._id === product._id) === -1 ? false : true;
-
-  const inWishlist =
-    wishlist.findIndex((item) => item._id === product._id) === -1
-      ? false
-      : true;
+  const inCart = isItemInArrayOfObjects(cart, item => item._id === product._id);
+  const inWishlist = isItemInArrayOfObjects(wishlist, item => item._id === product._id);
 
   return (
     <>
