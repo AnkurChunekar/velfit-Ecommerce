@@ -1,76 +1,70 @@
 import "./Products.css";
-import { dumbbellPI } from "../../../../images/index";
+import {
+  kettlebellPI,
+  bcaaPI,
+  onPI,
+  latPulldownPI,
+} from "../../../../images/index";
+import { Link } from "react-router-dom";
 
-export default function Products(){
-    return (
-        <section>
-        <h2 className="title">Our Products</h2>
-        <div className="grid-container">
-          <a href="" className="">
-            <div className="card">
-              <div className="card-image">
-                <img
-                  src={dumbbellPI}
-                  alt="product image"
-                />
-              </div>
-              <section className="card-body">
-                <div className="card-text-content m-xs">
-                  <p className="card-title">Hex Dumbells</p>
-                  <p className="price fw-600 p-xxs p-rl0">₹400</p>
-                </div>
-              </section>
+export default function Products() {
+  return (
+    <section>
+      <h2 className="title">Our Products</h2>
+      <div className="grid-container">
+        <Link to="/products">
+          <div className="card">
+            <div className="card-image">
+              <img src={kettlebellPI} alt="product image" />
             </div>
-          </a>
-          <a href="" className="">
-            <div className="card">
-              <div className="card-image">
-                <img
-                  src={dumbbellPI}
-                  alt="product image"
-                />
+            <section className="card-body">
+              <div className="card-text-content m-xs">
+                <p className="card-title">5KG Kettlebell</p>
+                <p className="price fw-600 p-xxs p-rl0">₹ 799</p>
               </div>
-              <section className="card-body">
-                <div className="card-text-content m-xs">
-                  <p className="card-title">Hex Dumbells</p>
-                  <p className="price fw-600 p-xxs p-rl0">₹400</p>
-                </div>
-              </section>
+            </section>
+          </div>
+        </Link>
+        <Link to="/products">
+          <div className="card">
+            <div className="card-image">
+              <img src={bcaaPI} alt="product image" />
             </div>
-          </a>
-          <a href="" className="">
-            <div className="card">
-              <div className="card-image">
-                <img
-                  src={dumbbellPI}
-                  alt="product image"
-                />
+            <section className="card-body">
+              <div className="card-text-content m-xs">
+                <p className="card-title">BCAA Energy</p>
+                <p className="price fw-600 p-xxs p-rl0">₹ 999</p>
               </div>
-              <section className="card-body">
-                <div className="card-text-content m-xs">
-                  <p className="card-title">Hex Dumbells</p>
-                  <p className="price fw-600 p-xxs p-rl0">₹400</p>
-                </div>
-              </section>
+            </section>
+          </div>
+        </Link>
+        <Link to="/products">
+          <div className="card">
+            <div className="card-image">
+              <img src={onPI} alt="product image" />
             </div>
-          </a>
-          <a href="" className="">
-            <div className="card">
-              <div className="card-image">
-                <img
-                  src={dumbbellPI}
-                  alt="product image"
-                />
+            <section className="card-body">
+              <div className="card-text-content m-xs">
+                <p className="card-title">ON Protien</p>
+                <p className="price fw-600 p-xxs p-rl0">₹ 3049</p>
               </div>
-              <section className="card-body">
-                <div className="card-text-content m-xs">
-                  <p className="card-title">Hex Dumbells</p>
-                  <p className="price fw-600 p-xxs p-rl0">₹400</p>
-                </div>
-              </section>
+            </section>
+          </div>
+        </Link>
+        <Link to="/products">
+          <div className="card">
+            <div className="card-image">
+              <img src={latPulldownPI} alt="product image" />
             </div>
-          </a>
-        </div>
-      </section>
-    );
+            <section className="card-body">
+              <div className="card-text-content m-xs">
+                <p className="card-title">Lat Pull Down</p>
+                <p className="price fw-600 p-xxs p-rl0">₹ 5449</p>
+              </div>
+            </section>
+          </div>
+        </Link>
+      </div>
+    </section>
+  );
 }
