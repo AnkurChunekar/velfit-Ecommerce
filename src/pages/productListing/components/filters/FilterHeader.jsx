@@ -1,4 +1,4 @@
-export default function FilterHeader({ dispatch }) {
+export default function FilterHeader({ dispatch, setIsFiltersTabVisible, isFiltersTabVisible }) {
   const handleReset = () => {
     dispatch({ type: "RESET" });
   };
@@ -9,9 +9,8 @@ export default function FilterHeader({ dispatch }) {
       <button className="btn btn-link" onClick={handleReset}>
         Clear
       </button>
-      <button className="filters-close-btn">
-        {" "}
-        <i className="fa-solid fa-circle-chevron-up" />{" "}
+      <button className="filters-close-btn" onClick={() => setIsFiltersTabVisible(pv => !pv)}>
+        <i className={`fa-solid fa-circle-chevron-${isFiltersTabVisible ? "down" : "up"}`} />{" "}
       </button>
     </header>
   );

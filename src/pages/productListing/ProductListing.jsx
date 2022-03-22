@@ -4,7 +4,7 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useFilter, useCart, useWishlist } from "../../context";
+import { useFilter} from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
