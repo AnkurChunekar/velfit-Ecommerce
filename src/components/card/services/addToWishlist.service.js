@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const addToWishlistService = async ({ token, product, wishlistDispatch }) => {
+const addToWishlistService = async ({ token, product, wishlistDispatch, setIsAddToWishlistLoading }) => {
 
     try {
         const response = await axios.post("/api/user/wishlist", { product }, {
@@ -16,7 +16,9 @@ const addToWishlistService = async ({ token, product, wishlistDispatch }) => {
         }
     } catch (error) {
         alert(error);
-    } 
+    } finally {
+        setIsAddToWishlistLoading(false)
+    }
 
 }
 

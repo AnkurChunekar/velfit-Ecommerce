@@ -1,5 +1,6 @@
 import { useCart, useAuth, useWishlist } from "../../context";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   addToWishlistService,
   removeFromCartService,
@@ -31,14 +32,22 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   };
 
   // Wishlist Functionalities
-
+  const [isAddToWishlistLoading, setIsAddToWishlistLoading] = useState(false);
   const { wishlistDispatch } = useWishlist();
 
   const handleAddOrRemoveFromWishlist = () => {
     if (user) {
-      inWishlist
-        ? removeFromWishlistService({ token, product, wishlistDispatch })
-        : addToWishlistService({ token, product, wishlistDispatch });
+      if (inWishlist) {
+        removeFromWishlistService({ token, product, wishlistDispatch });
+      } else {
+        setIsAddToWishlistLoading(true);
+        addToWishlistService({
+          token,
+          product,
+          wishlistDispatch,
+          setIsAddToWishlistLoading,
+        });
+      }
     } else {
       navigate("/login");
     }
@@ -64,6 +73,7 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
       <button
         className={`card-like ${inWishlist ? "active" : ""}`}
         onClick={handleAddOrRemoveFromWishlist}
+        disabled={isAddToWishlistLoading ? true : false}
       >
         <i className="fas fa-heart icon" />
       </button>
