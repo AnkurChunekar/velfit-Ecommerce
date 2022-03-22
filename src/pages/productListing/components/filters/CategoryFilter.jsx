@@ -7,7 +7,7 @@ export default function CategoryFilter({ categories, dispatch }) {
 
   useEffect(() => {
     getCategoriesService(setCategoryData);
-  });
+  }, []);
 
   const handleCategoryClick = (e) => {
     dispatch({ type: `CATEGORY_CHANGE`, payload: e.target.name });
