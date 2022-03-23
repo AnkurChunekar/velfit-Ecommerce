@@ -5,35 +5,33 @@ import PriceFilter from "./filters/PriceFilter";
 import CategoryFilter from "./filters/CategoryFilter";
 import OtherFilters from "./filters/OtherFilters";
 import { useFilter } from "../../../context/index";
+import {useState} from "react";
 
 export default function Filters() {
-  const { state, dispatch } = useFilter();
+  const { filterState, filterDispatch } = useFilter();
+  const [ isFiltersTabVisible, setIsFiltersTabVisible ] = useState(false);
   const {
     sortBy,
     maxPriceRange,
-    categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories,
+    categories,
     rating,
-    includeOutOfStock,
+    removeOutOfStock,
     fastDeliveryOnly,
-  } = state;
+  } = filterState;
 
   return (
-    <aside className="filters-container p-xs">
-      <FilterHeader dispatch={dispatch} />
-      <PriceFilter maxPriceRange={maxPriceRange} dispatch={dispatch} />
+    <aside className={`filters-container p-xs ${isFiltersTabVisible ? "active" : ""}`}>
+      <FilterHeader filterDispatch={filterDispatch} setIsFiltersTabVisible={setIsFiltersTabVisible} isFiltersTabVisible={isFiltersTabVisible} />
+      <div className="mobile-filters-menu" >
+      <PriceFilter maxPriceRange={maxPriceRange} filterDispatch={filterDispatch} />
       <CategoryFilter
-        categoryAccessories={categoryAccessories}
-        categoryWeights={categoryWeights}
-        categorySupplements={categorySupplements}
-        categoryEquipments={categoryEquipments}
-        dispatch={dispatch}
+        categories={categories}
+        filterDispatch={filterDispatch}
       />
-      <RatingFilter rating={rating} dispatch={dispatch} />
-      <SortFilter sortBy={sortBy} dispatch={dispatch} />
-      <OtherFilters includeOutOfStock={includeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} dispatch={dispatch}  />
+      <RatingFilter rating={rating} filterDispatch={filterDispatch} />
+      <SortFilter sortBy={sortBy} filterDispatch={filterDispatch} />
+      <OtherFilters removeOutOfStock={removeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} filterDispatch={filterDispatch}  />
+      </div>
     </aside>
   );
 }

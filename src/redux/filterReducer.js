@@ -1,15 +1,12 @@
 const filterReducer = (state, action) => {
 
-    const initialstate = {
+    const initialState = {
         sortBy: null,
-        categoryWeights: false,
-        categorySupplements: false,
-        categoryEquipments: false,
-        categoryAccessories: false,
         rating: null,
-        includeOutOfStock: true,
+        removeOutOfStock: false,
         fastDeliveryOnly: false,
-        maxPriceRange: 10000
+        maxPriceRange: 10000,
+        categories: []
     }
 
     switch (action.type) {
@@ -17,22 +14,21 @@ const filterReducer = (state, action) => {
             return { ...state, sortBy: action.payload }
         case "RATING":
             return { ...state, rating: action.payload }
-        case "CATEGORY_WEIGHTS":
-            return { ...state, categoryWeights: !state.categoryWeights };
-        case "CATEGORY_SUPPLEMENTS":
-            return { ...state, categorySupplements: !state.categorySupplements };
-        case "CATEGORY_EQUIPMENTS":
-            return { ...state, categoryEquipments: !state.categoryEquipments };
-        case "CATEGORY_ACCESSORIES":
-            return { ...state, categoryAccessories: !state.categoryAccessories };
+        case "CATEGORY_CHANGE":
+            if (state.categories.includes(action.payload)) {
+                return { ...state, categories: state.categories.filter(c => c !== action.payload) };
+            }
+            return { ...state, categories: [...state.categories, action.payload] };
+        case "SINGLE_CATEGORY":
+            return { ...initialState, categories: [action.payload] };
         case "PRICE_RANGE":
-            return { ...state, maxPriceRange: action.payload }
-        case "INCLUDE_OUT_OF_STOCK":
-            return { ...state, includeOutOfStock: !state.includeOutOfStock }
+            return { ...state, maxPriceRange: action.payload };
+        case "REMOVE_OUT_OF_STOCK":
+            return { ...state, removeOutOfStock: !state.removeOutOfStock };
         case "FAST_DELIVERY_ONLY":
-            return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly }
+            return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly };
         case "RESET":
-            return initialstate;
+            return initialState;
         default:
             return state;
     }

@@ -15,34 +15,13 @@ const filterProductsUptoPriceRange = (data, maxPriceRange) => {
     return data.filter(product => product.price < maxPriceRange);
 }
 
-const categorizeData = (data, categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories) => {
+const categorizeData = (data, categories) => {
 
-    let returnValue = [];
-
-    if (!categoryAccessories && !categorySupplements && !categoryEquipments && !categoryWeights) {
+    if (categories.length < 1) {
         return data;
     }
-
-    if (categoryAccessories) {
-        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "accessories"));
-    }
-
-    if (categorySupplements) {
-        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "supplements"));
-    }
-
-    if (categoryWeights) {
-        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "weights"));
-    }
-
-    if (categoryEquipments) {
-        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === "equipments"));
-    }
-
-    return returnValue;
+    
+    return data.filter(p => categories.includes(p.categoryName));
 }
 
 const rateData = (data, rating) => {
@@ -53,8 +32,8 @@ const getOnlyFastDeliveryData = (data, fastDeliveryOnly) => {
     return fastDeliveryOnly ? data.filter(p => p.isDeliveredFast) : data;
 }
 
-const getOutOfStockData = (data, includeOutOfStock) => {
-  return includeOutOfStock ? data : data.filter(p => p.inStock)
+const getStockData = (data, removeOutOfStock) => {
+    return removeOutOfStock ? data.filter(p => p.inStock) : data;
 }
 
-export { sortData, filterProductsUptoPriceRange, categorizeData, rateData, getOnlyFastDeliveryData, getOutOfStockData }
+export { sortData, filterProductsUptoPriceRange, categorizeData, rateData, getOnlyFastDeliveryData, getStockData }

@@ -1,14 +1,14 @@
 export default function OtherFilters({
-  includeOutOfStock,
+  removeOutOfStock,
   fastDeliveryOnly,
-  dispatch,
+  filterDispatch,
 }) {
   const handleFastDeliveryChange = () => {
-    dispatch({ type: "FAST_DELIVERY_ONLY" });
+    filterDispatch({ type: "FAST_DELIVERY_ONLY" });
   };
 
-  const handleIncludeOutOfStockChange = () => {
-    dispatch({ type: "INCLUDE_OUT_OF_STOCK" });
+  const handleRemoveOutOfStockChange = () => {
+    filterDispatch({ type: "REMOVE_OUT_OF_STOCK" });
   };
 
   return (
@@ -28,12 +28,12 @@ export default function OtherFilters({
       <div className="input-wrapper checkbox m-s m-rl0">
         <input
           type="checkbox"
-          id="include-out-of-stock"
-          checked={includeOutOfStock}
-          onChange={handleIncludeOutOfStockChange}
+          id="remove-out-of-stock"
+          checked={removeOutOfStock}
+          onChange={handleRemoveOutOfStockChange}
         />
-        <label className="input-label2" htmlFor="include-out-of-stock">
-          Include Out Of Stock
+        <label className="input-label2" htmlFor="remove-out-of-stock">
+          Remove Out Of Stock
         </label>
       </div>
     </div>

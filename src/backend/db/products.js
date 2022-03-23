@@ -41,7 +41,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "16KG Kettlebell",
+    title: "5KG Kettlebell",
     description: "Wide Rubber Grip.",
     categoryName: "weights",
     price: 799,

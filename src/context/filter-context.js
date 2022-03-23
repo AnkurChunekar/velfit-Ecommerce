@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { filterReducer } from "../redux/filterReducer";
 
-const defaultValue = { state: {}, dispatch: () => {}};
+const defaultValue = { filterState: {}, filterDispatch: () => {}};
 
 const FilterContext = createContext(defaultValue);
 
@@ -10,20 +10,17 @@ const FilterProvider = ({ children }) => {
 
   const initialstate = {
     sortBy: null,
-    categoryWeights: false,
-    categorySupplements: false,
-    categoryEquipments: false,
-    categoryAccessories: false,
     rating: null,
-    includeOutOfStock: true,
+    removeOutOfStock: false,
     fastDeliveryOnly: false,
-    maxPriceRange: 10000
-  }
+    maxPriceRange: 10000,
+    categories: []
+}
 
-  const [state, dispatch] = useReducer(filterReducer, initialstate);
+  const [filterState, filterDispatch] = useReducer(filterReducer, initialstate);
 
   return (
-    <FilterContext.Provider value={{ state, dispatch }}>
+    <FilterContext.Provider value={{ filterState, filterDispatch }}>
       {children}
     </FilterContext.Provider>
   );

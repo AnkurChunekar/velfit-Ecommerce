@@ -1,9 +1,9 @@
 
 
-export default function PriceFilter({ maxPriceRange, dispatch }) {
+export default function PriceFilter({ maxPriceRange, filterDispatch }) {
 
   const handleMaxPriceRangeChange = (e) => {
-    dispatch({ type: "PRICE_RANGE", payload: e.target.value });
+    filterDispatch({ type: "PRICE_RANGE", payload: e.target.value });
   };
 
   return (
@@ -21,7 +21,6 @@ export default function PriceFilter({ maxPriceRange, dispatch }) {
         type="range"
         min={0}
         max={10000}
-        step={"2000"}
         value={maxPriceRange}
         onChange={handleMaxPriceRangeChange}
       />

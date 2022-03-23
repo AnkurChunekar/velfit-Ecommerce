@@ -1,54 +1,34 @@
-export default function CategoryFilter({
-  categoryWeights,
-  categorySupplements,
-  categoryEquipments,
-  categoryAccessories,
-  dispatch
-}) {
-  
-  const handleWeightsChange = () => {
-    dispatch({ type: "CATEGORY_WEIGHTS" });
-  };
+import { useState, useEffect } from "react";
+import { getCategoriesService } from "../../../homepage/services/getCategories.service";
+import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
-  const handleEquipmentsChange = () => {
-    dispatch({ type: "CATEGORY_EQUIPMENTS" });
-  };
+export default function CategoryFilter({ categories, filterDispatch }) {
+  const [categoryData, setCategoryData] = useState([]);
 
-  const handleSupplementsChange = () => {
-    dispatch({ type: "CATEGORY_SUPPLEMENTS" });
-  };
+  useEffect(() => {
+    getCategoriesService(setCategoryData);
+  }, []);
 
-  const handleAccessoriesChange = () => {
-    dispatch({ type: "CATEGORY_ACCESSORIES" });
+  const handleCategoryClick = (e) => {
+    filterDispatch({ type: `CATEGORY_CHANGE`, payload: e.target.name });
   };
 
   return (
     <div className="m-md1 m-rl0">
       <h5 className="fw-600">Category</h5>
-      <div className="input-wrapper checkbox m-s m-rl0">
-        <input
-          type="checkbox"
-          id="weights"
-          checked={categoryWeights}
-          onChange={handleWeightsChange}
-        />
-        <label htmlFor="weights">Weights</label>
-      </div>
-      <div className="input-wrapper checkbox m-s m-rl0">
-        <input type="checkbox" id="equipments" checked={categoryEquipments}
-          onChange={handleEquipmentsChange} />
-        <label htmlFor="equipments">Equipments</label>
-      </div>
-      <div className="input-wrapper checkbox m-s m-rl0">
-        <input type="checkbox" id="supplements" checked={categorySupplements}
-          onChange={handleSupplementsChange} />
-        <label htmlFor="supplements">Supplements</label>
-      </div>
-      <div className="input-wrapper checkbox m-s m-rl0">
-        <input type="checkbox" id="accessories" checked={categoryAccessories}
-          onChange={handleAccessoriesChange} />
-        <label htmlFor="accessories">Accessories</label>
-      </div>
+
+      {categoryData.map((category) => (
+        <div key={category._id} className="input-wrapper checkbox m-s m-rl0">
+          <input
+            type="checkbox"
+            id={category.categoryName}
+            name={category.categoryName}
+            checked={categories.includes(category.categoryName)}
+            onChange={handleCategoryClick}
+          />
+          <label htmlFor={category.categoryName}>{ capitalizeFirstWordOfString(category.categoryName) }</label>
+        </div>
+      ))}
     </div>
   );
 }

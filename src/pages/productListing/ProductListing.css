@@ -67,7 +67,7 @@
     background-color: white;
     right: 0;
     left: 0;
-    bottom: -580px;
+    bottom: -715px;
     padding-top: 0;
     width: 100%;
     overflow: hidden;
@@ -75,8 +75,13 @@
   }
 
   .filters-container.active {
-    top: 25%;
+    top: 50%;
     bottom: auto;
+  }
+
+  .filters-container.active .mobile-filters-menu {
+    height: 40vh;
+    overflow: auto;
   }
 
   .filters-container .price {

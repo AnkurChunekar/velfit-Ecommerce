@@ -4,32 +4,29 @@ import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useFilter, useCart, useWishlist } from "../../context";
+import { useFilter } from "../../context";
 import {
   sortData,
   filterProductsUptoPriceRange,
   categorizeData,
   rateData,
   getOnlyFastDeliveryData,
-  getOutOfStockData,
+  getStockData,
 } from "../../helpers/index";
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const { state } = useFilter();
-  
+  const { filterState } = useFilter();
+
   const {
     sortBy,
     maxPriceRange,
-    categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories,
+    categories,
     rating,
-    includeOutOfStock,
+    removeOutOfStock,
     fastDeliveryOnly,
-  } = state;
+  } = filterState;
 
   const getProducts = () => {
     try {
@@ -56,13 +53,7 @@ export default function ProductListing() {
     getProducts();
   }, []);
 
-  const getCategorizedData = categorizeData(
-    productData,
-    categoryWeights,
-    categorySupplements,
-    categoryEquipments,
-    categoryAccessories
-  );
+  const getCategorizedData = categorizeData(productData, categories);
 
   const getRatedData = rateData(getCategorizedData, rating);
 
@@ -75,12 +66,12 @@ export default function ProductListing() {
     getPriceRangedData,
     fastDeliveryOnly
   );
-  const OutOfStockData = getOutOfStockData(
+  const stockedData = getStockData(
     fastDeliveredData,
-    includeOutOfStock
+    removeOutOfStock
   );
 
-  const sortedData = sortData(OutOfStockData, sortBy);
+  const sortedData = sortData(stockedData, sortBy);
 
   return (
     <>

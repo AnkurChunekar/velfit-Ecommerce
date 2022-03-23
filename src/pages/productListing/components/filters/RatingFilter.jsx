@@ -1,20 +1,20 @@
-export default function RatingFilter({ rating, dispatch }) {
+export default function RatingFilter({ rating, filterDispatch }) {
   const handleRatingChange = (e) => {
     switch (e.target.id) {
       case "four-star":
-        dispatch({ type: "RATING", payload: 4 });
+        filterDispatch({ type: "RATING", payload: 4 });
         break;
       case "three-star":
-        dispatch({ type: "RATING", payload: 3 });
+        filterDispatch({ type: "RATING", payload: 3 });
         break;
       case "two-star":
-        dispatch({ type: "RATING", payload: 2 });
+        filterDispatch({ type: "RATING", payload: 2 });
         break;
       case "one-star":
-        dispatch({ type: "RATING", payload: 1 });
+        filterDispatch({ type: "RATING", payload: 1 });
         break;
       default:
-        dispatch({ type: "RATING", type: null });
+        filterDispatch({ type: "RATING", type: null });
     }
   };
 

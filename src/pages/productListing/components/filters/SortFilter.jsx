@@ -1,10 +1,10 @@
-export default function SortFilter({ sortBy, dispatch }) {
+export default function SortFilter({ sortBy, filterDispatch }) {
   const sortLowToHigh = () => {
-    dispatch({ type: "SORT_BY", payload: "LOW_TO_HIGH" });
+    filterDispatch({ type: "SORT_BY", payload: "LOW_TO_HIGH" });
   };
 
   const sortHighToLow = () => {
-    dispatch({ type: "SORT_BY", payload: "HIGH_TO_LOW" });
+    filterDispatch({ type: "SORT_BY", payload: "HIGH_TO_LOW" });
   };
 
   return (
