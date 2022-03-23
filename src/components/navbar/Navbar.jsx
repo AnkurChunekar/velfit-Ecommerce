@@ -48,7 +48,7 @@ export default function Navbar() {
           <Link onClick={handleHamMenuToggleClick} to="/">Home</Link>
           <Link onClick={handleHamMenuToggleClick} to="/products">Products</Link>
           <Link onClick={handleHamMenuToggleClick} to={user ? "/wishlist" : "/login"}>Wishlist</Link>
-          <Link onClick={handleHamMenuToggleClick} to={user ? "/orders" : "/login"}>Orders</Link>
+          <Link onClick={handleHamMenuToggleClick} to={user ? "/cart" : "/login"}>Orders</Link>
           <Link onClick={handleHamMenuToggleClick} to={user ? "/user" : "/login"}>
             {user ? "Account" : "Login"}
           </Link>
