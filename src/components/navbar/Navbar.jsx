@@ -45,11 +45,11 @@ export default function Navbar() {
           >
             <i className="fas fa-times" />
           </button>
-          <Link to={user ? "/" : "/login"}>Home</Link>
-          <Link to={user ? "/products" : "/login"}>Products</Link>
-          <Link to={user ? "/wishlist" : "/login"}>Wishlist</Link>
-          <Link to={user ? "/orders" : "/login"}>Orders</Link>
-          <Link to={user ? "/user" : "/login"}>
+          <Link onClick={handleHamMenuToggleClick} to="/">Home</Link>
+          <Link onClick={handleHamMenuToggleClick} to="/products">Products</Link>
+          <Link onClick={handleHamMenuToggleClick} to={user ? "/wishlist" : "/login"}>Wishlist</Link>
+          <Link onClick={handleHamMenuToggleClick} to={user ? "/orders" : "/login"}>Orders</Link>
+          <Link onClick={handleHamMenuToggleClick} to={user ? "/user" : "/login"}>
             {user ? "Account" : "Login"}
           </Link>
         </div>
