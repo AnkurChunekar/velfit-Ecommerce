@@ -47,6 +47,7 @@ export default function Card({
             className={className}
             product={product}
             inWishlist={inWishlist}
+            inCart={inCart}
           />
 
           <div className="card-overlay">Out of Stock</div>

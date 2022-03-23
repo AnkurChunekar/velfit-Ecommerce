@@ -7,7 +7,13 @@ import {
   removeFromWishlistService,
 } from "./services";
 
-export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
+export function CardIcons({
+  isFastDelivered,
+  className,
+  product,
+  inWishlist,
+  inCart,
+}) {
   const {
     authState: { token, user },
   } = useAuth();
@@ -46,6 +52,9 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
           wishlistDispatch,
           setIsAddToWishlistLoading,
         });
+        if (window.location.pathname === "/cart") {
+          handleDeleteFromCart();
+        }
       }
     } else {
       navigate("/login");
