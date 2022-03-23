@@ -20,14 +20,8 @@ const categorizeData = (data, categories) => {
     if (categories.length < 1) {
         return data;
     }
-
-    let returnValue = [];
-
-    for (let category of categories) {
-        returnValue = [...returnValue].concat(data.filter(p => p.categoryName === category));
-    }
-
-    return returnValue;
+    
+    return data.filter(p => categories.includes(p.categoryName));
 }
 
 const rateData = (data, rating) => {
