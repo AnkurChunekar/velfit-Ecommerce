@@ -2,7 +2,7 @@ import "./Auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
-import { useAuth } from "../../context";
+import { useAuth, useCart, useWishlist } from "../../context";
 import { loginService } from "./services/login.service";
 import { checkIfAllInputsAreNotEmpty } from "../../helpers";
 
@@ -14,6 +14,8 @@ export default function Login() {
 
   const navigate = useNavigate();
   const { authDispatch } = useAuth();
+  const { cartDispatch } = useCart();
+  const { wishlistDispatch } = useWishlist();
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function Login() {
     if (!checkIfAllInputsAreNotEmpty(userData)) {
       alert("Email and Password cannot be empty!");
     } else {
-      loginService(userData, authDispatch, navigate);
+      loginService({userData, authDispatch, cartDispatch, wishlistDispatch, navigate});
     }
   };
 
