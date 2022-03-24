@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Card } from "../../components";
 import { useCart } from "../../context";
+import { cartPriceCalculator } from "../../helpers/cartHelpers";
+
 
 export default function CartManagement() {
   const { cartState } = useCart();
-  const { cart, totalPrice } = cartState;
-
+  const { cart } = cartState;
+  const { price } = cartPriceCalculator(cart);
+  
   return (
     <>
       {cart.length > 0 ? (
@@ -49,20 +52,20 @@ export default function CartManagement() {
                 </li>
                 <li>
                   <span>Price ({cart.length} items)</span>
-                  <span>₹ {totalPrice} </span>
+                  <span>₹ {price} </span>
                 </li>
                 <li>
                   <span>Discount</span>
-                  <span>-₹ 0</span>
+                  <span>-₹ 100</span>
                 </li>
                 <li>
                   <span>Delivery Charge</span>
-                  <span>₹ 0</span>
+                  <span>₹ 45</span>
                 </li>
                 <div className="divider" />
                 <li className="total">
                   <strong>TOTAL AMOUNT</strong>
-                  <strong> Rs. {totalPrice} </strong>
+                  <strong> ₹ {price - 100 -45} </strong>
                 </li>
                 <div className="divider" />
                 <li>
