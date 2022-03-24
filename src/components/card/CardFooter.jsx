@@ -24,7 +24,6 @@ export function CardFooter({ product, inCart }) {
           successStatus: 201,
           token,
           cartDispatch,
-          product,
           setLoader,
           setCtaBtnText,
         };
