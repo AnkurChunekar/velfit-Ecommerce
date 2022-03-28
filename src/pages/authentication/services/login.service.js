@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const loginService = async (userData, authDispatch, navigate) => {
+export const loginService = async ({userData, authDispatch, cartDispatch, wishlistDispatch, navigate}) => {
 
     try {
         const response = await axios.post("/api/auth/login", {
@@ -18,6 +18,8 @@ export const loginService = async (userData, authDispatch, navigate) => {
                         token: response.data.encodedToken,
                     },
                 });
+                cartDispatch({ type: "UPDATE_CART", payload: { cart: response.data.foundUser.cart} });
+                wishlistDispatch({ type: "UPDATE_WISHLIST", payload: { wishlist: response.data.foundUser.wishlist} });
                 alert("Login Successfull!");
                 navigate("/");
                 break;

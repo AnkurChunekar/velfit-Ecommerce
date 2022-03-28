@@ -8,7 +8,7 @@ const addToWishlistService = async ({ token, product, wishlistDispatch, setIsAdd
         });
         if (response.status === 201) {
             wishlistDispatch({
-                type: "ADD_TO_WISHLIST",
+                type: "UPDATE_WISHLIST",
                 payload: { wishlist: response.data.wishlist }
             });
         } else {
