@@ -33,6 +33,6 @@ export const loginService = async ({userData, authDispatch, cartDispatch, wishli
                 throw new Error("Unknown Error Occured.");
         }
     } catch (error) {
-        alert(error);
+        console.error(error)
     }
 }

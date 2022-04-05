@@ -56,6 +56,13 @@
     margin-right: var(--spacing-xxs);
 }
 
+/* Loader Container */
+
+.loader-container {
+  height: 50vh;
+  width: 100%;
+}
+
 @media screen and (max-width: 1024px) {
   .product-listing-page {
     grid-template-columns: 1fr;

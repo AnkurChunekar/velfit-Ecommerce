@@ -1,5 +1,5 @@
 import "./ProductListing.css";
-import { Card } from "../../components/index";
+import { Card, CircularLoader } from "../../components";
 import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
@@ -32,7 +32,6 @@ export default function ProductListing() {
     try {
       (async () => {
         const response = await axios.get("/api/products");
-
         switch (response.status) {
           case 200:
             setProductData(response.data.products);
@@ -45,7 +44,7 @@ export default function ProductListing() {
         }
       })();
     } catch (error) {
-      alert(error);
+      console.error(error)
     }
   };
 
@@ -66,10 +65,7 @@ export default function ProductListing() {
     getPriceRangedData,
     fastDeliveryOnly
   );
-  const stockedData = getStockData(
-    fastDeliveredData,
-    removeOutOfStock
-  );
+  const stockedData = getStockData(fastDeliveredData, removeOutOfStock);
 
   const sortedData = sortData(stockedData, sortBy);
 
@@ -79,34 +75,37 @@ export default function ProductListing() {
         <Filters />
 
         <section className="product-listing p-xs">
-          <header className="m-xs m-rl0 center-align-text">
-            <div className="fs-">
-              Showing all Products ({sortedData.length})
+          {loader ? (
+            <div className="loader-container flex flex-center">
+              <CircularLoader />
             </div>
-          </header>
-
-          <div className="products-grid">
-            {loader ? (
-              <h1> Loading.... </h1>
-            ) : (
-              sortedData.map((product) => (
-                <Fragment key={product._id}>
-                  <Card
-                    product={product}
-                    cardImage={product.image}
-                    className={`card-ecom card-w-badge ${
-                      product.inStock ? "" : "disabled"
-                    }`}
-                    title={product.title}
-                    description={product.description}
-                    ratingValue={product.rating}
-                    price={product.price}
-                    isFastDelivered={product.isDeliveredFast}
-                  />
-                </Fragment>
-              ))
-            )}
-          </div>
+          ) : (
+            <>
+              <header className="m-xs m-rl0 center-align-text">
+                <div className="fs-">
+                  Showing all Products ({sortedData.length})
+                </div>
+              </header>
+              <div className="products-grid">
+                {sortedData.map((product) => (
+                  <Fragment key={product._id}>
+                    <Card
+                      product={product}
+                      cardImage={product.image}
+                      className={`card-ecom card-w-badge ${
+                        product.inStock ? "" : "disabled"
+                      }`}
+                      title={product.title}
+                      description={product.description}
+                      ratingValue={product.rating}
+                      price={product.price}
+                      isFastDelivered={product.isDeliveredFast}
+                    />
+                  </Fragment>
+                ))}
+              </div>
+            </>
+          )}
         </section>
       </main>
     </>
