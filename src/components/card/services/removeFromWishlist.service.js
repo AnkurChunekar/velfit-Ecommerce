@@ -15,7 +15,7 @@ const removeFromWishlistService = async ({ token, product, wishlistDispatch }) =
             throw new Error(`Error occured having Status: ${response.status}`);
         }
     } catch (error) {
-        alert(error);
+        console.error(error)
     }
 
 }

@@ -16,7 +16,7 @@ const addToCartService = async ({ url, body, token, successStatus, cartDispatch,
             throw new Error(response.status, "<-- error code");
         }
     } catch (error) {
-        alert(error);
+        console.error(error)
     } finally {
         setLoader(false);
     }

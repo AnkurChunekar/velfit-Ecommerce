@@ -22,7 +22,7 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
                 throw new Error("Unknown Error Occured!");
         }
     } catch (error) {
-        alert(error);
+        console.error(error)
     }
 
 }

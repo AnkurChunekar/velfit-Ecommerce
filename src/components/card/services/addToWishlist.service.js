@@ -15,7 +15,7 @@ const addToWishlistService = async ({ token, product, wishlistDispatch, setIsAdd
             throw new Error(response.status, "<-- error code");
         }
     } catch (error) {
-        alert(error);
+        console.error(error)
     } finally {
         setIsAddToWishlistLoading(false)
     }
