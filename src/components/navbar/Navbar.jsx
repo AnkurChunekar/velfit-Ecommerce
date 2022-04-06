@@ -1,13 +1,19 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
-import { useAuth, useCart, useWishlist } from "../../context/index";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth, useCart, useWishlist, useFilter } from "../../context/index";
 import { useState } from "react";
 
 export default function Navbar() {
+  const [isHamMenuVisible, setIsHamMenuVisible] = useState(false);
+  const [isSearchVisible, setSearchVisible] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
+  const { pathname } = useLocation();
+
   const {
     authState: { user },
   } = useAuth();
-  const [isHamMenuVisible, setIsHamMenuVisible] = useState(false);
+
   const {
     cartState: { cart },
   } = useCart();
@@ -16,8 +22,20 @@ export default function Navbar() {
     wishlistState: { wishlist },
   } = useWishlist();
 
+const { filterDispatch } = useFilter();
+
   const handleHamMenuToggleClick = () => {
     setIsHamMenuVisible((pv) => !pv);
+  };
+
+  const searchToggleClick = () => {
+    setSearchVisible(prevVisibility => !prevVisibility);
+  };
+
+  const handleUserSearch = () => {
+    searchToggleClick();
+    filterDispatch({type: "RESET"});
+    filterDispatch({type: "SEARCH_PRODUCT", payload: {searchValue: searchInput}});
   };
 
   return (
@@ -34,9 +52,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div
-          className={`navigation-ham-menu ${
-            isHamMenuVisible ? "active" : ""
-          }`}
+          className={`navigation-ham-menu ${isHamMenuVisible ? "active" : ""}`}
         >
           <button
             id="ham-close-icon"
@@ -45,21 +61,40 @@ export default function Navbar() {
           >
             <i className="fas fa-times" />
           </button>
-          <Link onClick={handleHamMenuToggleClick} to="/">Home</Link>
-          <Link onClick={handleHamMenuToggleClick} to="/products">Products</Link>
-          <Link onClick={handleHamMenuToggleClick} to={user ? "/wishlist" : "/login"}>Wishlist</Link>
-          <Link onClick={handleHamMenuToggleClick} to={user ? "/cart" : "/login"}>Orders</Link>
-          <Link onClick={handleHamMenuToggleClick} to={user ? "/user" : "/login"}>
+          <Link onClick={handleHamMenuToggleClick} to="/">
+            Home
+          </Link>
+          <Link onClick={handleHamMenuToggleClick} to="/products">
+            Products
+          </Link>
+          <Link
+            onClick={handleHamMenuToggleClick}
+            to={user ? "/wishlist" : "/login"}
+          >
+            Wishlist
+          </Link>
+          <Link
+            onClick={handleHamMenuToggleClick}
+            to={user ? "/cart" : "/login"}
+          >
+            Orders
+          </Link>
+          <Link
+            onClick={handleHamMenuToggleClick}
+            to={user ? "/user" : "/login"}
+          >
             {user ? "Account" : "Login"}
           </Link>
         </div>
         <div className="navigation-ham-bg" />
         <div className="nav-actions">
-          <a>
-            <span className="icon-container badge-container">
-              <i id="nav-search-icon" className="fas fa-search icon" />
-            </span>
-          </a>
+          {pathname === "/products" ? (
+            <button onClick={searchToggleClick} className="search-btn">
+              <span className="icon-container badge-container">
+                <i id="nav-search-icon" className="fas fa-search icon" />
+              </span>
+            </button>
+          ) : null}
 
           <Link to={user ? "/user" : "/login"}>
             <span>
@@ -87,17 +122,28 @@ export default function Navbar() {
         </div>
       </nav>
       {/* Search bar starts */}
-      <div id="nav-searchbar" className="input-wrapper">
-        <div className="search-box flex flex-center">
-          <i className="fas fa-search" />
-          <input
-            type="text"
-            placeholder="search for products, brands and more..."
-          />
-          <i id="nav-close-icon" className="fas fa-times" />
+
+      {isSearchVisible ? (
+        <div id="nav-searchbar" className="input-wrapper active">
+          <div className="search-box flex flex-center">
+            <button className="search-btn" onClick={handleUserSearch}>
+            <i className="fas fa-search" />
+            </button>
+            <input
+              type="text"
+              placeholder="Type product name and press Enter key..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyPress={(e) => {e.key === "Enter" ? handleUserSearch() : null}}
+            />
+            <button className="search-btn" onClick={searchToggleClick}>
+              <i id="nav-close-icon" className="fas fa-times" />
+            </button>
+          </div>
+          <div onClick={searchToggleClick} id="nav-searchbar-bg" className="searchbar-bg" />
         </div>
-        <div id="nav-searchbar-bg" className="searchbar-bg" />
-      </div>
+      ) : null}
+
       {/* Search bar ends */}
     </>
   );

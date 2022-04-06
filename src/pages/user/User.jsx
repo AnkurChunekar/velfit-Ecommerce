@@ -1,6 +1,7 @@
 import "./User.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../context";
+import { toast } from "react-toastify";
 
 export default function User() {
   const { authState, authDispatch } = useAuth();
@@ -10,7 +11,7 @@ export default function User() {
   const { wishlistDispatch } = useWishlist();
 
   const handleLogoutClick = () => {
-    alert("Logout Successfull!");
+    toast.success("Logout Successfull!");
     navigate("/");
     localStorage.removeItem("token");
     authDispatch({ type: "LOGOUT" });

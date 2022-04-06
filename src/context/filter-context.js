@@ -1,21 +1,20 @@
 import { createContext, useContext, useReducer } from "react";
 import { filterReducer } from "../redux/filterReducer";
 
-const defaultValue = { filterState: {}, filterDispatch: () => {}};
+const defaultValue = { filterState: {}, filterDispatch: () => {} };
 
 const FilterContext = createContext(defaultValue);
 
-
 const FilterProvider = ({ children }) => {
-
   const initialstate = {
     sortBy: null,
     rating: null,
     removeOutOfStock: false,
     fastDeliveryOnly: false,
     maxPriceRange: 10000,
-    categories: []
-}
+    categories: [],
+    searchValue: "",
+  };
 
   const [filterState, filterDispatch] = useReducer(filterReducer, initialstate);
 

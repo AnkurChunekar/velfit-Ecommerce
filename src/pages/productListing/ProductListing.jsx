@@ -1,5 +1,5 @@
 import "./ProductListing.css";
-import { Card } from "../../components/index";
+import { Card, CircularLoader } from "../../components";
 import Filters from "./components/Filters";
 import { Fragment } from "react/cjs/react.production.min";
 import { useEffect, useState } from "react";
@@ -12,12 +12,13 @@ import {
   rateData,
   getOnlyFastDeliveryData,
   getStockData,
+  searchData,
 } from "../../helpers/index";
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const { filterState } = useFilter();
+  const { filterState, filterDispatch } = useFilter();
 
   const {
     sortBy,
@@ -26,13 +27,13 @@ export default function ProductListing() {
     rating,
     removeOutOfStock,
     fastDeliveryOnly,
+    searchValue,
   } = filterState;
 
   const getProducts = () => {
     try {
       (async () => {
         const response = await axios.get("/api/products");
-
         switch (response.status) {
           case 200:
             setProductData(response.data.products);
@@ -45,7 +46,7 @@ export default function ProductListing() {
         }
       })();
     } catch (error) {
-      alert(error);
+      console.error(error);
     }
   };
 
@@ -66,12 +67,11 @@ export default function ProductListing() {
     getPriceRangedData,
     fastDeliveryOnly
   );
-  const stockedData = getStockData(
-    fastDeliveredData,
-    removeOutOfStock
-  );
+  const stockedData = getStockData(fastDeliveredData, removeOutOfStock);
 
   const sortedData = sortData(stockedData, sortBy);
+
+  const getSearchedData = searchData(sortedData, searchValue);
 
   return (
     <>
@@ -79,34 +79,46 @@ export default function ProductListing() {
         <Filters />
 
         <section className="product-listing p-xs">
-          <header className="m-xs m-rl0 center-align-text">
-            <div className="fs-">
-              Showing all Products ({sortedData.length})
+          {loader ? (
+            <div className="loader-container flex flex-center">
+              <CircularLoader />
             </div>
-          </header>
-
-          <div className="products-grid">
-            {loader ? (
-              <h1> Loading.... </h1>
-            ) : (
-              sortedData.map((product) => (
-                <Fragment key={product._id}>
-                  <Card
-                    product={product}
-                    cardImage={product.image}
-                    className={`card-ecom card-w-badge ${
-                      product.inStock ? "" : "disabled"
-                    }`}
-                    title={product.title}
-                    description={product.description}
-                    ratingValue={product.rating}
-                    price={product.price}
-                    isFastDelivered={product.isDeliveredFast}
-                  />
-                </Fragment>
-              ))
-            )}
-          </div>
+          ) : (
+            <>
+              <header className="m-xs m-rl0 center-align-text">
+                {searchValue === "" ? (
+                  <div className="fs-">
+                    Showing all Products ({getSearchedData.length})
+                  </div>
+                ) : (
+                  <div className="flex ai-center jc-space-b p-xs">
+                    <p>
+                      You Searched: <b> {searchValue} </b>
+                    </p>
+                    <button onClick={() => {filterDispatch({type:"RESET"})}} className="btn btn-secondary">Clear Search</button>
+                  </div>
+                )}
+              </header>
+              <div className="products-grid">
+                {getSearchedData.map((product) => (
+                  <Fragment key={product._id}>
+                    <Card
+                      product={product}
+                      cardImage={product.image}
+                      className={`card-ecom card-w-badge ${
+                        product.inStock ? "" : "disabled"
+                      }`}
+                      title={product.title}
+                      description={product.description}
+                      ratingValue={product.rating}
+                      price={product.price}
+                      isFastDelivered={product.isDeliveredFast}
+                    />
+                  </Fragment>
+                ))}
+              </div>
+            </>
+          )}
         </section>
       </main>
     </>

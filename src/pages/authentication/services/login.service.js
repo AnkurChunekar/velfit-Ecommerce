@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const loginService = async ({userData, authDispatch, cartDispatch, wishlistDispatch, navigate}) => {
 
@@ -20,7 +21,7 @@ export const loginService = async ({userData, authDispatch, cartDispatch, wishli
                 });
                 cartDispatch({ type: "UPDATE_CART", payload: { cart: response.data.foundUser.cart} });
                 wishlistDispatch({ type: "UPDATE_WISHLIST", payload: { wishlist: response.data.foundUser.wishlist} });
-                alert("Login Successfull!");
+                toast.success("Login Successfull!");
                 navigate("/");
                 break;
             case 404:
@@ -33,6 +34,7 @@ export const loginService = async ({userData, authDispatch, cartDispatch, wishli
                 throw new Error("Unknown Error Occured.");
         }
     } catch (error) {
-        alert(error);
+        toast.error("Error Occured!, Please Try Again.");
+        console.error(error)
     }
 }

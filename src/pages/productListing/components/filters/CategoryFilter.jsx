@@ -3,10 +3,11 @@ import { getCategoriesService } from "../../../homepage/services/getCategories.s
 import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
 export default function CategoryFilter({ categories, filterDispatch }) {
+  const [loader, setLoader] = useState(true);
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    getCategoriesService(setCategoryData);
+    getCategoriesService(setCategoryData, setLoader);
   }, []);
 
   const handleCategoryClick = (e) => {
@@ -16,7 +17,6 @@ export default function CategoryFilter({ categories, filterDispatch }) {
   return (
     <div className="m-md1 m-rl0">
       <h5 className="fw-600">Category</h5>
-
       {categoryData.map((category) => (
         <div key={category._id} className="input-wrapper checkbox m-s m-rl0">
           <input
@@ -26,7 +26,9 @@ export default function CategoryFilter({ categories, filterDispatch }) {
             checked={categories.includes(category.categoryName)}
             onChange={handleCategoryClick}
           />
-          <label htmlFor={category.categoryName}>{ capitalizeFirstWordOfString(category.categoryName) }</label>
+          <label htmlFor={category.categoryName}>
+            {capitalizeFirstWordOfString(category.categoryName)}
+          </label>
         </div>
       ))}
     </div>
