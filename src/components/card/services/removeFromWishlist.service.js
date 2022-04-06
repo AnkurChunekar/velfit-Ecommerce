@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const removeFromWishlistService = async ({ token, product, wishlistDispatch }) => {
 
@@ -11,10 +12,12 @@ const removeFromWishlistService = async ({ token, product, wishlistDispatch }) =
                 type: "UPDATE_WISHLIST",
                 payload: { wishlist: response.data.wishlist }
             });
+            toast.info(product.title.slice(0, 13).trim() + "... Removed");
         } else {
             throw new Error(`Error occured having Status: ${response.status}`);
         }
     } catch (error) {
+        toast.error("Error Occured! Please Try Again.");
         console.error(error)
     }
 

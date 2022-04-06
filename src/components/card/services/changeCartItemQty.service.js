@@ -1,4 +1,6 @@
+
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const changeCartItemQtyService = async ({ setLoader, token, cartDispatch, changeType, product }) => {
 
@@ -11,10 +13,12 @@ const changeCartItemQtyService = async ({ setLoader, token, cartDispatch, change
                 type: "UPDATE_CART",
                 payload: { cart: response.data.cart },
             });
+            toast.info("UPDATING QUANTITY");
         } else {
             throw new Error(response.status, "<-- error code");
         }
     } catch (error) {
+        toast.error("Error Occured! Please Try Again.");
         console.error(error)
     } finally {
         setLoader(false);

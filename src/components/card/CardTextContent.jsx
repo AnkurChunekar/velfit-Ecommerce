@@ -40,10 +40,9 @@ export function CardTextContent({
           onClick={handleIncCartItemClick}
           name="decrement"
           className="qty-btn fs-3 p-xxs dec"
-          disabled={(quantity < 2 || loader)}
+          disabled={quantity < 2 || loader}
         >
-          {" "}
-          -{" "}
+          -
         </button>
         <span className="qty-num p-xxs"> {quantity} </span>
         <button
@@ -52,9 +51,7 @@ export function CardTextContent({
           name="increment"
           disabled={loader}
         >
-          {" "}
-          +{" "}
-          
+          +
         </button>
       </div>
       <div className={`rating s${ratingValue} fs-6`}>

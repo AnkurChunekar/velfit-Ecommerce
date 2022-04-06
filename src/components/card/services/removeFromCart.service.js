@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const removeFromCartService = async ({ token, cartDispatch, product }) => {
 
@@ -13,6 +14,7 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
                     type: "UPDATE_CART",
                     payload: { cart: response.data.cart },
                 });
+                toast.info(product.title.slice(0, 10).trim() + "... Removed to Cart");
                 break;
             case 404:
                 throw new Error(
@@ -22,7 +24,8 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
                 throw new Error("Unknown Error Occured!");
         }
     } catch (error) {
-        console.error(error)
+        toast.error("Error Occured! Please Try Again.");
+        console.error(error);
     }
 
 }

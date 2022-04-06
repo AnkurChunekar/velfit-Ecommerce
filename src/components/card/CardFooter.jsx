@@ -16,7 +16,6 @@ export function CardFooter({ product, inCart }) {
     if (user) {
       setLoader(true);
       const { cart } = cartState;
-
       if (!inCart) {
         const requestObj = {
           url: "/api/user/cart",
