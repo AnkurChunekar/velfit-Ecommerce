@@ -24,7 +24,7 @@ const removeFromCartService = async ({ token, cartDispatch, product }) => {
                 throw new Error("Unknown Error Occured!");
         }
     } catch (error) {
-        toast.error("Error Occured! Please Try Again.");
+        toast.error(error.response.data.errors[0])
         console.error(error);
     }
 

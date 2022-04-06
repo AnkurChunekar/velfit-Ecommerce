@@ -18,7 +18,7 @@ const addToCartService = async ({ url, body, token, successStatus, cartDispatch,
             throw new Error(response.status, "<-- error code");
         }
     } catch (error) {
-        toast.error("Error Occured! Please Try Again.");
+        toast.error(error.response.data.errors[0])
         console.error(error)
     } finally {
         setLoader(false);
