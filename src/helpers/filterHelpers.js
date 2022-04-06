@@ -1,39 +1,55 @@
 const sortData = (data, sortBy) => {
+  if (sortBy === "HIGH_TO_LOW") {
+    return [...data].sort((a, b) => b.price - a.price);
+  }
 
-    if (sortBy === "HIGH_TO_LOW") {
-        return [...data].sort((a, b) => b.price - a.price);
-    }
+  if (sortBy === "LOW_TO_HIGH") {
+    return [...data].sort((a, b) => a.price - b.price);
+  }
 
-    if (sortBy === "LOW_TO_HIGH") {
-        return [...data].sort((a, b) => a.price - b.price);
-    }
-
-    return data;
-}
+  return data;
+};
 
 const filterProductsUptoPriceRange = (data, maxPriceRange) => {
-    return data.filter(product => product.price < maxPriceRange);
-}
+  return data.filter((product) => product.price < maxPriceRange);
+};
 
 const categorizeData = (data, categories) => {
+  if (categories.length < 1) {
+    return data;
+  }
 
-    if (categories.length < 1) {
-        return data;
-    }
-    
-    return data.filter(p => categories.includes(p.categoryName));
-}
+  return data.filter((p) => categories.includes(p.categoryName));
+};
 
 const rateData = (data, rating) => {
-    return data.filter(p => p.rating >= rating)
-}
+  return data.filter((p) => p.rating >= rating);
+};
 
 const getOnlyFastDeliveryData = (data, fastDeliveryOnly) => {
-    return fastDeliveryOnly ? data.filter(p => p.isDeliveredFast) : data;
-}
+  return fastDeliveryOnly ? data.filter((p) => p.isDeliveredFast) : data;
+};
 
 const getStockData = (data, removeOutOfStock) => {
-    return removeOutOfStock ? data.filter(p => p.inStock) : data;
-}
+  return removeOutOfStock ? data.filter((p) => p.inStock) : data;
+};
 
-export { sortData, filterProductsUptoPriceRange, categorizeData, rateData, getOnlyFastDeliveryData, getStockData }
+const searchData = (data, searchValue) => {
+  if (searchValue) {
+    return data.filter((p) =>
+      p.title.toLowerCase().includes(searchValue.trim().toLowerCase())
+    );
+  }
+
+  return data;
+};
+
+export {
+  sortData,
+  filterProductsUptoPriceRange,
+  categorizeData,
+  rateData,
+  getOnlyFastDeliveryData,
+  getStockData,
+  searchData,
+};

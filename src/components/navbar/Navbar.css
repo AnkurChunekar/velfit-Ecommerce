@@ -55,6 +55,12 @@ a {
   right: -5px;
 }
 
+.nav-actions .search-btn,
+.search-box .search-btn {
+  background-color: transparent;
+  margin-right: var(--spacing-xxs);
+}
+
 @media screen and (max-width: 768px) {
   .navigation .nav-link {
     display: none;

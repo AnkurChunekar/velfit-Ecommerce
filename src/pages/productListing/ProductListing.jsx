@@ -12,12 +12,13 @@ import {
   rateData,
   getOnlyFastDeliveryData,
   getStockData,
+  searchData,
 } from "../../helpers/index";
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const { filterState } = useFilter();
+  const { filterState, filterDispatch } = useFilter();
 
   const {
     sortBy,
@@ -26,6 +27,7 @@ export default function ProductListing() {
     rating,
     removeOutOfStock,
     fastDeliveryOnly,
+    searchValue,
   } = filterState;
 
   const getProducts = () => {
@@ -44,7 +46,7 @@ export default function ProductListing() {
         }
       })();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -69,6 +71,8 @@ export default function ProductListing() {
 
   const sortedData = sortData(stockedData, sortBy);
 
+  const getSearchedData = searchData(sortedData, searchValue);
+
   return (
     <>
       <main className="product-listing-page">
@@ -82,12 +86,21 @@ export default function ProductListing() {
           ) : (
             <>
               <header className="m-xs m-rl0 center-align-text">
-                <div className="fs-">
-                  Showing all Products ({sortedData.length})
-                </div>
+                {searchValue === "" ? (
+                  <div className="fs-">
+                    Showing all Products ({getSearchedData.length})
+                  </div>
+                ) : (
+                  <div className="flex ai-center jc-space-b p-xs">
+                    <p>
+                      You Searched: <b> {searchValue} </b>
+                    </p>
+                    <button onClick={() => {filterDispatch({type:"RESET"})}} className="btn btn-secondary">Clear Search</button>
+                  </div>
+                )}
               </header>
               <div className="products-grid">
-                {sortedData.map((product) => (
+                {getSearchedData.map((product) => (
                   <Fragment key={product._id}>
                     <Card
                       product={product}

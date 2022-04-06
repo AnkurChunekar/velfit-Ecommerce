@@ -6,7 +6,8 @@ const filterReducer = (state, action) => {
         removeOutOfStock: false,
         fastDeliveryOnly: false,
         maxPriceRange: 10000,
-        categories: []
+        categories: [],
+        searchValue: ""
     }
 
     switch (action.type) {
@@ -27,6 +28,8 @@ const filterReducer = (state, action) => {
             return { ...state, removeOutOfStock: !state.removeOutOfStock };
         case "FAST_DELIVERY_ONLY":
             return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly };
+        case "SEARCH_PRODUCT":
+            return { ...state, searchValue: action.payload.searchValue };
         case "RESET":
             return initialState;
         default:
