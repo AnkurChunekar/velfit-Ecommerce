@@ -8,6 +8,7 @@ import {
   Login,
   Signup,
   User,
+  ErrorPage
 } from "./pages";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -41,6 +42,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/mock" element={<Mockman />} />
           <Route path="/user" element={<User />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
     </>
