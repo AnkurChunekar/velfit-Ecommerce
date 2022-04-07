@@ -1,70 +1,110 @@
 /* Cart style starts */
 
 .cart-management-page {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    column-gap: 3rem;
-    height: max-content;
-    padding: 1rem;
-    max-width: 1024px;
-    margin: auto;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  column-gap: 3rem;
+  height: max-content;
+  padding: 1rem;
+  max-width: 1024px;
+  margin: auto;
+}
+
+.cart-management-page .card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Card styles */
+
+.cart-management-page .card {
+  background-color: white;
+}
+
+.cart-management-page .card .price {
+  font-weight: 600;
+}
+
+/* order box starts */
+
+.cart-management-page .order-box ul {
+  border-radius: var(--sm-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.cart-management-page .order-box ul li {
+  font-size: 1.4rem;
+  padding: var(--spacing-xxs) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-management-page .order-box .checkout-btn {
+  width: 100%;
+}
+
+.card .ecom-qty {
+  align-items: center;
+}
+
+.card .ecom-qty .qty-btn {
+  padding: 3px 8px;
+}
+
+/* order box ends */
+
+/* Coupon */
+
+.apply-coupon-btn {
+  padding: 1rem;
+  border-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.apply-coupon-btn:hover {
+  background-color: #d1d1d1;
+}
+
+.coupon-modal {
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+}
+
+.coupon-modal .modal {
+  max-width: 400px;
+}
+
+.coupon-modal .radio {
+  border: solid 1px lightgray;
+  margin: 1rem 0rem;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding-left: 1rem;
+}
+
+.coupon-modal .radio label,
+.coupon-modal .radio input {
+  padding: 1rem;
+  display: inline-block;
+}
+
+.green-text {
+  color: green;
+}
+
+/* media query starts */
+
+@media screen and (max-width: 900px) {
+  .cart-management-page {
+    grid-template-columns: 1fr;
+    max-width: 435px;
+    row-gap: 2rem;
   }
-  
-  .cart-management-page .card-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  /* Card styles */
-  
-  .cart-management-page .card {
-    background-color: white;
-  }
-  
-  .cart-management-page .card .price {
-    font-weight: 600;
-  }
-  
-  /* order box starts */
-  
-  .cart-management-page .order-box ul {
-    border-radius: var(--sm-radius);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-  }
-  
-  .cart-management-page .order-box ul li {
-    font-size: 1.4rem;
-    padding: var(--spacing-xxs) 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .cart-management-page .order-box .checkout-btn {
-    width: 100%;
-  }
-  
-  .card .ecom-qty {
-    align-items: center;
-  }
-  
-  .card .ecom-qty .qty-btn {
-    padding: 3px 8px;
-  }
-  
-  /* order box ends */
-  
-  /* media query starts */
-  
-  @media screen and (max-width: 900px) {
-    .cart-management-page {
-      grid-template-columns: 1fr;
-      max-width: 435px;
-      row-gap: 2rem;
-    }
-  }
-  
-  /* media query ends */
-  
+}
+
+/* media query ends */

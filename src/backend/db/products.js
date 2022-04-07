@@ -52,7 +52,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "kipping Rope",
+    title: "Skipping Rope",
     description: "Tangle Free for Kids",
     categoryName: "accessories",
     price: 199,
