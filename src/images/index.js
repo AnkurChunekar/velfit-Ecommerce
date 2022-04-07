@@ -3,6 +3,7 @@ import categoryWeights from "./category-weights.png";
 import categoryAccessories from "./category-accessories.png";
 import categoryEquipments from "./category-equipments.png";
 import heroBanner from "./banner-image.webp";
+import logo from "./logo.jpg";
 
 // Product images
 import abRollerPI from "./product/ab-roller.jpg";
@@ -23,4 +24,4 @@ import squatRackPI from "./product/squat-rack.jpg";
 import waterBottlePI from "./product/water-bottle.jpeg";
 
 
-export { categorySupplements, categoryAccessories, categoryEquipments, categoryWeights, heroBanner, abRollerPI, waterBottlePI, legPressPI, pecDeckPI, platesPI, squatRackPI, jumpRopePI, latPulldownPI, dumbbellPI, onPI, mbPI, matPI, kettlebellPI, betaAlPI, bcaaPI, dumbbellsSetPI };
+export { categorySupplements, categoryAccessories, categoryEquipments, categoryWeights, logo, heroBanner, abRollerPI, waterBottlePI, legPressPI, pecDeckPI, platesPI, squatRackPI, jumpRopePI, latPulldownPI, dumbbellPI, onPI, mbPI, matPI, kettlebellPI, betaAlPI, bcaaPI, dumbbellsSetPI };

@@ -1,8 +1,12 @@
 import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context";
-import { cartPriceCalculator, handleCouponDiscount } from "../../helpers/cartHelpers";
+import {
+  cartPriceCalculator,
+  handleCouponDiscount,
+} from "../../helpers/cartHelpers";
 import { Card } from "../../components";
+import { OrderSummary } from "./components/OrderSummary";
 import "./CartManagement.css";
 
 export default function CartManagement() {
@@ -51,52 +55,13 @@ export default function CartManagement() {
                 </Fragment>
               ))}
             </section>
-            <section className="order-box">
-              <ul className="list list-style-none p-s">
-                <li>
-                  <button
-                    onClick={couponModalToggleClick}
-                    className="apply-coupon-btn"
-                  >
-                    <i className="fa-solid fa-tag"></i> Apply Coupons
-                  </button>
-                </li>
-                <li>
-                  <span>Price ({cart.length} items)</span>
-                  <span>₹ {price} </span>
-                </li>
-                <li>
-                  <span>Discount</span>
-                  <span> {selectedCoupon ? `${selectedCoupon}%` : "₹0"} </span>
-                </li>
-                <li>
-                  <span>Delivery Charge</span>
-                  <span>₹ 45</span>
-                </li>
-                <div className="divider" />
-                <li className="total">
-                  <strong>TOTAL AMOUNT</strong>
-                  <strong>
-                    ₹ {Number(finalCouponedPrice.toFixed(2)) + 45}
-                  </strong>
-                </li>
-                <div className="divider" />
-                <li>
-                  <span>
-                    You will save
-                    <span className="green-text m-xxs"> 
-                       ₹{price - finalCouponedPrice} 
-                     </span>
-                    on this order.
-                  </span>
-                </li>
-                <li>
-                  <button className="btn btn-primary checkout-btn">
-                    Checkout
-                  </button>
-                </li>
-              </ul>
-            </section>
+            <OrderSummary
+              cart={cart}
+              couponModalToggleClick={couponModalToggleClick}
+              price={price}
+              finalCouponedPrice={finalCouponedPrice}
+              selectedCoupon={selectedCoupon}
+            />
           </div>
         </>
       ) : (
