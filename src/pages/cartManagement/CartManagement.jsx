@@ -1,16 +1,31 @@
-import "./CartManagement.css";
+import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Fragment } from "react";
-import { Card } from "../../components";
 import { useCart } from "../../context";
-import { cartPriceCalculator } from "../../helpers/cartHelpers";
-
+import { cartPriceCalculator, handleCouponDiscount } from "../../helpers/cartHelpers";
+import { Card } from "../../components";
+import "./CartManagement.css";
 
 export default function CartManagement() {
+  const [selectedCoupon, setSelectedCoupon] = useState(0);
   const { cartState } = useCart();
   const { cart } = cartState;
   const { price } = cartPriceCalculator(cart);
-  
+  const [isCouponModalVisibile, setIsCouponModalVisible] = useState(false);
+
+  // Coupon Functionalities
+
+  const couponModalToggleClick = () => {
+    setIsCouponModalVisible((isCouponModalVisibile) => !isCouponModalVisibile);
+  };
+
+  useEffect(() => {
+    if (price < 5000 || (price < 10000 && selectedCoupon !== 10)) {
+      setSelectedCoupon(0);
+    }
+  }, [price, selectedCoupon]);
+
+  const finalCouponedPrice = handleCouponDiscount(price, selectedCoupon);
+
   return (
     <>
       {cart.length > 0 ? (
@@ -39,16 +54,12 @@ export default function CartManagement() {
             <section className="order-box">
               <ul className="list list-style-none p-s">
                 <li>
-                  <div className="input-wrapper bd-rad-sm input-w-btn flex flex-row ai-center">
-                    <input
-                      type="text"
-                      className="p-xxs input"
-                      placeholder="Apply Coupon Code.."
-                    />
-                    <button className="p-xxs primary-color-text input-btn">
-                      Apply
-                    </button>
-                  </div>
+                  <button
+                    onClick={couponModalToggleClick}
+                    className="apply-coupon-btn"
+                  >
+                    <i className="fa-solid fa-tag"></i> Apply Coupons
+                  </button>
                 </li>
                 <li>
                   <span>Price ({cart.length} items)</span>
@@ -56,7 +67,7 @@ export default function CartManagement() {
                 </li>
                 <li>
                   <span>Discount</span>
-                  <span>-₹ 100</span>
+                  <span> {selectedCoupon ? `${selectedCoupon}%` : "₹0"} </span>
                 </li>
                 <li>
                   <span>Delivery Charge</span>
@@ -65,11 +76,19 @@ export default function CartManagement() {
                 <div className="divider" />
                 <li className="total">
                   <strong>TOTAL AMOUNT</strong>
-                  <strong> ₹ {price - 100 -45} </strong>
+                  <strong>
+                    ₹ {Number(finalCouponedPrice.toFixed(2)) + 45}
+                  </strong>
                 </li>
                 <div className="divider" />
                 <li>
-                  <span>You will save ₹ 0 on this order.</span>
+                  <span>
+                    You will save
+                    <span className="green-text m-xxs"> 
+                       ₹{price - finalCouponedPrice} 
+                     </span>
+                    on this order.
+                  </span>
                 </li>
                 <li>
                   <button className="btn btn-primary checkout-btn">
@@ -88,6 +107,47 @@ export default function CartManagement() {
           </Link>
         </div>
       )}
+
+      {isCouponModalVisibile ? (
+        <div className="modal-container coupon-modal active">
+          <div className="modal m-md1 p-s">
+            <header className="">
+              <div className="modal-title fs-4 fw-600">Select Coupon</div>
+              <button onClick={couponModalToggleClick} className="btn-unset">
+                <i
+                  id="demo-modal-close-btn"
+                  className="fas fa-times close-icon fs-4"
+                ></i>
+              </button>
+            </header>
+            <section className="modal-body">
+              <div className={`radio ${price < 5000 ? "disabled" : ""} `}>
+                <input
+                  onChange={() => setSelectedCoupon(10)}
+                  checked={selectedCoupon === 10}
+                  type="radio"
+                  name="coupon"
+                  id="coupon-10"
+                  disabled={price < 5000 ? true : false}
+                />
+                <label htmlFor="coupon-10">FIT10 - 10% Off above ₹5000.</label>
+              </div>
+
+              <div className={`radio ${price < 10000 ? "disabled" : ""}`}>
+                <input
+                  onChange={() => setSelectedCoupon(15)}
+                  checked={selectedCoupon === 15}
+                  type="radio"
+                  name="coupon"
+                  id="coupon-15"
+                  disabled={price < 10000 ? true : false}
+                />
+                <label htmlFor="coupon-15">GYM15 - 15% Off above ₹10000.</label>
+              </div>
+            </section>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
