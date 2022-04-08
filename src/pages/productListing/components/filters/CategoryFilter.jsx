@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCategoriesService } from "../../../homepage/services/getCategories.service";
+import { getCategoriesService } from "../../../../services";
 import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
 export default function CategoryFilter({ categories, filterDispatch }) {

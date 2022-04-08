@@ -1,7 +1,7 @@
 // import { Razorpay } from "razorpay";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { removeFromCartService } from "../../../components/card/services";
+import { removeFromCartService } from "../../../services";
 import { useCart, useAuth } from "../../../context";
 import { logo } from "../../../images";
 

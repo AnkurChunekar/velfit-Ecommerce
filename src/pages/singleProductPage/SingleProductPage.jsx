@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart, useAuth, useWishlist } from "../../context";
-import { getProductService } from "./services/getProduct.service";
+import { getProductService } from "../../services";
 import { addToCartService, addToWishlistService, removeFromWishlistService } from "../../services";
 import { isItemInArrayOfObjects } from "../../helpers";
 import { CircularLoader } from "../../components";

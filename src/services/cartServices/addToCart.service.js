@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const addToCartService = async ({ product, token, cartDispatch, setLoader, setCtaBtnText = () => {} }) => {
+const addToCartService = async ({ product, token, cartDispatch, setLoader }) => {
 
     try {
         const response = await axios.post("/api/user/cart", { product }, {
@@ -12,7 +12,6 @@ const addToCartService = async ({ product, token, cartDispatch, setLoader, setCt
                 type: "UPDATE_CART",
                 payload: { cart: response.data.cart },
             });
-            setCtaBtnText("Go To Cart");
             toast.success(product.title.slice(0, 13).trim() + "... Added to Cart");
         } else {
             throw new Error(response.status, "<-- error code");

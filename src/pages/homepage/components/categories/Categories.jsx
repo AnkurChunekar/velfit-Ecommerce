@@ -1,6 +1,6 @@
 import "./Categories.css";
 import { useEffect, useState } from "react";
-import { getCategoriesService } from "../../services/getCategories.service";
+import { getCategoriesService } from "../../../../services";
 import { useFilter } from "../../../../context";
 import { useNavigate } from "react-router-dom";
 import { CircularLoader } from "../../../../components";

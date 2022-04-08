@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
 import { useAuth, useCart, useWishlist } from "../../context";
-import { loginService } from "./services/login.service";
+import { loginService } from "../../services";
 import { checkIfAllInputsAreNotEmpty } from "../../helpers";
 
 export default function Login() {
