@@ -1,6 +1,7 @@
-import { changeCartItemQtyService } from "./services/changeCartItemQty.service";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart, useAuth } from "../../context";
+import { changeCartItemQtyService } from "./services/changeCartItemQty.service";
 
 export function CardTextContent({
   title = "Velfit's Dumbbell",
@@ -31,6 +32,7 @@ export function CardTextContent({
   };
 
   return (
+    <Link to={`/products/${product._id}`}>
     <div className="card-text-content m-xs">
       <p className="card-title"> {title} </p>
       <p className="subtitle"> {description} </p>
@@ -63,5 +65,6 @@ export function CardTextContent({
         <span className="rating-info"> {ratingValue} </span>
       </div>
     </div>
+    </Link>
   );
 }

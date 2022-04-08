@@ -1,5 +1,7 @@
-import "./App.css";
-import { Navbar } from "./components";
+import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Mockman from "mockman-js";
 import {
   Homepage,
   ProductListing,
@@ -8,12 +10,11 @@ import {
   Login,
   Signup,
   User,
-  ErrorPage
+  ErrorPage,
+  SingleProductPage
 } from "./pages";
-import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import Mockman from "mockman-js";
-import 'react-toastify/dist/ReactToastify.css';
+import { Navbar } from "./components";
+import "./App.css";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/products" element={<ProductListing />} />
+          <Route path="/products/:productID" element={<SingleProductPage />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/cart" element={<CartManagement />} />
           <Route path="/login" element={<Login />} />
