@@ -1,10 +1,10 @@
-import "./Auth.css";
-import { Link, useNavigate } from "react-router-dom";
-import { TextInput, PasswordInput } from "./components";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../context";
 import { loginService } from "../../services";
 import { checkIfAllInputsAreNotEmpty } from "../../helpers";
+import { TextInput, PasswordInput } from "./components";
+import "./Auth.css";
 
 export default function Login() {
   const [userData, setUserData] = useState({

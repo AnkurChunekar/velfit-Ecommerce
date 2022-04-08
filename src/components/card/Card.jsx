@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { CardFooter } from "./CardFooter";
-import { CardTextContent } from "./CardTextContent";
-import { CardIcons } from "./CardIcons";
 import { useCart, useWishlist } from "../../context";
 import { isItemInArrayOfObjects } from "../../helpers";
+import { CardIcons } from "./CardIcons";
+import { CardFooter } from "./CardFooter";
+import { CardTextContent } from "./CardTextContent";
 import "./Card.css";
 
 function CardHeader({ cardImage, productID }) {

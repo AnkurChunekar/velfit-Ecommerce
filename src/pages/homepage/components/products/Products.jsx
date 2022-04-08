@@ -1,11 +1,11 @@
-import "./Products.css";
+import { Link } from "react-router-dom";
 import {
   kettlebellPI,
   bcaaPI,
   onPI,
   latPulldownPI,
 } from "../../../../images/index";
-import { Link } from "react-router-dom";
+import "./Products.css";
 
 export default function Products() {
   return (

@@ -1,6 +1,6 @@
-import "./Footer.css";
 import { Link } from "react-router-dom";
 import { ProductListing } from "../../pages";
+import "./Footer.css";
 
 export default function Footer() {
   return (

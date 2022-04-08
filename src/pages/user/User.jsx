@@ -1,7 +1,7 @@
-import "./User.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth, useCart, useWishlist } from "../../context";
 import { toast } from "react-toastify";
+import { useAuth, useCart, useWishlist } from "../../context";
+import "./User.css";
 
 export default function User() {
   const { authState, authDispatch } = useAuth();

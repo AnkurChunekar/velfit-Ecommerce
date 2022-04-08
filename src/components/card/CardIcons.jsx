@@ -1,8 +1,8 @@
-import { useCart, useAuth, useWishlist } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { removeFromCartService } from "../../services";
+import { useCart, useAuth, useWishlist } from "../../context";
 import {
+  removeFromCartService,
   addToWishlistService,
   removeFromWishlistService,
 } from "../../services";
