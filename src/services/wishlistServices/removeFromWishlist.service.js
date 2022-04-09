@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const removeFromWishlistService = async ({ token, product, wishlistDispatch }) => {
+const removeFromWishlistService = async ({ token, product, wishlistDispatch, setIsWishlistBtnLoading = () => {} }) => {
 
     try {
         const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
@@ -19,6 +19,8 @@ const removeFromWishlistService = async ({ token, product, wishlistDispatch }) =
     } catch (error) {
         toast.error(error.response.data.errors[0])
         console.error(error)
+    } finally {
+        setIsWishlistBtnLoading(false);
     }
 
 }

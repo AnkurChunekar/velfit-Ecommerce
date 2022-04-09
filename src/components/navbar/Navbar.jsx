@@ -1,7 +1,7 @@
-import "./Navbar.css";
-import { Link, useLocation } from "react-router-dom";
-import { useAuth, useCart, useWishlist, useFilter } from "../../context/index";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth, useCart, useWishlist, useFilter } from "../../context";
+import "./Navbar.css";
 
 export default function Navbar() {
   const [isHamMenuVisible, setIsHamMenuVisible] = useState(false);

@@ -1,11 +1,11 @@
+import {useState} from "react";
+import { useFilter } from "../../../context";
 import FilterHeader from "./filters/FilterHeader";
 import SortFilter from "./filters/SortFilter";
 import RatingFilter from "./filters/RatingFilter";
 import PriceFilter from "./filters/PriceFilter";
 import CategoryFilter from "./filters/CategoryFilter";
 import OtherFilters from "./filters/OtherFilters";
-import { useFilter } from "../../../context/index";
-import {useState} from "react";
 
 export default function Filters() {
   const { filterState, filterDispatch } = useFilter();

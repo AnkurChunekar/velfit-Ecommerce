@@ -1,8 +1,4 @@
-import "./ProductListing.css";
-import { Card, CircularLoader } from "../../components";
-import Filters from "./components/Filters";
-import { Fragment } from "react/cjs/react.production.min";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import { useFilter } from "../../context";
 import {
@@ -14,6 +10,9 @@ import {
   getStockData,
   searchData,
 } from "../../helpers/index";
+import Filters from "./components/Filters";
+import { Card, CircularLoader } from "../../components";
+import "./ProductListing.css";
 
 export default function ProductListing() {
   const [productData, setProductData] = useState([]);

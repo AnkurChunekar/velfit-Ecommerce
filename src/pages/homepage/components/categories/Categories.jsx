@@ -1,9 +1,9 @@
-import "./Categories.css";
 import { useEffect, useState } from "react";
-import { getCategoriesService } from "../../services/getCategories.service";
-import { useFilter } from "../../../../context";
 import { useNavigate } from "react-router-dom";
+import { useFilter } from "../../../../context";
+import { getCategoriesService } from "../../../../services";
 import { CircularLoader } from "../../../../components";
+import "./Categories.css";
 
 export default function Categories() {
   const [categoryData, setCategoryData] = useState([]);

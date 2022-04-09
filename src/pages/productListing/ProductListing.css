@@ -53,7 +53,7 @@
 
 .filters-container input[type="checkbox"],
 .filters-container input[type="radio"] {
-    margin-right: var(--spacing-xxs);
+  margin-right: var(--spacing-xxs);
 }
 
 /* Loader Container */
@@ -97,13 +97,5 @@
 
   .filters-close-btn {
     display: inline-block;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .product-listing .products-grid {
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
-    padding: 0;
   }
 }

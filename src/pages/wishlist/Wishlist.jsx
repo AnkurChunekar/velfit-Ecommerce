@@ -1,8 +1,8 @@
-import "./Wishlist.css";
-import { Link } from "react-router-dom";
-import { Card } from "../../components";
-import { useWishlist, useCart } from "../../context";
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { useWishlist } from "../../context";
+import { Card } from "../../components";
+import "./Wishlist.css";
 
 export default function Wishlist() {
   const {

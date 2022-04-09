@@ -1,32 +1,26 @@
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth, useCart } from "../../context";
-import { addToCartService } from "./services/addToCart.service";
+import { addToCartService } from "../../services";
 
 export function CardFooter({ product, inCart }) {
   const navigate = useNavigate();
   const { authState } = useAuth();
   const { user, token } = authState;
-  const { cartState, cartDispatch } = useCart();
+  const { cartDispatch } = useCart();
 
   const [loader, setLoader] = useState(false);
-  const [ctaBtnText, setCtaBtnText] = useState(inCart ? "Go To Cart" : "Add To Cart");
 
   const handleCtaBtnClick = () => {
     if (user) {
       setLoader(true);
-      const { cart } = cartState;
       if (!inCart) {
-        const requestObj = {
-          url: "/api/user/cart",
-          body: { product },
-          successStatus: 201,
+        addToCartService({
+          product,
           token,
           cartDispatch,
           setLoader,
-          setCtaBtnText,
-        };
-        addToCartService(requestObj);
+        });
       } else {
         navigate("/cart");
       }
@@ -40,9 +34,9 @@ export function CardFooter({ product, inCart }) {
       <button
         disabled={loader}
         onClick={handleCtaBtnClick}
-        className={`btn btn-primary ${ctaBtnText !== "Add To Cart" ? "btn-outline" : ""} `}
+        className={`btn btn-primary ${inCart ? "btn-outline" : ""} `}
       >
-        {loader ? "Adding..." : ctaBtnText}
+        {loader ? "Adding..." : inCart ? "Go To Cart" : "Add To Cart"}
       </button>
     </footer>
   );
