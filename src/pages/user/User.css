@@ -1,0 +1,57 @@
+.user-page .tab-header {
+  padding: 2rem 1rem 0 1rem;
+  border-bottom: solid 1px lightgray;
+  color: gray;
+}
+
+.user-page .tab-header .tab-name {
+  color: gray;
+}
+
+.user-page .tab-header .tab-name.active {
+  border-bottom: solid 3.5px var(--primary-color);
+  color: black;
+}
+.user-page .tab-container {
+  max-width: 396px;
+  margin: 2rem auto;
+}
+
+/* Address Tab */
+
+.addresses-tab {
+  max-width: 1280px;
+  margin: 2rem auto;
+}
+
+.address-wrapper {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 275px);
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
+
+.address-wrapper .add-btn {
+  border: dashed 2px rgb(173, 173, 173);
+  border-radius: 5px;
+  min-height: 215px;
+}
+
+.address-wrapper .address {
+  border: solid 1.5px rgb(173, 173, 173);
+  border-radius: 5px;
+  row-gap: 1rem;
+}
+
+.address button {
+  color: #3275d9;
+}
+
+.address button:hover {
+  text-decoration: underline;
+}
+
+.address-modal .modal {
+  width: 50rem;
+}

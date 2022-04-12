@@ -62,3 +62,7 @@
 .loader-container {
   min-height: 60vh;
 }
+
+.fs-14px {
+  font-size: 14px;
+}
