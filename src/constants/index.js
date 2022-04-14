@@ -1,0 +1,1 @@
+export { addressModalInputData } from "./addressModalInputData";

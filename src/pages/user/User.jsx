@@ -1,30 +1,50 @@
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useAuth, useCart, useWishlist } from "../../context";
+import { useState } from "react";
+import { v4 as uuid } from "uuid";
+import { ProfileTab, AddressesTab, SettingsTab, OrdersTab } from "./components";
 import "./User.css";
 
-export default function User() {
-  const { authState, authDispatch } = useAuth();
-  const navigate = useNavigate();
-  const { user, token } = authState;
-  const { cartDispatch } = useCart();
-  const { wishlistDispatch } = useWishlist();
+const tabButtonData = [
+  { id: uuid(), tabName: "Profile" },
+  { id: uuid(), tabName: "Addresses" },
+  { id: uuid(), tabName: "Orders" },
+  { id: uuid(), tabName: "Settings" },
+];
 
-  const handleLogoutClick = () => {
-    toast.success("Logout Successfull!");
-    navigate("/");
-    localStorage.removeItem("token");
-    authDispatch({ type: "LOGOUT" });
-    cartDispatch({ type: "RESET" });
-    wishlistDispatch({ type: "RESET" });
+export default function User() {
+  const [currentTab, setCurrentTab] = useState("profile");
+
+  const getCurrentTab = () => {
+    switch (currentTab) {
+      case "profile":
+        return <ProfileTab />;
+      case "addresses":
+        return <AddressesTab />;
+      case "orders":
+        return <OrdersTab />;
+      case "settings":
+        return <SettingsTab />;
+      default:
+        return <ProfileTab />;
+    }
   };
 
   return (
-    <div className="user-page center-align-text">
-      <h1> Hello, {user.firstName} </h1>
-      <button className="btn btn-danger" onClick={handleLogoutClick}>
-        Logout
-      </button>
+    <div className="user-page">
+      <header className="tab-header w-100pc center-align-text">
+        {tabButtonData.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setCurrentTab(item.tabName.toLowerCase())}
+            className={`tab-name p-s btn-unset ${
+              currentTab === item.tabName.toLowerCase() ? "active" : ""
+            }`}
+          >
+            {item.tabName}
+          </button>
+        ))}
+      </header>
+
+      {getCurrentTab()}
     </div>
   );
 }
