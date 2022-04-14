@@ -110,6 +110,8 @@
 .order-summary {
   border-radius: 5px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  max-width: 396px;
+  margin: 0 auto;
 }
 
 .order-summary .img-responsive {

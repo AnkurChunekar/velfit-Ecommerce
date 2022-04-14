@@ -4,7 +4,12 @@ import { useCart, useAuth, useOrder } from "../../../context";
 import { removeFromCartService } from "../../../services";
 import { logo } from "../../../images";
 
-const OrderSummary = ({ finalCouponedPrice, price, selectedCoupon, setCurrentCartStep }) => {
+const OrderSummary = ({
+  finalCouponedPrice,
+  price,
+  selectedCoupon,
+  setCurrentCartStep,
+}) => {
   const navigate = useNavigate();
   const {
     cartState: { cart },
@@ -77,10 +82,7 @@ const OrderSummary = ({ finalCouponedPrice, price, selectedCoupon, setCurrentCar
   };
 
   return (
-    <div
-      className="p-xs order-summary"
-      style={{ maxWidth: "396px", margin: "0 auto" }}
-    >
+    <div className="p-xs order-summary">
       <section className="divider">
         <p className="fw-600 p-xxxs p-rl0"> Order Summary: </p>
         {cart.map((item) => (
@@ -117,7 +119,9 @@ const OrderSummary = ({ finalCouponedPrice, price, selectedCoupon, setCurrentCar
 
       <table className="p-xs p-rl0 divider w-100pc">
         <thead>
-          <th className="fw-600 p-xxxs p-rl0 left-align-text"> Price Details: </th>
+          <th className="fw-600 p-xxxs p-rl0 left-align-text">
+            Price Details:
+          </th>
         </thead>
         <tbody className="fs-14px">
           <tr>
@@ -147,7 +151,10 @@ const OrderSummary = ({ finalCouponedPrice, price, selectedCoupon, setCurrentCar
         Place Order
       </button>
 
-      <button onClick={() => setCurrentCartStep("2")} className="btn btn-secondary w-100pc">
+      <button
+        onClick={() => setCurrentCartStep("2")}
+        className="btn btn-secondary w-100pc"
+      >
         Back
       </button>
     </div>
