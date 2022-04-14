@@ -15,7 +15,7 @@ export default function ErrorPage() {
 
         <Link to={"/"}>
           <button className="btn btn-primary">
-            <i class="fa-solid fa-arrow-left m-xxxs"></i> Go To Homepage
+            <i className="fa-solid fa-arrow-left m-xxxs"></i> Go To Homepage
           </button>
         </Link>
       </div>

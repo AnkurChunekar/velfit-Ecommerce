@@ -79,7 +79,8 @@
   max-width: 400px;
 }
 
-.coupon-modal .radio {
+.coupon-modal .radio,
+.delivery-address .radio {
   border: solid 1px lightgray;
   margin: 1rem 0rem;
   background-color: #f5f5f5;
@@ -97,7 +98,31 @@
   color: green;
 }
 
-/* media query starts */
+/* Delivery Address */
+
+.delivery-address {
+  max-width: 396px;
+  margin: 2rem auto;
+}
+
+/* Order summary */
+
+.order-summary {
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-summary .img-responsive {
+  max-width: 65px;
+  border: solid lightgray 1.5px;
+  border-radius: 5px;
+}
+
+.order-summary .btn {
+  margin-top: 1rem;
+}
+
+/* Media Queries */
 
 @media screen and (max-width: 900px) {
   .cart-management-page {
@@ -106,5 +131,3 @@
     row-gap: 2rem;
   }
 }
-
-/* media query ends */

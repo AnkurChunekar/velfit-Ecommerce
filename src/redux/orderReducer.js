@@ -1,5 +1,17 @@
 const initialOrderState = {
-  addresses: [],
+  addresses: [
+    {
+      id: "address1",
+      country: "India",
+      name: "John Doe",
+      city: "Mumbai",
+      address: "E045 , B.S Ring Road, Near Taj Hotel - 4th Floor, Osho Kabir",
+      state: "Maharashtra",
+      zipcode: "784411",
+      mobile: "8877665544",
+    },
+  ],
+  deliveryAddress: null,
 };
 
 const orderReducer = (state, action) => {
@@ -22,6 +34,12 @@ const orderReducer = (state, action) => {
         addresses: state.addresses.filter(
           (item) => item.id !== action.payload.id
         ),
+      };
+    case "UPDATE_DELIVERY_ADDRESS":
+      return {
+        ...initialOrderState,
+        addresses: [...state.addresses],
+        deliveryAddress: action.payload.selectedAddress,
       };
     default:
       return state;

@@ -66,3 +66,11 @@
 .fs-14px {
   font-size: 14px;
 }
+
+.address-modal {
+  z-index: 10;
+}
+
+.m-left-auto {
+  margin-left: auto;
+}

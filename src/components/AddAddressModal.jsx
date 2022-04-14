@@ -7,8 +7,8 @@ import { TextInput } from "../pages/authentication/components/TextInput";
 
 export function AddAddressModal({
   setIsAddressModalVisible,
-  editAddressObj,
-  setEditAddressObj,
+  editAddressObj = { isEditMode: false, id: null },
+  setEditAddressObj = () => {},
 }) {
   const {
     orderState: { addresses },
