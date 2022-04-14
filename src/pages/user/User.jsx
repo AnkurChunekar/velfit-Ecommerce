@@ -1,7 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
-import { useAuth, useCart, useWishlist } from "../../context";
 import { ProfileTab } from "./components/ProfileTab";
 import { AddressesTab } from "./components/AddressesTab";
 import { SettingsTab } from "./components/SettingsTab";
@@ -10,20 +7,6 @@ import "./User.css";
 
 export default function User() {
   const [currentTab, setCurrentTab] = useState("profile");
-  const { authState, authDispatch } = useAuth();
-  const navigate = useNavigate();
-  // const { user, token } = authState;
-  const { cartDispatch } = useCart();
-  const { wishlistDispatch } = useWishlist();
-
-  // const handleLogoutClick = () => {
-  //   toast.success("Logout Successfull!");
-  //   navigate("/");
-  //   localStorage.removeItem("token");
-  //   authDispatch({ type: "LOGOUT" });
-  //   cartDispatch({ type: "RESET" });
-  //   wishlistDispatch({ type: "RESET" });
-  // };
 
   const getCurrentTab = () => {
     switch (currentTab) {
