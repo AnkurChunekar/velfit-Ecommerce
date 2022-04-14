@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
 import { useOrder } from "../context";
 import { checkIfAllInputsAreNotEmpty } from "../helpers";
+import { addressModalInputData } from "../constants";
 import { TextInput } from "../pages/authentication/components/TextInput";
 
 export function AddAddressModal({
@@ -81,75 +82,19 @@ export function AddAddressModal({
           </button>
         </header>
         <section className="modal-body p-s">
-          <TextInput
-            labelText="Full Name"
-            id="name"
-            name="name"
-            placeholder="John Doe"
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="text"
-          />
-
-          <TextInput
-            labelText="Address"
-            id="address"
-            name="address"
-            placeholder="E045 , B.S Ring Road, Near Taj Hotel - 4th Floor, Osho...."
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="text"
-          />
-
-          <TextInput
-            labelText="City"
-            id="city"
-            name="city"
-            placeholder="Mumbai"
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="text"
-          />
-
-          <TextInput
-            labelText="State"
-            id="state"
-            name="state"
-            placeholder="Maharashtra"
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="text"
-          />
-
-          <TextInput
-            labelText="Country"
-            id="country"
-            name="country"
-            placeholder="India"
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="text"
-          />
-
-          <TextInput
-            labelText="Zipcode"
-            id="zipcode"
-            name="zipcode"
-            placeholder="784411"
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="number"
-          />
-
-          <TextInput
-            labelText="Mobile Number"
-            id="mobile"
-            name="mobile"
-            placeholder="8877665544"
-            userData={userInputData}
-            setUserData={setUserInputData}
-            type="number"
-          />
+          {addressModalInputData.map((item) => (
+            <Fragment key={item.id}>
+              <TextInput
+                labelText={item.labelText}
+                id={item.name}
+                name={item.name}
+                placeholder={item.placeholder}
+                userData={userInputData}
+                setUserData={setUserInputData}
+                type="text"
+              />
+            </Fragment>
+          ))}
         </section>
         <footer className="modal-actions p-s">
           <button onClick={addDummyAddress} className="btn btn-secondary">
