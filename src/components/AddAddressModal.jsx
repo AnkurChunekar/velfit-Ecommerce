@@ -73,15 +73,15 @@ export function AddAddressModal({
   };
 
   return (
-    <div className="modal-container flex flex-center address-modal active">
+    <div className="modal-container flex jc-center address-modal active">
       <div className="modal m-md1">
-        <header className="p-s">
+        <header className="p-xs">
           <div className="modal-title fs-3 fw-600"> Add New Address </div>
           <button onClick={closeAddressModal} className="btn-unset">
             <i className="fas fa-times close-icon fs-3"></i>
           </button>
         </header>
-        <section className="modal-body p-s">
+        <section className="modal-body ">
           {addressModalInputData.map((item) => (
             <Fragment key={item.id}>
               <TextInput
@@ -96,7 +96,7 @@ export function AddAddressModal({
             </Fragment>
           ))}
         </section>
-        <footer className="modal-actions p-s">
+        <footer className="modal-actions p-xs">
           <button onClick={addDummyAddress} className="btn btn-secondary">
             Dummy Address
           </button>

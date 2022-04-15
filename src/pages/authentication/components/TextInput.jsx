@@ -1,9 +1,15 @@
 export function TextInput({
-  labelText, id, name, placeholder, type, setUserData, userData,
+  labelText,
+  id,
+  name,
+  placeholder,
+  type,
+  setUserData,
+  userData,
 }) {
   return (
     <div className="input-wrapper m-xxxs m-rl0">
-      <label htmlFor={id}> {labelText} </label>
+      {labelText ? <label htmlFor={id}> {labelText} </label> : null}
       <input
         type={type}
         id={id}
@@ -12,7 +18,8 @@ export function TextInput({
         onChange={(e) => setUserData({ ...userData, [name]: e.target.value })}
         value={userData[name]}
         className="input p-xxs m-xxs m-rl0 bd-rad-sm"
-        required />
+        required
+      />
     </div>
   );
 }

@@ -59,4 +59,12 @@
 
 .address-modal .modal {
   width: 50rem;
+  height: auto;
+  max-height: 550px;
+  margin-top: 5rem;
+  overflow: auto;
+}
+
+.address-modal .modal .modal-body {
+  padding: 0 1.5rem;
 }
