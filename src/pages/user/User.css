@@ -3,6 +3,10 @@
   --celtic-blue: #3275d9;
 }
 
+.user-page {
+  margin: 0 1rem;
+}
+
 .user-page .tab-header {
   padding: 2rem 1rem 0 1rem;
   border-bottom: solid 1px var(--plain-lightgray);
