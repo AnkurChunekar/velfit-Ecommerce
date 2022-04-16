@@ -89,7 +89,11 @@ export function OrdersTab() {
   } = useOrder();
   return (
     <div className="orders-tab flex flex-column">
-      <h3 className="fw-600 fs-4 center-align-text"> My Orders </h3>
+      <h3 className="fw-600 fs-4 center-align-text">
+        {prevOrders.length > 0
+          ? "My Orders"
+          : "You Haven't Placed an Order Yet!"}
+      </h3>
       {prevOrders.map((item) => (
         <Fragment key={item._id}>
           <Order orderObj={item} />

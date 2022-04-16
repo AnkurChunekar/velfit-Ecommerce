@@ -70,7 +70,7 @@ const OrderSummary = ({
             });
           });
           toast.success("Order Placed Successfully");
-          navigate("/products");
+          navigate("/user");
         },
       };
       const rzp1 = new window.Razorpay(options);
