@@ -5,31 +5,31 @@ import { AddAddressModal } from "../../../components";
 
 function Address({ addressObj, selectedAddress, setSelectedAddress }) {
   const {
-    id,
+    _id,
     country = "",
     name = "",
     city = "",
-    address = "",
+    street = "",
     state = "",
-    zipcode = "",
+    zipCode = "",
     mobile = "",
   } = addressObj;
 
   return (
     <div className="radio flex c-gap-1rem p-xs">
       <input
-        checked={selectedAddress.id === id}
+        checked={selectedAddress._id === _id}
         onChange={() => setSelectedAddress(addressObj)}
         className="m-xxs m-rl0"
         type="radio"
         name="address"
-        id={id}
+        id={_id}
       />
-      <label htmlFor={id}>
+      <label htmlFor={_id}>
         <h5 className="m-xxxs m-rl0"> {name} </h5>
-        <p className="fs-14px">{address}</p>
+        <p className="fs-14px">{street}</p>
         <span className="fs-14px">
-          {city}, {state}, {zipcode}
+          {city}, {state}, {zipCode}
         </span>
         <p className="fs-14px"> {country} </p>
         <span className="fs-14px"> Mobile: {mobile} </span>
@@ -58,7 +58,7 @@ export function DeliveryAddress({ setCurrentCartStep }) {
   return (
     <div className="delivery-address">
       {addresses.map((item) => (
-        <Fragment key={item.id}>
+        <Fragment key={item._id}>
           <Address
             selectedAddress={selectedAddress}
             setSelectedAddress={setSelectedAddress}

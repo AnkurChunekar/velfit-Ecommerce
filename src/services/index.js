@@ -7,3 +7,6 @@ export { loginService } from "./authServices/login.service";
 export { signupService } from "./authServices/signup.service";
 export { getCategoriesService } from "./getDataServices/getCategories.service";
 export { getProductService } from "./getDataServices/getProduct.service";
+export { addNewAddressService } from "./addressServices/addNewAddress.service";
+export { editAddressService } from "./addressServices/editAddress.service";
+export { deleteAddressService } from "./addressServices/deleteAddress.service";

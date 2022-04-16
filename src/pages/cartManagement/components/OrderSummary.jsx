@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useCart, useAuth, useOrder } from "../../../context";
 import { removeFromCartService } from "../../../services";
 import { logo } from "../../../images";
+import { v4 as uuid } from "uuid";
 
 const OrderSummary = ({
   finalCouponedPrice,
@@ -22,6 +23,7 @@ const OrderSummary = ({
 
   const {
     orderState: { deliveryAddress },
+    orderDispatch,
   } = useOrder();
 
   const placeOrder = async () => {
@@ -45,16 +47,30 @@ const OrderSummary = ({
         notes: { address: "Razorpay Corporate Office" },
         theme: { color: "#1573ff" },
         handler: function (response) {
-          cart.map((product) =>
+          orderDispatch({
+            type: "ADD_TO_PREVIOUS_ORDERS",
+            payload: {
+              orderDetails: {
+                _id: uuid(),
+                date: new Date().toDateString(),
+                price,
+                finalCouponedPrice,
+                selectedCoupon,
+                deliveryAddress,
+                cart,
+              },
+            },
+          });
+          cart.map((product) => {
             removeFromCartService({
               token,
               cartDispatch,
               product,
               finalOrder: true,
-            })
-          );
-          navigate("/products");
+            });
+          });
           toast.success("Order Placed Successfully");
+          navigate("/user");
         },
       };
       const rzp1 = new window.Razorpay(options);
@@ -119,30 +135,26 @@ const OrderSummary = ({
 
       <table className="p-xs p-rl0 divider w-100pc">
         <thead>
-          <th className="fw-600 p-xxxs p-rl0 left-align-text">
-            Price Details:
-          </th>
+          <tr className="fw-600 p-xxxs p-rl0 left-align-text"><td>Price Details:</td></tr>
         </thead>
         <tbody className="fs-14px">
           <tr>
             <td className="p-xxxs p-rl0">Price ({cart.length} items)</td>
-            <td>₹ {price} </td>
+            <td>₹ {price}</td>
           </tr>
           <tr>
             <td className="p-xxxs p-rl0"> Discount </td>
-            <td> {selectedCoupon ? `${selectedCoupon}%` : "-"} </td>
+            <td>{selectedCoupon ? `${selectedCoupon}%` : "-"}</td>
           </tr>
           <tr>
-            <td className="p-xxxs p-rl0"> Delivery Charge </td>
-            <td> ₹45 </td>
+            <td className="p-xxxs p-rl0">Delivery Charge</td>
+            <td>₹45</td>
           </tr>
         </tbody>
         <tfoot className="fs-14px">
           <tr>
-            <td className="p-xxxs p-rl0 fw-600"> Total Amount </td>
-            <td className="fw-600">
-              ₹ {Number(finalCouponedPrice.toFixed(0)) + 45}
-            </td>
+            <td className="p-xxxs p-rl0 fw-600">Total Amount</td>
+            <td className="fw-600">₹ {Number(finalCouponedPrice.toFixed(0)) + 45}</td>
           </tr>
         </tfoot>
       </table>

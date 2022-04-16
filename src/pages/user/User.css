@@ -3,6 +3,10 @@
   --celtic-blue: #3275d9;
 }
 
+.user-page {
+  margin: 0 1rem;
+}
+
 .user-page .tab-header {
   padding: 2rem 1rem 0 1rem;
   border-bottom: solid 1px var(--plain-lightgray);
@@ -22,6 +26,10 @@
   margin: 2rem auto;
 }
 
+.user-page .tab-header > .tab-name-container {
+ max-width: 396px;
+ margin: 0 auto;
+}
 /* Address Tab */
 
 .addresses-tab {
@@ -59,4 +67,21 @@
 
 .address-modal .modal {
   width: 50rem;
+  height: auto;
+  max-height: 550px;
+  margin-top: 5rem;
+  overflow: auto;
 }
+
+.address-modal .modal .modal-body {
+  padding: 0 1.5rem;
+}
+
+/* Orders Tab */
+
+.orders-tab {
+  max-width: 396px;
+  margin: 2rem auto;
+  row-gap: 3rem;
+}
+
