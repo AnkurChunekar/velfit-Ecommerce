@@ -72,3 +72,12 @@
 .address-modal .modal .modal-body {
   padding: 0 1.5rem;
 }
+
+/* Orders Tab */
+
+.orders-tab {
+  max-width: 396px;
+  margin: 2rem auto;
+  row-gap: 3rem;
+}
+

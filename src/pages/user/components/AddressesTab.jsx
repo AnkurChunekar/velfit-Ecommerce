@@ -63,7 +63,7 @@ export function AddressesTab() {
 
   return (
     <div className="addresses-tab">
-      <h3 className="fw-600 fs-4 m-s center-align-text"> Your Addresses </h3>
+      <h3 className="fw-600 fs-4 m-s center-align-text"> My Addresses </h3>
 
       <div className="address-wrapper flex flex-row">
         <button

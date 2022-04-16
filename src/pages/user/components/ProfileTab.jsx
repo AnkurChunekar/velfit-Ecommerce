@@ -19,7 +19,7 @@ export function ProfileTab() {
 
   return (
     <div className="tab-container profile">
-      <h2 className="fw-600 fs-4 m-s m-rl0"> Personal Information </h2>
+      <h2 className="fw-600 fs-4 m-s m-rl0 center-align-text"> My Profile </h2>
 
       <div className="input-wrapper m-xxs m-rl0">
         <label className="text"> Full Name </label>

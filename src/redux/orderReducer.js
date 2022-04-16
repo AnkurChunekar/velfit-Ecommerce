@@ -1,21 +1,35 @@
+import { cloneDeep } from "lodash";
+
 const initialOrderState = {
   addresses: [],
   deliveryAddress: null,
+  prevOrders: [],
+};
+
+const deepCloneAndUpdate = (object, propertyName, propertyValue) => {
+  const copiedObject = cloneDeep(object);
+  copiedObject[propertyName] = propertyValue;
+  return copiedObject;
 };
 
 const orderReducer = (state, action) => {
   switch (action.type) {
     case "UPDATE_ADDRESSES":
-      return {
-        ...initialOrderState,
-        addresses: action.payload.addresses,
-      };
+      return deepCloneAndUpdate(state, "addresses", action.payload.addresses);
+
     case "UPDATE_DELIVERY_ADDRESS":
-      return {
-        ...initialOrderState,
-        addresses: [...state.addresses],
-        deliveryAddress: action.payload.selectedAddress,
-      };
+      return deepCloneAndUpdate(
+        state,
+        "deliveryAddress",
+        action.payload.selectedAddress
+      );
+
+    case "ADD_TO_PREVIOUS_ORDERS":
+      return deepCloneAndUpdate(state, "prevOrders", [
+        action.payload.orderDetails,
+        ...state.prevOrders,
+      ]);
+
     default:
       return state;
   }
