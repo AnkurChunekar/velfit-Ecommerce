@@ -1,35 +1,38 @@
 import { useState, Fragment } from "react";
-import { useOrder } from "../../../context";
+import { useOrder, useAuth } from "../../../context";
 import { AddAddressModal } from "../../../components/AddAddressModal";
+import { deleteAddressService } from "../../../services";
+
 
 function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj }) {
   const { orderDispatch } = useOrder();
+  const { authState: {token} } = useAuth();
   const {
-    id,
+    _id,
     country = "",
     name = "",
     city = "",
-    address = "",
+    street = "",
     state = "",
-    zipcode = "",
+    zipCode = "",
     mobile = "",
   } = addressObj;
 
   const deleteAddressClick = () => {
-    orderDispatch({ type: "DELETE_ADDRESS", payload: { id } });
+    deleteAddressService({token, _id, orderDispatch});
   };
 
   const editAddressClick = () => {
     setIsAddressModalVisible(true);
-    setEditAddressObj({ isEditMode: true, id });
+    setEditAddressObj({ isEditMode: true, _id });
   };
 
   return (
     <div className="address p-s flex flex-column">
       <b> {name} </b>
-      <p className="fs-14px"> {address} </p>
+      <p className="fs-14px"> {street} </p>
       <p className="fs-14px">
-        {city}, {state}, {zipcode}
+        {city}, {state}, {zipCode}
       </p>
       <p className="fs-14px"> {country} </p>
       <span className="fs-14px"> Mobile: {mobile} </span>
@@ -71,7 +74,7 @@ export function AddressesTab() {
           <div className="m-xs"> Add Address </div>
         </button>
         {addresses.map((item) => (
-          <Fragment key={item.id}>
+          <Fragment key={item._id}>
             <Address
               setEditAddressObj={setEditAddressObj}
               setIsAddressModalVisible={setIsAddressModalVisible}

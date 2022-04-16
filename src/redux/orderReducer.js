@@ -1,21 +1,15 @@
 const initialOrderState = {
-  addresses: [
-    {
-      id: "address1",
-      country: "India",
-      name: "John Doe",
-      city: "Mumbai",
-      address: "E045 , B.S Ring Road, Near Taj Hotel - 4th Floor, Osho Kabir",
-      state: "Maharashtra",
-      zipcode: "784411",
-      mobile: "8877665544",
-    },
-  ],
+  addresses: [],
   deliveryAddress: null,
 };
 
 const orderReducer = (state, action) => {
   switch (action.type) {
+    case "UPDATE_ADDRESSES":
+      return {
+        ...initialOrderState,
+        addresses: action.payload.addresses,
+      };
     case "ADD_ADDRESS":
       return {
         ...initialOrderState,

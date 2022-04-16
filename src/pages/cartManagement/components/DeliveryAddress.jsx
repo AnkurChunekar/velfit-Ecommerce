@@ -58,7 +58,7 @@ export function DeliveryAddress({ setCurrentCartStep }) {
   return (
     <div className="delivery-address">
       {addresses.map((item) => (
-        <Fragment key={item.id}>
+        <Fragment key={item._id}>
           <Address
             selectedAddress={selectedAddress}
             setSelectedAddress={setSelectedAddress}

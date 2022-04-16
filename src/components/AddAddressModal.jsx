@@ -1,14 +1,15 @@
 import { useState, Fragment } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
-import { useOrder } from "../context";
+import { useOrder, useAuth } from "../context";
 import { checkIfAllInputsAreNotEmpty } from "../helpers";
 import { addressModalInputData } from "../constants";
 import { TextInput } from "../pages/authentication/components/TextInput";
+import { addNewAddressService, editAddressService } from "../services";
 
 export function AddAddressModal({
   setIsAddressModalVisible,
-  editAddressObj = { isEditMode: false, id: null },
+  editAddressObj = { isEditMode: false, _id: null },
   setEditAddressObj = () => {},
 }) {
   const {
@@ -16,16 +17,18 @@ export function AddAddressModal({
     orderDispatch,
   } = useOrder();
 
+  const { authState: {token} } = useAuth();
+
   const initialUserInputState = editAddressObj.isEditMode
-    ? addresses.find((item) => item.id === editAddressObj.id)
+    ? addresses.find((item) => item._id === editAddressObj._id)
     : {
-        id: uuid(),
+        _id: uuid(),
         country: "",
         name: "",
         city: "",
-        address: "",
+        street: "",
         state: "",
-        zipcode: "",
+        zipCode: "",
         mobile: "",
       };
 
@@ -33,13 +36,13 @@ export function AddAddressModal({
 
   const addDummyAddress = () => {
     const dummyData = {
-      id: uuid(),
+      _id: uuid(),
       country: "India",
       name: "John Doe",
       city: "Mumbai",
-      address: "E045 , B.S Ring Road, Near Taj Hotel - 4th Floor, Osho Kabir",
+      street: "E045 , B.S Ring Road, Near Taj Hotel - 4th Floor, Osho Kabir",
       state: "Maharashtra",
-      zipcode: "784411",
+      zipCode: "784411",
       mobile: "8877665544",
     };
     setUserInputData(dummyData);
@@ -54,21 +57,15 @@ export function AddAddressModal({
     setIsAddressModalVisible(false);
     setUserInputData(initialUserInputState);
     if (editAddressObj.isEditMode) {
-      orderDispatch({
-        type: "SAVE_EDITED_ADDRESS",
-        payload: { id: editAddressObj.id, address: userInputData },
-      });
-      setEditAddressObj({ isEditMode: false, id: null });
+      editAddressService({token, address: userInputData, _id: editAddressObj._id, orderDispatch});
+      setEditAddressObj({ isEditMode: false, _id: null });
     } else {
-      orderDispatch({
-        type: "ADD_ADDRESS",
-        payload: { address: userInputData },
-      });
+      addNewAddressService({token, address: userInputData, orderDispatch});
     }
   };
 
   const closeAddressModal = () => {
-    setEditAddressObj({ isEditMode: false, id: null });
+    setEditAddressObj({ isEditMode: false, _id: null });
     setIsAddressModalVisible(false);
   };
 

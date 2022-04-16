@@ -13,11 +13,11 @@ export const addressModalInputData = [
   },
   {
     id: uuid(),
-    name: "address",
+    name: "street",
     placeholder: "Address",
   },
   { id: uuid(), name: "city", placeholder: "City" },
   { id: uuid(), name: "state", placeholder: "State" },
   { id: uuid(), name: "country", placeholder: "Country" },
-  { id: uuid(), name: "zipcode", placeholder: "Zipcode" },
+  { id: uuid(), name: "zipCode", placeholder: "Zipcode" },
 ];
