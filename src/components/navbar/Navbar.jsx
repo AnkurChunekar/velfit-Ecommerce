@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth, useCart, useWishlist, useFilter } from "../../context";
+import { useCart, useWishlist, useFilter } from "../../context";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -9,10 +9,7 @@ export default function Navbar() {
   const [searchInput, setSearchInput] = useState("");
 
   const { pathname } = useLocation();
-
-  const {
-    authState: { user },
-  } = useAuth();
+  const token = localStorage.getItem("token");
 
   const {
     cartState: { cart },
@@ -22,20 +19,23 @@ export default function Navbar() {
     wishlistState: { wishlist },
   } = useWishlist();
 
-const { filterDispatch } = useFilter();
+  const { filterDispatch } = useFilter();
 
   const handleHamMenuToggleClick = () => {
     setIsHamMenuVisible((pv) => !pv);
   };
 
   const searchToggleClick = () => {
-    setSearchVisible(prevVisibility => !prevVisibility);
+    setSearchVisible((prevVisibility) => !prevVisibility);
   };
 
   const handleUserSearch = () => {
     searchToggleClick();
-    filterDispatch({type: "RESET"});
-    filterDispatch({type: "SEARCH_PRODUCT", payload: {searchValue: searchInput}});
+    filterDispatch({ type: "RESET" });
+    filterDispatch({
+      type: "SEARCH_PRODUCT",
+      payload: { searchValue: searchInput },
+    });
   };
 
   return (
@@ -69,21 +69,21 @@ const { filterDispatch } = useFilter();
           </Link>
           <Link
             onClick={handleHamMenuToggleClick}
-            to={user ? "/wishlist" : "/login"}
+            to={token ? "/wishlist" : "/login"}
           >
             Wishlist
           </Link>
           <Link
             onClick={handleHamMenuToggleClick}
-            to={user ? "/cart" : "/login"}
+            to={token ? "/cart" : "/login"}
           >
             Orders
           </Link>
           <Link
             onClick={handleHamMenuToggleClick}
-            to={user ? "/user" : "/login"}
+            to={token ? "/user" : "/login"}
           >
-            {user ? "Account" : "Login"}
+            {token ? "Account" : "Login"}
           </Link>
         </div>
         <div className="navigation-ham-bg" />
@@ -96,25 +96,25 @@ const { filterDispatch } = useFilter();
             </button>
           ) : null}
 
-          <Link to={user ? "/user" : "/login"}>
+          <Link to={token ? "/user" : "/login"}>
             <span>
-              <i className={`fa-solid fa-user-${user ? "check" : "xmark"}`} />
+              <i className={`fa-solid fa-user-${token ? "check" : "xmark"}`} />
             </span>
           </Link>
 
-          <Link to={user ? "/wishlist" : "/login"}>
+          <Link to={token ? "/wishlist" : "/login"}>
             <span className="icon-container badge-container">
               <i className="fas fa-heart icon" />
-              {user && wishlist.length > 0 ? (
+              {token && wishlist.length > 0 ? (
                 <span className="icon-badge"> {wishlist.length} </span>
               ) : null}
             </span>
           </Link>
 
-          <Link to={user ? "/cart" : "/login"}>
+          <Link to={token ? "/cart" : "/login"}>
             <span className="icon-container badge-container">
               <i className="fas fa-shopping-cart icon" />
-              {user && cart.length > 0 ? (
+              {token && cart.length > 0 ? (
                 <span className="icon-badge"> {cart.length} </span>
               ) : null}
             </span>
@@ -127,20 +127,26 @@ const { filterDispatch } = useFilter();
         <div id="nav-searchbar" className="input-wrapper active">
           <div className="search-box flex flex-center">
             <button className="search-btn" onClick={handleUserSearch}>
-            <i className="fas fa-search" />
+              <i className="fas fa-search" />
             </button>
             <input
               type="text"
               placeholder="Type product name and press Enter key..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              onKeyPress={(e) => {e.key === "Enter" ? handleUserSearch() : null}}
+              onKeyPress={(e) => {
+                e.key === "Enter" ? handleUserSearch() : null;
+              }}
             />
             <button className="search-btn" onClick={searchToggleClick}>
               <i id="nav-close-icon" className="fas fa-times" />
             </button>
           </div>
-          <div onClick={searchToggleClick} id="nav-searchbar-bg" className="searchbar-bg" />
+          <div
+            onClick={searchToggleClick}
+            id="nav-searchbar-bg"
+            className="searchbar-bg"
+          />
         </div>
       ) : null}
 

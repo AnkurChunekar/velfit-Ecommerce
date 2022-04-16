@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useCart, useAuth, useWishlist } from "../../context";
+import { useCart, useWishlist } from "../../context";
 import { getProductService } from "../../services";
-import { addToCartService, addToWishlistService, removeFromWishlistService } from "../../services";
+import {
+  addToCartService,
+  addToWishlistService,
+  removeFromWishlistService,
+} from "../../services";
 import { isItemInArrayOfObjects } from "../../helpers";
 import { CircularLoader } from "../../components";
 import "./SingleProductPage.css";
@@ -10,14 +14,11 @@ import "./SingleProductPage.css";
 export default function SingleProductPage() {
   const { productID } = useParams();
   const navigate = useNavigate();
-
   const [productData, setProductData] = useState(false);
   const [addToCartLoading, setAddToCartLoading] = useState(false);
   const [isWishlistBtnLoading, setIsWishlistBtnLoading] = useState(false);
 
-  const {
-    authState: { token, user },
-  } = useAuth();
+  const token = localStorage.getItem("item");
 
   const {
     cartState: { cart },
@@ -26,7 +27,7 @@ export default function SingleProductPage() {
 
   const {
     wishlistState: { wishlist },
-    wishlistDispatch
+    wishlistDispatch,
   } = useWishlist();
 
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function SingleProductPage() {
   );
 
   const addToCartClick = () => {
-    if (user) {
+    if (token) {
       setAddToCartLoading(true);
       if (!inCart) {
         addToCartService({
@@ -62,7 +63,7 @@ export default function SingleProductPage() {
   };
 
   const wishlistToggleClick = () => {
-    if (user) {
+    if (token) {
       setIsWishlistBtnLoading(true);
       if (!inWishlist) {
         addToWishlistService({
@@ -77,7 +78,7 @@ export default function SingleProductPage() {
           token,
           wishlistDispatch,
           setIsWishlistBtnLoading,
-        })
+        });
       }
     } else {
       navigate("/login");

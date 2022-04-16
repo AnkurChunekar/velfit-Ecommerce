@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth, useCart } from "../../context";
+import { useCart } from "../../context";
 import { addToCartService } from "../../services";
 
 export function CardFooter({ product, inCart }) {
   const navigate = useNavigate();
-  const { authState } = useAuth();
-  const { user, token } = authState;
   const { cartDispatch } = useCart();
-
+  const token = localStorage.getItem("token");
   const [loader, setLoader] = useState(false);
 
   const handleCtaBtnClick = () => {
-    if (user) {
+    if (token) {
       setLoader(true);
       if (!inCart) {
         addToCartService({

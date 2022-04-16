@@ -8,10 +8,13 @@ export function ProfileTab() {
   const { cartDispatch } = useCart();
   const { wishlistDispatch } = useWishlist();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleLogoutClick = () => {
     toast.success("Logout Successfull!");
     navigate("/");
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     authDispatch({ type: "LOGOUT" });
     cartDispatch({ type: "RESET" });
     wishlistDispatch({ type: "RESET" });
@@ -25,7 +28,7 @@ export function ProfileTab() {
         <label className="text"> Full Name </label>
         <input
           disabled
-          value="John Doe"
+          value={user.firstName + " " + user.lastName}
           className="input p-xxs m-xxs m-rl0 bd-rad-sm"
         />
       </div>
@@ -34,7 +37,7 @@ export function ProfileTab() {
         <label className="text"> Email </label>
         <input
           disabled
-          value="johndoe@gmail.com"
+          value={user.email}
           className="input p-xxs m-xxs m-rl0 bd-rad-sm"
         />
       </div>

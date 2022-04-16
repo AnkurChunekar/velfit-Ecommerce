@@ -15,7 +15,9 @@ export const loginService = async ({
       password: userData.password,
     });
     if (response.status === 200) {
+      const { firstName, lastName, email } = response.data.foundUser;
       localStorage.setItem("token", response.data.encodedToken);
+      localStorage.setItem("user", JSON.stringify({ firstName, lastName, email}));
       authDispatch({
         type: "LOGIN",
         payload: {

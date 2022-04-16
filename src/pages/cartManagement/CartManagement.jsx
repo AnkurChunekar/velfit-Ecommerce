@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../../context";
+import { useCart, useOrder } from "../../context";
+import { getAddressesService } from "../../services";
 import {
   cartPriceCalculator,
   handleCouponDiscount,
@@ -13,11 +14,17 @@ import "./CartManagement.css";
 
 export default function CartManagement() {
   const [selectedCoupon, setSelectedCoupon] = useState(0);
-  const { cartState } = useCart();
-  const { cart } = cartState;
+  const {
+    orderState: { addresses },
+    orderDispatch,
+  } = useOrder();
+
+  const { cartState: {cart} } = useCart();
   const { price } = cartPriceCalculator(cart);
   const [isCouponModalVisibile, setIsCouponModalVisible] = useState(false);
   const [currentCartStep, setCurrentCartStep] = useState("1");
+  const token = localStorage.getItem("token");
+
   // Coupon Functionalities
 
   const couponModalToggleClick = () => {
@@ -31,6 +38,12 @@ export default function CartManagement() {
       setSelectedCoupon(0);
     }
   }, [price, selectedCoupon]);
+
+  useEffect(() => {
+    if (addresses.length < 1) {
+      getAddressesService(orderDispatch, token);
+    }
+  }, []);
 
   const getCurrentStepComponent = () => {
     switch (currentCartStep) {

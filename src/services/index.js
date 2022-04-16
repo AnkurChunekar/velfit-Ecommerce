@@ -10,3 +10,4 @@ export { getProductService } from "./getDataServices/getProduct.service";
 export { addNewAddressService } from "./addressServices/addNewAddress.service";
 export { editAddressService } from "./addressServices/editAddress.service";
 export { deleteAddressService } from "./addressServices/deleteAddress.service";
+export { getAddressesService } from "./getDataServices/getAddresses.service";

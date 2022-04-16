@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
-import { useOrder, useAuth } from "../context";
+import { useOrder } from "../context";
 import { checkIfAllInputsAreNotEmpty } from "../helpers";
 import { addressModalInputData } from "../constants";
 import { TextInput } from "../pages/authentication/components/TextInput";
@@ -17,7 +17,7 @@ export function AddAddressModal({
     orderDispatch,
   } = useOrder();
 
-  const { authState: {token} } = useAuth();
+  const token = localStorage.getItem("token");
 
   const initialUserInputState = editAddressObj.isEditMode
     ? addresses.find((item) => item._id === editAddressObj._id)
