@@ -22,6 +22,10 @@
   margin: 2rem auto;
 }
 
+.user-page .tab-header > .tab-name-container {
+ max-width: 396px;
+ margin: 0 auto;
+}
 /* Address Tab */
 
 .addresses-tab {
