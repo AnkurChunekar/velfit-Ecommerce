@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useCart, useWishlist } from "../../context";
+import { useAuth, useCart, useWishlist } from "../../context";
 import { getProductService } from "../../services";
 import {
   addToCartService,
@@ -18,7 +18,8 @@ export default function SingleProductPage() {
   const [addToCartLoading, setAddToCartLoading] = useState(false);
   const [isWishlistBtnLoading, setIsWishlistBtnLoading] = useState(false);
 
-  const token = localStorage.getItem("item");
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
 
   const {
     cartState: { cart },

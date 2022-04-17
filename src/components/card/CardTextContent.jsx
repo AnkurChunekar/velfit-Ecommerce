@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../context";
+import { useCart, useAuth } from "../../context";
 import { changeCartItemQtyService } from "../../services";
 
 export function CardTextContent({
@@ -13,7 +13,8 @@ export function CardTextContent({
 }) {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  const token = localStorage.getItem("token");
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
   const { cartDispatch } = useCart();
 
   const handleIncCartItemClick = (e) => {

@@ -8,7 +8,7 @@ export const loginService = async ({
   wishlistDispatch,
   orderDispatch,
   navigate,
-  location
+  location,
 }) => {
   try {
     const response = await axios.post("/api/auth/login", {
@@ -16,9 +16,14 @@ export const loginService = async ({
       password: userData.password,
     });
     if (response.status === 200) {
-      const { firstName, lastName, email } = response.data.foundUser;
-      localStorage.setItem("token", response.data.encodedToken);
-      localStorage.setItem("user", JSON.stringify({ firstName, lastName, email}));
+      if (userData.rememberUser) {
+        const { firstName, lastName, email } = response.data.foundUser;
+        localStorage.setItem("token", response.data.encodedToken);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ firstName, lastName, email })
+        );
+      }
       authDispatch({
         type: "LOGIN",
         payload: {
@@ -39,7 +44,7 @@ export const loginService = async ({
         payload: { addresses: response.data.foundUser.address },
       });
       toast.success("Login Successfull!");
-      navigate(location?.state?.from?.pathname || "/", {replace: true});
+      navigate(location?.state?.from?.pathname || "/", { replace: true });
     } else {
       throw new Error("Error Occured! Please Try again.");
     }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useCart, useWishlist, useFilter } from "../../context";
+import { useCart, useWishlist, useFilter, useAuth } from "../../context";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -9,7 +9,8 @@ export default function Navbar() {
   const [searchInput, setSearchInput] = useState("");
 
   const { pathname } = useLocation();
-  const token = localStorage.getItem("token");
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
 
   const {
     cartState: { cart },
@@ -67,22 +68,13 @@ export default function Navbar() {
           <Link onClick={handleHamMenuToggleClick} to="/products">
             Products
           </Link>
-          <Link
-            onClick={handleHamMenuToggleClick}
-            to="/wishlist"
-          >
+          <Link onClick={handleHamMenuToggleClick} to="/wishlist">
             Wishlist
           </Link>
-          <Link
-            onClick={handleHamMenuToggleClick}
-            to="/cart"
-          >
+          <Link onClick={handleHamMenuToggleClick} to="/cart">
             Orders
           </Link>
-          <Link
-            onClick={handleHamMenuToggleClick}
-            to="/user"
-          >
+          <Link onClick={handleHamMenuToggleClick} to="/user">
             {token ? "Profile" : "Login"}
           </Link>
         </div>

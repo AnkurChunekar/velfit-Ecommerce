@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart, useOrder } from "../../context";
+import { useCart, useOrder, useAuth } from "../../context";
 import { getAddressesService } from "../../services";
 import {
   cartPriceCalculator,
@@ -23,7 +23,8 @@ export default function CartManagement() {
   const { price } = cartPriceCalculator(cart);
   const [isCouponModalVisibile, setIsCouponModalVisible] = useState(false);
   const [currentCartStep, setCurrentCartStep] = useState("1");
-  const token = localStorage.getItem("token");
+    const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
 
   // Coupon Functionalities
 

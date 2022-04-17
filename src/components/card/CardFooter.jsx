@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useCart } from "../../context";
+import { useCart, useAuth } from "../../context";
 import { addToCartService } from "../../services";
 
 export function CardFooter({ product, inCart }) {
   const navigate = useNavigate();
   const { cartDispatch } = useCart();
-  const token = localStorage.getItem("token");
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
   const [loader, setLoader] = useState(false);
 
   const handleCtaBtnClick = () => {

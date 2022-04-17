@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useCart, useOrder } from "../../../context";
+import { useCart, useOrder, useAuth } from "../../../context";
 import { removeFromCartService } from "../../../services";
 import { logo } from "../../../images";
 import { v4 as uuid } from "uuid";
@@ -17,8 +17,9 @@ const OrderSummary = ({
     cartDispatch,
   } = useCart();
 
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
+  const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   const {
     orderState: { deliveryAddress },

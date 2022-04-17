@@ -8,7 +8,8 @@ import {
 } from "../../services";
 
 export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
-  const token = localStorage.getItem("token");
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
   const navigate = useNavigate();
 
   // Cart fuctionalities

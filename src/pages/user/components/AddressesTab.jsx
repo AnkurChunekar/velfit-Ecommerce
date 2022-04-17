@@ -1,11 +1,10 @@
 import { useState, Fragment, useEffect } from "react";
-import { useOrder } from "../../../context";
+import { useOrder, useAuth } from "../../../context";
 import { AddAddressModal } from "../../../components/AddAddressModal";
 import { deleteAddressService, getAddressesService } from "../../../services";
 
-function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj }) {
+function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj, token }) {
   const { orderDispatch } = useOrder();
-  const token = localStorage.getItem("token");
   const {
     _id,
     country = "",
@@ -55,7 +54,8 @@ export function AddressesTab() {
     orderDispatch,
   } = useOrder();
 
-  const token = localStorage.getItem("token");
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
 
   useEffect(() => {
     getAddressesService(orderDispatch, token);
@@ -85,6 +85,7 @@ export function AddressesTab() {
               setEditAddressObj={setEditAddressObj}
               setIsAddressModalVisible={setIsAddressModalVisible}
               addressObj={item}
+              token={token}
             />
           </Fragment>
         ))}

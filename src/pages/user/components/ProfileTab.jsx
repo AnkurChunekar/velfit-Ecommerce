@@ -4,11 +4,11 @@ import { useAuth, useCart, useWishlist } from "../../../context";
 
 export function ProfileTab() {
   const navigate = useNavigate();
-  const { authDispatch } = useAuth();
+  const { authDispatch, authState } = useAuth();
   const { cartDispatch } = useCart();
   const { wishlistDispatch } = useWishlist();
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   const handleLogoutClick = () => {
     toast.success("Logout Successfull!");

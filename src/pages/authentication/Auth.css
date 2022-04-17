@@ -41,7 +41,14 @@
   padding: 0;
 }
 
+/* Remember me */
+
+.authentication-container .checkbox input {
+  margin: 0 1rem 1rem 0;
+}
+
 /* utils */
 .transparent-bg {
   background-color: transparent;
 }
+
