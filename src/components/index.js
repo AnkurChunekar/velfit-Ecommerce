@@ -4,3 +4,4 @@ export { default as Card} from "./card/Card";
 export { CircularLoader } from "./loaders/circular/CircularLoader";
 export { CouponModal } from "./CouponModal";
 export { AddAddressModal } from "./AddAddressModal";
+export { RequiresAuth } from "./RequiresAuth";

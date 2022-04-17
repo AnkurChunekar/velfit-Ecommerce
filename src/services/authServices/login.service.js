@@ -8,6 +8,7 @@ export const loginService = async ({
   wishlistDispatch,
   orderDispatch,
   navigate,
+  location
 }) => {
   try {
     const response = await axios.post("/api/auth/login", {
@@ -38,7 +39,7 @@ export const loginService = async ({
         payload: { addresses: response.data.foundUser.address },
       });
       toast.success("Login Successfull!");
-      navigate("/");
+      navigate(location?.state?.from?.pathname || "/", {replace: true});
     } else {
       throw new Error("Error Occured! Please Try again.");
     }

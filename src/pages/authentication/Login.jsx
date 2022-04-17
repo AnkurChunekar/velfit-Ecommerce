@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useCart, useWishlist, useOrder } from "../../context";
 import { loginService } from "../../services";
 import { checkIfAllInputsAreNotEmpty } from "../../helpers";
@@ -13,6 +13,8 @@ export default function Login() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { authDispatch } = useAuth();
   const { cartDispatch } = useCart();
   const { orderDispatch } = useOrder();
@@ -24,7 +26,7 @@ export default function Login() {
     if (!checkIfAllInputsAreNotEmpty(userData)) {
       alert("Email and Password cannot be empty!");
     } else {
-      loginService({userData, authDispatch, cartDispatch, wishlistDispatch, orderDispatch, navigate});
+      loginService({userData, authDispatch, cartDispatch, wishlistDispatch, orderDispatch, navigate, location});
     }
   };
 

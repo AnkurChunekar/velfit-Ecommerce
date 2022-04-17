@@ -69,21 +69,21 @@ export default function Navbar() {
           </Link>
           <Link
             onClick={handleHamMenuToggleClick}
-            to={token ? "/wishlist" : "/login"}
+            to="/wishlist"
           >
             Wishlist
           </Link>
           <Link
             onClick={handleHamMenuToggleClick}
-            to={token ? "/cart" : "/login"}
+            to="/cart"
           >
             Orders
           </Link>
           <Link
             onClick={handleHamMenuToggleClick}
-            to={token ? "/user" : "/login"}
+            to="/user"
           >
-            {token ? "Account" : "Login"}
+            {token ? "Profile" : "Login"}
           </Link>
         </div>
         <div className="navigation-ham-bg" />
@@ -96,13 +96,13 @@ export default function Navbar() {
             </button>
           ) : null}
 
-          <Link to={token ? "/user" : "/login"}>
+          <Link to="/user">
             <span>
               <i className={`fa-solid fa-user-${token ? "check" : "xmark"}`} />
             </span>
           </Link>
 
-          <Link to={token ? "/wishlist" : "/login"}>
+          <Link to="/wishlist">
             <span className="icon-container badge-container">
               <i className="fas fa-heart icon" />
               {token && wishlist.length > 0 ? (
@@ -111,7 +111,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <Link to={token ? "/cart" : "/login"}>
+          <Link to="/cart">
             <span className="icon-container badge-container">
               <i className="fas fa-shopping-cart icon" />
               {token && cart.length > 0 ? (
