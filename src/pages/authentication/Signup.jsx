@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context";
 import { signupService } from "../../services";
 import { checkIfAllInputsAreNotEmpty } from "../../helpers";
@@ -16,6 +16,7 @@ export default function Signup() {
     passwordsDifferent: false,
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const { authDispatch } = useAuth();
 
   const handleSubmitClick = (e) => {
@@ -25,7 +26,7 @@ export default function Signup() {
     } else if (userData.password !== userData.confirmPassword) {
       setUserData({ ...userData, passwordsDifferent: true });
     } else {
-      signupService(userData, authDispatch, navigate);
+      signupService(userData, authDispatch, navigate, location);
     }
   };
 

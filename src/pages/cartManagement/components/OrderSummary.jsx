@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useCart, useAuth, useOrder } from "../../../context";
+import { useCart, useOrder, useAuth } from "../../../context";
 import { removeFromCartService } from "../../../services";
 import { logo } from "../../../images";
 import { v4 as uuid } from "uuid";
@@ -17,9 +17,9 @@ const OrderSummary = ({
     cartDispatch,
   } = useCart();
 
-  const {
-    authState: { user, token },
-  } = useAuth();
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
+  const user = authState.user || JSON.parse(localStorage.getItem("user"));
 
   const {
     orderState: { deliveryAddress },
@@ -135,7 +135,9 @@ const OrderSummary = ({
 
       <table className="p-xs p-rl0 divider w-100pc">
         <thead>
-          <tr className="fw-600 p-xxxs p-rl0 left-align-text"><td>Price Details:</td></tr>
+          <tr className="fw-600 p-xxxs p-rl0 left-align-text">
+            <td>Price Details:</td>
+          </tr>
         </thead>
         <tbody className="fs-14px">
           <tr>
@@ -154,7 +156,9 @@ const OrderSummary = ({
         <tfoot className="fs-14px">
           <tr>
             <td className="p-xxxs p-rl0 fw-600">Total Amount</td>
-            <td className="fw-600">₹ {Number(finalCouponedPrice.toFixed(0)) + 45}</td>
+            <td className="fw-600">
+              ₹ {Number(finalCouponedPrice.toFixed(0)) + 45}
+            </td>
           </tr>
         </tfoot>
       </table>

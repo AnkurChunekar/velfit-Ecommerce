@@ -17,7 +17,8 @@ export function AddAddressModal({
     orderDispatch,
   } = useOrder();
 
-  const { authState: {token} } = useAuth();
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
 
   const initialUserInputState = editAddressObj.isEditMode
     ? addresses.find((item) => item._id === editAddressObj._id)
@@ -57,10 +58,15 @@ export function AddAddressModal({
     setIsAddressModalVisible(false);
     setUserInputData(initialUserInputState);
     if (editAddressObj.isEditMode) {
-      editAddressService({token, address: userInputData, _id: editAddressObj._id, orderDispatch});
+      editAddressService({
+        token,
+        address: userInputData,
+        _id: editAddressObj._id,
+        orderDispatch,
+      });
       setEditAddressObj({ isEditMode: false, _id: null });
     } else {
-      addNewAddressService({token, address: userInputData, orderDispatch});
+      addNewAddressService({ token, address: userInputData, orderDispatch });
     }
   };
 

@@ -1,12 +1,10 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { useOrder, useAuth } from "../../../context";
 import { AddAddressModal } from "../../../components/AddAddressModal";
-import { deleteAddressService } from "../../../services";
+import { deleteAddressService, getAddressesService } from "../../../services";
 
-
-function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj }) {
+function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj, token }) {
   const { orderDispatch } = useOrder();
-  const { authState: {token} } = useAuth();
   const {
     _id,
     country = "",
@@ -19,7 +17,7 @@ function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj }) {
   } = addressObj;
 
   const deleteAddressClick = () => {
-    deleteAddressService({token, _id, orderDispatch});
+    deleteAddressService({ token, _id, orderDispatch });
   };
 
   const editAddressClick = () => {
@@ -51,15 +49,23 @@ function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj }) {
 }
 
 export function AddressesTab() {
+  const {
+    orderState: { addresses },
+    orderDispatch,
+  } = useOrder();
+
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
+
+  useEffect(() => {
+    getAddressesService(orderDispatch, token);
+  }, []);
+
   const [isAddressModalVisible, setIsAddressModalVisible] = useState(false);
   const [editAddressObj, setEditAddressObj] = useState({
     isEditMode: false,
     id: "",
   });
-
-  const {
-    orderState: { addresses },
-  } = useOrder();
 
   return (
     <div className="addresses-tab">
@@ -79,6 +85,7 @@ export function AddressesTab() {
               setEditAddressObj={setEditAddressObj}
               setIsAddressModalVisible={setIsAddressModalVisible}
               addressObj={item}
+              token={token}
             />
           </Fragment>
         ))}

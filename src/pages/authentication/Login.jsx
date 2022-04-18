@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useCart, useWishlist, useOrder } from "../../context";
 import { loginService } from "../../services";
-import { checkIfAllInputsAreNotEmpty } from "../../helpers";
 import { TextInput, PasswordInput } from "./components";
 import "./Auth.css";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
+    rememberUser: false,
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { authDispatch } = useAuth();
   const { cartDispatch } = useCart();
   const { orderDispatch } = useOrder();
@@ -21,16 +24,28 @@ export default function Login() {
   const handleLoginClick = (e) => {
     e.preventDefault();
 
-    if (!checkIfAllInputsAreNotEmpty(userData)) {
-      alert("Email and Password cannot be empty!");
+    if (userData.email.trim() === "" && userData.password.trim() === "") {
+      toast.error("Email and Password cannot be empty!");
     } else {
-      loginService({userData, authDispatch, cartDispatch, wishlistDispatch, orderDispatch, navigate});
+      loginService({
+        userData,
+        authDispatch,
+        cartDispatch,
+        wishlistDispatch,
+        orderDispatch,
+        navigate,
+        location,
+      });
     }
   };
 
   const handleGuestLoginClick = (e) => {
     e.preventDefault();
-    setUserData({ email: "johndoe@gmail.com", password: "johnDoe123" });
+    setUserData({
+      email: "johndoe@gmail.com",
+      password: "johnDoe123",
+      rememberUser: true,
+    });
   };
 
   return (
@@ -57,6 +72,22 @@ export default function Login() {
             userData={userData}
             setUserData={setUserData}
           />
+
+          <div className="input-wrapper checkbox">
+            <input
+              type="checkbox"
+              id="remember-me"
+              name="remember-me"
+              checked={userData.rememberUser}
+              onChange={() => {
+                setUserData((userData) => ({
+                  ...userData,
+                  rememberUser: !userData.rememberUser,
+                }));
+              }}
+            />
+            <label htmlFor="remember-me">Remember Me</label>
+          </div>
 
           <button
             type="submit"

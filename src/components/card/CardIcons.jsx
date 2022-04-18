@@ -7,24 +7,13 @@ import {
   removeFromWishlistService,
 } from "../../services";
 
-export function CardIcons({
-  isFastDelivered,
-  className,
-  product,
-  inWishlist,
-  inCart,
-}) {
-  const {
-    authState: { token, user },
-  } = useAuth();
-
+export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
   const navigate = useNavigate();
 
   // Cart fuctionalities
-  const {
-    cartState: { cart },
-    cartDispatch,
-  } = useCart();
+  const { cartDispatch } = useCart();
 
   const handleDeleteFromCart = async () => {
     const requestObj = {
@@ -41,7 +30,7 @@ export function CardIcons({
   const { wishlistDispatch } = useWishlist();
 
   const handleAddOrRemoveFromWishlist = () => {
-    if (user) {
+    if (token) {
       setIsAddToWishlistLoading(true);
       if (inWishlist) {
         removeFromWishlistService({

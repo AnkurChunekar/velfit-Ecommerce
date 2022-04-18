@@ -13,9 +13,8 @@ export function CardTextContent({
 }) {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  const {
-    authState: { token },
-  } = useAuth();
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
   const { cartDispatch } = useCart();
 
   const handleIncCartItemClick = (e) => {
