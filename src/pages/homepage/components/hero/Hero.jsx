@@ -1,6 +1,6 @@
-import "./Hero.css";
-import { heroBanner } from "../../../../images";
 import { Link } from "react-router-dom";
+import { heroBanner } from "../../../../images";
+import "./Hero.css";
 
 export default function Hero(){
     return (

@@ -1,15 +1,18 @@
-import { CardFooter } from "./CardFooter";
-import { CardTextContent } from "./CardTextContent";
-import { CardIcons } from "./CardIcons";
+import { Link } from "react-router-dom";
 import { useCart, useWishlist } from "../../context";
 import { isItemInArrayOfObjects } from "../../helpers";
+import { CardIcons } from "./CardIcons";
+import { CardFooter } from "./CardFooter";
+import { CardTextContent } from "./CardTextContent";
 import "./Card.css";
 
-function CardHeader({ cardImage }) {
+function CardHeader({ cardImage, productID }) {
   return (
-    <header className="card-image">
-      <img src={cardImage} alt="product image" />
-    </header>
+    <Link to={`/products/${productID}`}>
+      <header className="card-image">
+        <img src={cardImage} alt="product image" />
+      </header>
+    </Link>
   );
 }
 
@@ -24,7 +27,6 @@ export default function Card({
   ratingValue,
   quantity,
 }) {
-
   const {
     cartState: { cart },
   } = useCart();
@@ -33,13 +35,19 @@ export default function Card({
     wishlistState: { wishlist },
   } = useWishlist();
 
-  const inCart = isItemInArrayOfObjects(cart, item => item._id === product._id);
-  const inWishlist = isItemInArrayOfObjects(wishlist, item => item._id === product._id);
+  const inCart = isItemInArrayOfObjects(
+    cart,
+    (item) => item._id === product._id
+  );
+  const inWishlist = isItemInArrayOfObjects(
+    wishlist,
+    (item) => item._id === product._id
+  );
 
   return (
     <>
       <div className={`card ${className}`}>
-        <CardHeader cardImage={cardImage} />
+        <CardHeader cardImage={cardImage} productID={product._id} />
 
         <section className="card-body">
           <CardIcons

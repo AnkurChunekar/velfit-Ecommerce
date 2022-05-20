@@ -1,20 +1,30 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../../context";
+import { useCart, useOrder, useAuth } from "../../context";
+import { getAddressesService } from "../../services";
 import {
   cartPriceCalculator,
   handleCouponDiscount,
 } from "../../helpers/cartHelpers";
-import { Card } from "../../components";
+import { CouponModal } from "../../components";
+import { CartSummary } from "./components/CartSummary";
 import { OrderSummary } from "./components/OrderSummary";
+import { DeliveryAddress } from "./components/DeliveryAddress";
 import "./CartManagement.css";
 
 export default function CartManagement() {
   const [selectedCoupon, setSelectedCoupon] = useState(0);
-  const { cartState } = useCart();
-  const { cart } = cartState;
+  const {
+    orderState: { addresses },
+    orderDispatch,
+  } = useOrder();
+
+  const { cartState: {cart} } = useCart();
   const { price } = cartPriceCalculator(cart);
   const [isCouponModalVisibile, setIsCouponModalVisible] = useState(false);
+  const [currentCartStep, setCurrentCartStep] = useState("1");
+    const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
 
   // Coupon Functionalities
 
@@ -22,47 +32,70 @@ export default function CartManagement() {
     setIsCouponModalVisible((isCouponModalVisibile) => !isCouponModalVisibile);
   };
 
+  const finalCouponedPrice = handleCouponDiscount(price, selectedCoupon);
+
   useEffect(() => {
     if (price < 5000 || (price < 10000 && selectedCoupon !== 10)) {
       setSelectedCoupon(0);
     }
   }, [price, selectedCoupon]);
 
-  const finalCouponedPrice = handleCouponDiscount(price, selectedCoupon);
+  useEffect(() => {
+    if (addresses.length < 1) {
+      getAddressesService(orderDispatch, token);
+    }
+  }, []);
+
+  const getCurrentStepComponent = () => {
+    switch (currentCartStep) {
+      case "1":
+        return (
+          <CartSummary
+            price={price}
+            selectedCoupon={selectedCoupon}
+            cart={cart}
+            couponModalToggleClick={couponModalToggleClick}
+            setCurrentCartStep={setCurrentCartStep}
+            finalCouponedPrice={finalCouponedPrice}
+          />
+        );
+      case "2":
+        return <DeliveryAddress setCurrentCartStep={setCurrentCartStep} />;
+      case "3":
+        return (
+          <OrderSummary
+            finalCouponedPrice={finalCouponedPrice}
+            price={price}
+            setCurrentCartStep={setCurrentCartStep}
+            selectedCoupon={selectedCoupon}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const getPageTitle = () => {
+    switch (currentCartStep) {
+      case "1":
+        return `My Cart (${cart.length})`;
+      case "2":
+        return "Choose An Address";
+      case "3":
+        return "Checkout Page";
+      default:
+        return "My Cart";
+    }
+  };
 
   return (
     <>
       {cart.length > 0 ? (
         <>
           <header className="center-align-text m-lg">
-            <h1 className="fs-3 fw-600">My Cart ({cart.length})</h1>
+            <h1 className="fs-3 fw-600"> {getPageTitle()} </h1>
           </header>
-          <div className="cart-management-page">
-            <section className="card-container">
-              {cart.map((product) => (
-                <Fragment key={product._id}>
-                  <Card
-                    product={product}
-                    cardImage={product.image}
-                    className="card-horizontal"
-                    title={product.title}
-                    description={product.description}
-                    ratingValue={product.rating}
-                    price={product.price}
-                    isFastDelivered={false}
-                    quantity={product.qty}
-                  />
-                </Fragment>
-              ))}
-            </section>
-            <OrderSummary
-              cart={cart}
-              couponModalToggleClick={couponModalToggleClick}
-              price={price}
-              finalCouponedPrice={finalCouponedPrice}
-              selectedCoupon={selectedCoupon}
-            />
-          </div>
+          {getCurrentStepComponent()}
         </>
       ) : (
         <div className="center-align-text m-xxxl">
@@ -74,44 +107,12 @@ export default function CartManagement() {
       )}
 
       {isCouponModalVisibile ? (
-        <div className="modal-container coupon-modal active">
-          <div className="modal m-md1 p-s">
-            <header className="">
-              <div className="modal-title fs-4 fw-600">Select Coupon</div>
-              <button onClick={couponModalToggleClick} className="btn-unset">
-                <i
-                  id="demo-modal-close-btn"
-                  className="fas fa-times close-icon fs-4"
-                ></i>
-              </button>
-            </header>
-            <section className="modal-body">
-              <div className={`radio ${price < 5000 ? "disabled" : ""} `}>
-                <input
-                  onChange={() => setSelectedCoupon(10)}
-                  checked={selectedCoupon === 10}
-                  type="radio"
-                  name="coupon"
-                  id="coupon-10"
-                  disabled={price < 5000 ? true : false}
-                />
-                <label htmlFor="coupon-10">FIT10 - 10% Off above ₹5000.</label>
-              </div>
-
-              <div className={`radio ${price < 10000 ? "disabled" : ""}`}>
-                <input
-                  onChange={() => setSelectedCoupon(15)}
-                  checked={selectedCoupon === 15}
-                  type="radio"
-                  name="coupon"
-                  id="coupon-15"
-                  disabled={price < 10000 ? true : false}
-                />
-                <label htmlFor="coupon-15">GYM15 - 15% Off above ₹10000.</label>
-              </div>
-            </section>
-          </div>
-        </div>
+        <CouponModal
+          price={price}
+          selectedCoupon={selectedCoupon}
+          setSelectedCoupon={setSelectedCoupon}
+          couponModalToggleClick={couponModalToggleClick}
+        />
       ) : null}
     </>
   );

@@ -1,25 +1,24 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const addToCartService = async ({ url, body, token, successStatus, cartDispatch, setLoader, setCtaBtnText }) => {
+const addToCartService = async ({ product, token, cartDispatch, setLoader }) => {
 
     try {
-        const response = await axios.post(url, body, {
+        const response = await axios.post("/api/user/cart", { product }, {
             headers: { authorization: token },
         });
-        if (response.status === successStatus) {
+        if (response.status === 201) {
             cartDispatch({
                 type: "UPDATE_CART",
                 payload: { cart: response.data.cart },
             });
-            setCtaBtnText("Go To Cart");
-            toast.success(body.product.title.slice(0, 13).trim() + "... Added to Cart");
+            toast.success(product.title.slice(0, 13).trim() + "... Added to Cart");
         } else {
             throw new Error(response.status, "<-- error code");
         }
     } catch (error) {
+        console.error(error);
         toast.error(error.response.data.errors[0])
-        console.error(error)
     } finally {
         setLoader(false);
     }

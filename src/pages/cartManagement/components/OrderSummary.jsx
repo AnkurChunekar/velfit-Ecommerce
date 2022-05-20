@@ -1,20 +1,30 @@
-// import { Razorpay } from "razorpay";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { removeFromCartService } from "../../../components/card/services";
-import { useCart, useAuth } from "../../../context";
+import { useCart, useOrder, useAuth } from "../../../context";
+import { removeFromCartService } from "../../../services";
 import { logo } from "../../../images";
+import { v4 as uuid } from "uuid";
 
 const OrderSummary = ({
-  couponModalToggleClick,
-  cart,
-  selectedCoupon,
+  finalCouponedPrice,
   price,
-  finalCouponedPrice
+  selectedCoupon,
+  setCurrentCartStep,
 }) => {
   const navigate = useNavigate();
-  const { cartDispatch } = useCart();
-  const { authState: {user, token} } = useAuth();
+  const {
+    cartState: { cart },
+    cartDispatch,
+  } = useCart();
+
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
+  const user = authState.user || JSON.parse(localStorage.getItem("user"));
+
+  const {
+    orderState: { deliveryAddress },
+    orderDispatch,
+  } = useOrder();
 
   const placeOrder = async () => {
     const response = await loadSdk();
@@ -37,11 +47,30 @@ const OrderSummary = ({
         notes: { address: "Razorpay Corporate Office" },
         theme: { color: "#1573ff" },
         handler: function (response) {
-          cart.map((product) =>
-          removeFromCartService({token, cartDispatch, product, finalOrder: true})
-          );
-          navigate("/products");
+          orderDispatch({
+            type: "ADD_TO_PREVIOUS_ORDERS",
+            payload: {
+              orderDetails: {
+                _id: uuid(),
+                date: new Date().toDateString(),
+                price,
+                finalCouponedPrice,
+                selectedCoupon,
+                deliveryAddress,
+                cart,
+              },
+            },
+          });
+          cart.map((product) => {
+            removeFromCartService({
+              token,
+              cartDispatch,
+              product,
+              finalOrder: true,
+            });
+          });
           toast.success("Order Placed Successfully");
+          navigate("/user");
         },
       };
       const rzp1 = new window.Razorpay(options);
@@ -69,52 +98,82 @@ const OrderSummary = ({
   };
 
   return (
-    <section className="order-box">
-    <ul className="list list-style-none p-s">
-      <li>
-        <button
-          onClick={couponModalToggleClick}
-          className="apply-coupon-btn"
-        >
-          <i className="fa-solid fa-tag"></i> Apply Coupons
-        </button>
-      </li>
-      <li>
-        <span>Price ({cart.length} items)</span>
-        <span>₹ {price} </span>
-      </li>
-      <li>
-        <span>Discount</span>
-        <span> {selectedCoupon ? `${selectedCoupon}%` : "₹0"} </span>
-      </li>
-      <li>
-        <span>Delivery Charge</span>
-        <span>₹ 45</span>
-      </li>
-      <div className="divider" />
-      <li className="total">
-        <strong>TOTAL AMOUNT</strong>
-        <strong>
-          ₹ {Number(finalCouponedPrice.toFixed(0)) + 45}
-        </strong>
-      </li>
-      <div className="divider" />
-      <li>
-        <span>
-          You will save
-          <span className="green-text m-xxs"> 
-             ₹{(price - finalCouponedPrice).toFixed(2)} 
-           </span>
-          on this order.
-        </span>
-      </li>
-      <li>
-        <button onClick={placeOrder} className="btn btn-primary checkout-btn">
-          Checkout
-        </button>
-      </li>
-    </ul>
-  </section>
+    <div className="p-xs order-summary">
+      <section className="divider">
+        <p className="fw-600 p-xxxs p-rl0"> Order Summary: </p>
+        {cart.map((item) => (
+          <div key={item.id} className="flex c-gap-1rem p-xxs p-rl0">
+            <div>
+              <img
+                className="img-responsive"
+                src={item.image}
+                alt={item.title}
+              />
+            </div>
+            <div className="flex flex-column">
+              <span className="fw-600"> {item.title} </span>
+              <span className="fs-14px"> Qty: {item.qty} </span>
+              <span className="fs-14px">Price: ₹ {item.price * item.qty}</span>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="p-s p-rl0 divider">
+        <p className="fw-600 p-xxxs p-rl0"> Delivery Address: </p>
+        <div>
+          <p className="m-xxxs m-rl0"> {deliveryAddress.name} </p>
+          <p className="fs-14px">{deliveryAddress.address}</p>
+          <span className="fs-14px">
+            {deliveryAddress.city}, {deliveryAddress.state},
+            {deliveryAddress.zipcode}
+          </span>
+          <p className="fs-14px"> {deliveryAddress.country} </p>
+          <span className="fs-14px"> Mobile: {deliveryAddress.mobile} </span>
+        </div>
+      </section>
+
+      <table className="p-xs p-rl0 divider w-100pc">
+        <thead>
+          <tr className="fw-600 p-xxxs p-rl0 left-align-text">
+            <td>Price Details:</td>
+          </tr>
+        </thead>
+        <tbody className="fs-14px">
+          <tr>
+            <td className="p-xxxs p-rl0">Price ({cart.length} items)</td>
+            <td>₹ {price}</td>
+          </tr>
+          <tr>
+            <td className="p-xxxs p-rl0"> Discount </td>
+            <td>{selectedCoupon ? `${selectedCoupon}%` : "-"}</td>
+          </tr>
+          <tr>
+            <td className="p-xxxs p-rl0">Delivery Charge</td>
+            <td>₹45</td>
+          </tr>
+        </tbody>
+        <tfoot className="fs-14px">
+          <tr>
+            <td className="p-xxxs p-rl0 fw-600">Total Amount</td>
+            <td className="fw-600">
+              ₹ {Number(finalCouponedPrice.toFixed(0)) + 45}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <button onClick={placeOrder} className="btn btn-primary w-100pc">
+        Place Order
+      </button>
+
+      <button
+        onClick={() => setCurrentCartStep("2")}
+        className="btn btn-secondary w-100pc"
+      >
+        Back
+      </button>
+    </div>
   );
 };
 

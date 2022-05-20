@@ -1,6 +1,5 @@
-import "./Footer.css";
 import { Link } from "react-router-dom";
-import { ProductListing } from "../../pages";
+import "./Footer.css";
 
 export default function Footer() {
   return (
@@ -26,16 +25,16 @@ export default function Footer() {
             <h4>Categories</h4>
             <ul className="list-style-none">
               <li>
-                <Link to="/products" element={<ProductListing />}>Weights</Link>
+                <Link to="/products">Weights</Link>
               </li>
               <li>
-                <Link to="/products" element={<ProductListing />}>Equipments</Link>
+                <Link to="/products">Equipments</Link>
               </li>
               <li>
-                <Link to="/products" element={<ProductListing />}>Accessories</Link>
+                <Link to="/products">Accessories</Link>
               </li>
               <li>
-                <Link to="/products" element={<ProductListing />}>Supplements</Link>
+                <Link to="/products">Supplements</Link>
               </li>
             </ul>
           </div>
@@ -43,13 +42,13 @@ export default function Footer() {
             <h4>Our Shop</h4>
             <ul className="list-style-none">
               <li>
-                <a href="">Orders</a>
+              <Link to="/user">Orders</Link>
               </li>
               <li>
-                <a href="">Wishlist</a>
+              <Link to="/user">Wishlist</Link>
               </li>
               <li>
-                <a href="">Account</a>
+              <Link to="/user">Profile</Link>
               </li>
             </ul>
           </div>

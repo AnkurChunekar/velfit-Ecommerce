@@ -1,5 +1,5 @@
-import "./ErrorPage.css";
 import { Link } from "react-router-dom";
+import "./ErrorPage.css";
 
 export default function ErrorPage() {
   return (
@@ -15,7 +15,7 @@ export default function ErrorPage() {
 
         <Link to={"/"}>
           <button className="btn btn-primary">
-            <i class="fa-solid fa-arrow-left m-xxxs"></i> Go To Homepage
+            <i className="fa-solid fa-arrow-left m-xxxs"></i> Go To Homepage
           </button>
         </Link>
       </div>

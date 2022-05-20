@@ -1,30 +1,19 @@
-import { useCart, useAuth, useWishlist } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useCart, useAuth, useWishlist } from "../../context";
 import {
-  addToWishlistService,
   removeFromCartService,
+  addToWishlistService,
   removeFromWishlistService,
-} from "./services";
+} from "../../services";
 
-export function CardIcons({
-  isFastDelivered,
-  className,
-  product,
-  inWishlist,
-  inCart,
-}) {
-  const {
-    authState: { token, user },
-  } = useAuth();
-
+export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
+  const { authState } = useAuth();
+  const token = authState.token || localStorage.getItem("token");
   const navigate = useNavigate();
 
   // Cart fuctionalities
-  const {
-    cartState: { cart },
-    cartDispatch,
-  } = useCart();
+  const { cartDispatch } = useCart();
 
   const handleDeleteFromCart = async () => {
     const requestObj = {
@@ -41,16 +30,21 @@ export function CardIcons({
   const { wishlistDispatch } = useWishlist();
 
   const handleAddOrRemoveFromWishlist = () => {
-    if (user) {
+    if (token) {
+      setIsAddToWishlistLoading(true);
       if (inWishlist) {
-        removeFromWishlistService({ token, product, wishlistDispatch });
+        removeFromWishlistService({
+          token,
+          product,
+          wishlistDispatch,
+          setIsWishlistBtnLoading: setIsAddToWishlistLoading,
+        });
       } else {
-        setIsAddToWishlistLoading(true);
         addToWishlistService({
           token,
           product,
           wishlistDispatch,
-          setIsAddToWishlistLoading,
+          setIsWishlistBtnLoading: setIsAddToWishlistLoading,
         });
         if (window.location.pathname === "/cart") {
           handleDeleteFromCart();

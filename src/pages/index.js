@@ -6,3 +6,4 @@ export { default as Wishlist } from "./wishlist/Wishlist";
 export { default as CartManagement } from "./cartManagement/CartManagement";
 export { default as User } from "./user/User";
 export { default as ErrorPage } from "./errorPage/ErrorPage";
+export { default as SingleProductPage } from "./singleProductPage/SingleProductPage";
