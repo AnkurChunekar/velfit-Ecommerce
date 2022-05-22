@@ -17,7 +17,7 @@ const removeFromWishlistService = async ({
         type: "UPDATE_WISHLIST",
         payload: { wishlist: response.data.wishlist },
       });
-      toast.info(product.title.slice(0, 13).trim() + "... Removed");
+      toast.info("Removed from Wishlist");
     } else {
       throw new Error(`Error occured having Status: ${response.status}`);
     }

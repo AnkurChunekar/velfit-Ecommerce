@@ -12,7 +12,7 @@ const addToCartService = async ({ product, token, cartDispatch, setLoader }) => 
                 type: "UPDATE_CART",
                 payload: { cart: response.data.cart },
             });
-            toast.success(product.title.slice(0, 13).trim() + "... Added to Cart");
+            toast.success("Added to Cart");
         } else {
             throw new Error(response.status, "<-- error code");
         }

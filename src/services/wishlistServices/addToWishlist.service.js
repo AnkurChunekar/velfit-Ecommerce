@@ -20,9 +20,7 @@ const addToWishlistService = async ({
         type: "UPDATE_WISHLIST",
         payload: { wishlist: response.data.wishlist },
       });
-      toast.success(
-        product.title.slice(0, 13).trim() + "... Added to Wishlist"
-      );
+      toast.success("Added to Wishlist");
     } else {
       throw new Error(response.status, "<-- error code");
     }
