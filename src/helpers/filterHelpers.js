@@ -64,14 +64,37 @@ const getCurrentPageProducts = (data, currentPage, searchValue) => {
   return result;
 };
 
+const getFilteredProducts = (productData, filterState) => {
+  const {
+    sortBy,
+    maxPriceRange,
+    categories,
+    rating,
+    removeOutOfStock,
+    fastDeliveryOnly,
+    searchValue,
+  } = filterState;
 
-export {
-  sortData,
-  filterProductsUptoPriceRange,
-  categorizeData,
-  rateData,
-  getOnlyFastDeliveryData,
-  getStockData,
-  searchData,
-  getCurrentPageProducts,
+  const getCategorizedData = categorizeData(productData, categories);
+
+  const getRatedData = rateData(getCategorizedData, rating);
+
+  const getPriceRangedData = filterProductsUptoPriceRange(
+    getRatedData,
+    maxPriceRange
+  );
+
+  const fastDeliveredData = getOnlyFastDeliveryData(
+    getPriceRangedData,
+    fastDeliveryOnly
+  );
+  const stockedData = getStockData(fastDeliveredData, removeOutOfStock);
+
+  const sortedData = sortData(stockedData, sortBy);
+
+  const searchedData = searchData(sortedData, searchValue);
+
+  return searchedData;
 };
+
+export { getCurrentPageProducts, getFilteredProducts };

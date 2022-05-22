@@ -4,10 +4,8 @@ import { getArrayOfNumbersTillN } from "../../../helpers/utilityHelpers";
 export default function PaginationRow({
   currentPage,
   setCurrentPage,
-  productsCount,
+  maxNumberOfPages,
 }) {
-  const productsPerPage = 6;
-  const maxNumberOfPages = Math.ceil(productsCount / productsPerPage);
   const numberOfPagesArr = getArrayOfNumbersTillN(1, maxNumberOfPages);
 
   useEffect(() => {
@@ -37,7 +35,6 @@ export default function PaginationRow({
       >
         <button disabled={currentPage <= 1} name="previous" className="number">
           previous
-          {/* <i name="previous" className="fa-solid fa-angle-left"></i> */}
         </button>
 
         {numberOfPagesArr.map((num) => (

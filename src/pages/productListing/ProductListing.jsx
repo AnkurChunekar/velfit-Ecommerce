@@ -1,19 +1,10 @@
 import { useEffect, useState, Fragment } from "react";
-import axios from "axios";
 import { useFilter } from "../../context";
-import {
-  sortData,
-  filterProductsUptoPriceRange,
-  categorizeData,
-  rateData,
-  getOnlyFastDeliveryData,
-  getStockData,
-  searchData,
-} from "../../helpers/index";
 import Filters from "./components/Filters";
 import PaginationRow from "./components/PaginationRow";
 import { Card, CircularLoader } from "../../components";
-import { getCurrentPageProducts } from "../../helpers/filterHelpers";
+import { getCurrentPageProducts, getFilteredProducts } from "../../helpers";
+import { getAllProductsService } from "../../services";
 import "./ProductListing.css";
 
 export default function ProductListing() {
@@ -22,64 +13,21 @@ export default function ProductListing() {
   const { filterState, filterDispatch } = useFilter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const {
-    sortBy,
-    maxPriceRange,
-    categories,
-    rating,
-    removeOutOfStock,
-    fastDeliveryOnly,
-    searchValue,
-  } = filterState;
-
-  const getProducts = () => {
-    try {
-      (async () => {
-        const response = await axios.get("/api/products");
-        switch (response.status) {
-          case 200:
-            setProductData(response.data.products);
-            setLoader(false);
-            break;
-          case 500:
-            throw new Error("Error while fetching data");
-          default:
-            throw new Error("Unknown Error Occured!");
-        }
-      })();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { searchValue } = filterState;
 
   useEffect(() => {
-    getProducts();
+    getAllProductsService(setProductData, setLoader);
   }, []);
 
-  const getCategorizedData = categorizeData(productData, categories);
-
-  const getRatedData = rateData(getCategorizedData, rating);
-
-  const getPriceRangedData = filterProductsUptoPriceRange(
-    getRatedData,
-    maxPriceRange
-  );
-
-  const fastDeliveredData = getOnlyFastDeliveryData(
-    getPriceRangedData,
-    fastDeliveryOnly
-  );
-  const stockedData = getStockData(fastDeliveredData, removeOutOfStock);
-
-  const sortedData = sortData(stockedData, sortBy);
-
-  const getSearchedData = searchData(sortedData, searchValue);
+  const filteredProducts = getFilteredProducts(productData, filterState);
 
   const pagedProducts = getCurrentPageProducts(
-    getSearchedData,
+    filteredProducts,
     currentPage,
     searchValue
   );
+
+  const maxNumberOfPages = Math.ceil(filteredProducts.length / 6);
 
   return (
     <>
@@ -96,7 +44,9 @@ export default function ProductListing() {
               <header className="m-xs m-rl0 center-align-text">
                 {searchValue === "" ? (
                   <div className="fs-">
-                    (Showing {pagedProducts.length} products)
+                    Page {maxNumberOfPages < 1 ? maxNumberOfPages : currentPage}{" "}
+                    of {maxNumberOfPages} (Showing {pagedProducts.length}{" "}
+                    products)
                   </div>
                 ) : (
                   <div className="flex ai-center jc-space-b p-xs">
@@ -144,7 +94,7 @@ export default function ProductListing() {
             <PaginationRow
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
-              productsCount={getSearchedData.length}
+              maxNumberOfPages={maxNumberOfPages}
             />
           )}
         </section>
