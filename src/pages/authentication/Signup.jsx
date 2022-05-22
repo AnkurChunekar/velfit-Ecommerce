@@ -4,6 +4,7 @@ import { useAuth } from "../../context";
 import { signupService } from "../../services";
 import { checkIfAllInputsAreNotEmpty } from "../../helpers";
 import { TextInput, PasswordInput } from "./components";
+import { toast } from "react-toastify";
 import "./Auth.css";
 
 export default function Signup() {
@@ -22,7 +23,7 @@ export default function Signup() {
   const handleSubmitClick = (e) => {
     e.preventDefault();
     if (!checkIfAllInputsAreNotEmpty(userData)) {
-      alert("Inputs cannot be Empty");
+     toast.error("Inputs cannot be Empty");
     } else if (userData.password !== userData.confirmPassword) {
       setUserData({ ...userData, passwordsDifferent: true });
     } else {
