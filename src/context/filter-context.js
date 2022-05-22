@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { filterReducer } from "../redux/filterReducer";
+import { filterReducer } from "../reducers/filterReducer";
 
 const defaultValue = { filterState: {}, filterDispatch: () => {} };
 

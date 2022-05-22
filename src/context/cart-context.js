@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { cartReducer, initialCartState } from "../redux";
+import { cartReducer, initialCartState } from "../reducers";
 
 const defaultValue = {
     cartState: {},

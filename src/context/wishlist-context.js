@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { wishlistReducer, initialWishlistState } from "../redux";
+import { wishlistReducer, initialWishlistState } from "../reducers";
 
 const defaultValue = {
     wishlistState: {},

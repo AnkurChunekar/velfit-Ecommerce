@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { initialOrderState, orderReducer } from "../redux";
+import { initialOrderState, orderReducer } from "../reducers";
 
 const defaultValue = { ...initialOrderState, orderDispatch: () => {} };
 const OrderContext = createContext(defaultValue);
