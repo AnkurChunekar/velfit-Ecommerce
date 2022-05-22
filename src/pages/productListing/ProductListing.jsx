@@ -94,27 +94,38 @@ export default function ProductListing() {
                     <p>
                       You Searched: <b> {searchValue} </b>
                     </p>
-                    <button onClick={() => {filterDispatch({type:"RESET"})}} className="btn btn-secondary">Clear Search</button>
+                    <button
+                      onClick={() => {
+                        filterDispatch({ type: "RESET" });
+                      }}
+                      className="btn btn-secondary"
+                    >
+                      Clear Search
+                    </button>
                   </div>
                 )}
               </header>
               <div className="products-grid">
-                {getSearchedData.map((product) => (
-                  <Fragment key={product._id}>
-                    <Card
-                      product={product}
-                      cardImage={product.image}
-                      className={`card-ecom card-w-badge ${
-                        product.inStock ? "" : "disabled"
-                      }`}
-                      title={product.title}
-                      description={product.description}
-                      ratingValue={product.rating}
-                      price={product.price}
-                      isFastDelivered={product.isDeliveredFast}
-                    />
-                  </Fragment>
-                ))}
+                {getSearchedData.length > 0 ? (
+                  getSearchedData.map((product) => (
+                    <Fragment key={product._id}>
+                      <Card
+                        product={product}
+                        cardImage={product.image}
+                        className={`card-ecom card-w-badge ${
+                          product.inStock ? "" : "disabled"
+                        }`}
+                        title={product.title}
+                        description={product.description}
+                        ratingValue={product.rating}
+                        price={product.price}
+                        isFastDelivered={product.isDeliveredFast}
+                      />
+                    </Fragment>
+                  ))
+                ) : (
+                  <p className="center-align-text fw-700 fs-3">No Products Found!</p>
+                )}
               </div>
             </>
           )}
