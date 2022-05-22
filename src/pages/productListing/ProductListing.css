@@ -19,6 +19,7 @@
   width: 100%;
   overflow-y: auto;
   background-color: var(--lynx-white);
+  padding-bottom: 80px;
 }
 
 .product-listing-page {
@@ -37,6 +38,8 @@
   padding: 1.2rem;
   align-items: center;
   justify-content: space-around;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .card.card-ecom {
@@ -98,4 +101,26 @@
   .filters-close-btn {
     display: inline-block;
   }
+}
+
+/* Pagination */
+
+.pagination .number {
+  border: solid 1px lightgray;
+  background-color: white;
+  border-radius: 5px;
+  padding: 0.8rem 1.3rem;
+}
+
+.pagination .number:active {
+  transform: scale(0.95);
+}
+
+.pagination .number:disabled:active {
+  transform: scale(1);
+}
+
+.pagination .number.active {
+  background-color: var(--primary-color);
+  color: white;
 }

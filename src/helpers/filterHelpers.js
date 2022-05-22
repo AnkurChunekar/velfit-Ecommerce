@@ -44,6 +44,27 @@ const searchData = (data, searchValue) => {
   return data;
 };
 
+const getCurrentPageProducts = (data, currentPage, searchValue) => {
+  const productsPerPage = 6;
+  if (data.length < productsPerPage || searchValue.trim() !== "") return data;
+
+  const startIndex = currentPage * productsPerPage - productsPerPage;
+  let endIndex = startIndex + productsPerPage;
+
+  const result = [];
+
+  for (let i = startIndex; i < endIndex; i++) {
+    if (data[i]) {
+      result.push(data[i]);
+    } else {
+      return result;
+    }
+  }
+
+  return result;
+};
+
+
 export {
   sortData,
   filterProductsUptoPriceRange,
@@ -52,4 +73,5 @@ export {
   getOnlyFastDeliveryData,
   getStockData,
   searchData,
+  getCurrentPageProducts,
 };

@@ -6,4 +6,12 @@ const capitalizeFirstWordOfString = (str) =>
 
 const deepCloneObject = (obj) => JSON.parse(JSON.stringify(obj));
 
-export { isItemInArrayOfObjects, capitalizeFirstWordOfString, deepCloneObject };
+const getArrayOfNumbersTillN = (start, end) => {
+  const result = [];
+  for (let i = start; i < end + 1; i++) {
+    result.push(i);
+  }
+  return result;
+};
+
+export { isItemInArrayOfObjects, capitalizeFirstWordOfString, deepCloneObject, getArrayOfNumbersTillN };
