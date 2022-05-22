@@ -12,6 +12,9 @@ import {
   User,
   ErrorPage,
   SingleProductPage,
+  ProfileTab,
+  AddressesTab,
+  OrdersTab
 } from "./pages";
 import { Navbar, RequiresAuth } from "./components";
 import "./App.css";
@@ -64,7 +67,11 @@ function App() {
                 <User />
               </RequiresAuth>
             }
-          />
+          >
+            <Route path="profile" element={<ProfileTab/>} />
+            <Route path="addresses" element={<AddressesTab />} />
+            <Route path="orders" element={<OrdersTab />} />
+          </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>

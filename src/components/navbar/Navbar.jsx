@@ -74,7 +74,7 @@ export default function Navbar() {
           <Link onClick={handleHamMenuToggleClick} to="/cart">
             Orders
           </Link>
-          <Link onClick={handleHamMenuToggleClick} to="/user">
+          <Link onClick={handleHamMenuToggleClick} to="/user/profile">
             {token ? "Profile" : "Login"}
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default function Navbar() {
             </button>
           ) : null}
 
-          <Link to="/user">
+          <Link to="/user/profile">
             <span>
               <i className={`fa-solid fa-user-${token ? "check" : "xmark"}`} />
             </span>

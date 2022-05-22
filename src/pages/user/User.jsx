@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import { ProfileTab, AddressesTab, OrdersTab } from "./components";
 import "./User.css";
 
 const tabButtonData = [
@@ -10,20 +9,8 @@ const tabButtonData = [
 ];
 
 export default function User() {
-  const [currentTab, setCurrentTab] = useState("profile");
-
-  const getCurrentTab = () => {
-    switch (currentTab) {
-      case "profile":
-        return <ProfileTab />;
-      case "addresses":
-        return <AddressesTab />;
-      case "orders":
-        return <OrdersTab />;
-      default:
-        return <ProfileTab />;
-    }
-  };
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <div className="user-page">
@@ -32,9 +19,9 @@ export default function User() {
           {tabButtonData.map((item) => (
             <button
               key={item.id}
-              onClick={() => setCurrentTab(item.tabName.toLowerCase())}
+              onClick={() => navigate(item.tabName.toLowerCase())}
               className={`tab-name p-xs btn-unset ${
-                currentTab === item.tabName.toLowerCase() ? "active" : ""
+                pathname.includes(item.tabName.toLowerCase()) ? "active" : ""
               }`}
             >
               {item.tabName}
@@ -43,7 +30,7 @@ export default function User() {
         </div>
       </header>
 
-      {getCurrentTab()}
+      <Outlet />
     </div>
   );
 }
