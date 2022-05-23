@@ -19,7 +19,7 @@ const removeFromCartService = async ({
           payload: { cart: response.data.cart },
         });
         if (!finalOrder) {
-          toast.info(product.title.slice(0, 10).trim() + "... Removed to Cart");
+          toast.info("Removed From Cart");
         }
         break;
       case 404:

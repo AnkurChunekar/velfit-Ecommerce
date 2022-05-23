@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useCart, useWishlist, useFilter, useAuth } from "../../context";
 import "./Navbar.css";
 
-export default function Navbar() {
+export function Navbar() {
   const [isHamMenuVisible, setIsHamMenuVisible] = useState(false);
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -74,7 +74,7 @@ export default function Navbar() {
           <Link onClick={handleHamMenuToggleClick} to="/cart">
             Orders
           </Link>
-          <Link onClick={handleHamMenuToggleClick} to="/user">
+          <Link onClick={handleHamMenuToggleClick} to="/user/profile">
             {token ? "Profile" : "Login"}
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default function Navbar() {
             </button>
           ) : null}
 
-          <Link to="/user">
+          <Link to="/user/profile">
             <span>
               <i className={`fa-solid fa-user-${token ? "check" : "xmark"}`} />
             </span>

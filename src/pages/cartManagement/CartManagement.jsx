@@ -12,7 +12,7 @@ import { OrderSummary } from "./components/OrderSummary";
 import { DeliveryAddress } from "./components/DeliveryAddress";
 import "./CartManagement.css";
 
-export default function CartManagement() {
+export function CartManagement() {
   const [selectedCoupon, setSelectedCoupon] = useState(0);
   const {
     orderState: { addresses },

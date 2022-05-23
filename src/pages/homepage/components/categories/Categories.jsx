@@ -5,7 +5,7 @@ import { getCategoriesService } from "../../../../services";
 import { CircularLoader } from "../../../../components";
 import "./Categories.css";
 
-export default function Categories() {
+export function Categories() {
   const [categoryData, setCategoryData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { filterDispatch } = useFilter();

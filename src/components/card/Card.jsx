@@ -16,7 +16,7 @@ function CardHeader({ cardImage, productID }) {
   );
 }
 
-export default function Card({
+export function Card({
   product,
   className,
   cardImage,

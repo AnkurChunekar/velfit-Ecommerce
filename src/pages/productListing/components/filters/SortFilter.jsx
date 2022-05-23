@@ -1,4 +1,4 @@
-export default function SortFilter({ sortBy, filterDispatch }) {
+export function SortFilter({ sortBy, filterDispatch }) {
   const sortLowToHigh = () => {
     filterDispatch({ type: "SORT_BY", payload: "LOW_TO_HIGH" });
   };

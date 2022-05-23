@@ -44,12 +44,57 @@ const searchData = (data, searchValue) => {
   return data;
 };
 
-export {
-  sortData,
-  filterProductsUptoPriceRange,
-  categorizeData,
-  rateData,
-  getOnlyFastDeliveryData,
-  getStockData,
-  searchData,
+const getCurrentPageProducts = (data, currentPage, searchValue) => {
+  const productsPerPage = 6;
+  if (data.length < productsPerPage || searchValue.trim() !== "") return data;
+
+  const startIndex = currentPage * productsPerPage - productsPerPage;
+  let endIndex = startIndex + productsPerPage;
+
+  const result = [];
+
+  for (let i = startIndex; i < endIndex; i++) {
+    if (data[i]) {
+      result.push(data[i]);
+    } else {
+      return result;
+    }
+  }
+
+  return result;
 };
+
+const getFilteredProducts = (productData, filterState) => {
+  const {
+    sortBy,
+    maxPriceRange,
+    categories,
+    rating,
+    removeOutOfStock,
+    fastDeliveryOnly,
+    searchValue,
+  } = filterState;
+
+  const getCategorizedData = categorizeData(productData, categories);
+
+  const getRatedData = rateData(getCategorizedData, rating);
+
+  const getPriceRangedData = filterProductsUptoPriceRange(
+    getRatedData,
+    maxPriceRange
+  );
+
+  const fastDeliveredData = getOnlyFastDeliveryData(
+    getPriceRangedData,
+    fastDeliveryOnly
+  );
+  const stockedData = getStockData(fastDeliveredData, removeOutOfStock);
+
+  const sortedData = sortData(stockedData, sortBy);
+
+  const searchedData = searchData(sortedData, searchValue);
+
+  return searchedData;
+};
+
+export { getCurrentPageProducts, getFilteredProducts };

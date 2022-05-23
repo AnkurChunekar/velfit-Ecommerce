@@ -7,7 +7,7 @@ import {
 } from "../../../../images/index";
 import "./Products.css";
 
-export default function Products() {
+export function Products() {
   return (
     <section>
       <h2 className="title">Our Products</h2>

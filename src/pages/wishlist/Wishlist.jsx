@@ -4,7 +4,7 @@ import { useWishlist } from "../../context";
 import { Card } from "../../components";
 import "./Wishlist.css";
 
-export default function Wishlist() {
+export function Wishlist() {
   const {
     wishlistState: { wishlist },
   } = useWishlist();

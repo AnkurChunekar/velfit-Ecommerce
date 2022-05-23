@@ -1,4 +1,4 @@
-export default function RatingFilter({ rating, filterDispatch }) {
+export function RatingFilter({ rating, filterDispatch }) {
   const handleRatingChange = (e) => {
     switch (e.target.id) {
       case "four-star":

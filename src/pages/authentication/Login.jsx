@@ -6,7 +6,7 @@ import { TextInput, PasswordInput } from "./components";
 import "./Auth.css";
 import { toast } from "react-toastify";
 
-export default function Login() {
+export function Login() {
   const [userData, setUserData] = useState({
     email: "",
     password: "",

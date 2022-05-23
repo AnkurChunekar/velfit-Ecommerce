@@ -1,4 +1,4 @@
-import { cloneDeep } from "lodash";
+import { deepCloneObject } from "../helpers";
 
 const initialOrderState = {
   addresses: [],
@@ -7,7 +7,7 @@ const initialOrderState = {
 };
 
 const deepCloneAndUpdate = (object, propertyName, propertyValue) => {
-  const copiedObject = cloneDeep(object);
+  const copiedObject = deepCloneObject(object);
   copiedObject[propertyName] = propertyValue;
   return copiedObject;
 };

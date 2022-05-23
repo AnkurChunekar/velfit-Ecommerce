@@ -1,15 +1,17 @@
-import {useState} from "react";
+import { useState } from "react";
 import { useFilter } from "../../../context";
-import FilterHeader from "./filters/FilterHeader";
-import SortFilter from "./filters/SortFilter";
-import RatingFilter from "./filters/RatingFilter";
-import PriceFilter from "./filters/PriceFilter";
-import CategoryFilter from "./filters/CategoryFilter";
-import OtherFilters from "./filters/OtherFilters";
+import {
+  FilterHeader,
+  SortFilter,
+  RatingFilter,
+  PriceFilter,
+  CategoryFilter,
+  OtherFilters,
+} from "./filters/index";
 
-export default function Filters() {
+export function Filters() {
   const { filterState, filterDispatch } = useFilter();
-  const [ isFiltersTabVisible, setIsFiltersTabVisible ] = useState(false);
+  const [isFiltersTabVisible, setIsFiltersTabVisible] = useState(false);
   const {
     sortBy,
     maxPriceRange,
@@ -20,17 +22,32 @@ export default function Filters() {
   } = filterState;
 
   return (
-    <aside className={`filters-container p-xs ${isFiltersTabVisible ? "active" : ""}`}>
-      <FilterHeader filterDispatch={filterDispatch} setIsFiltersTabVisible={setIsFiltersTabVisible} isFiltersTabVisible={isFiltersTabVisible} />
-      <div className="mobile-filters-menu" >
-      <PriceFilter maxPriceRange={maxPriceRange} filterDispatch={filterDispatch} />
-      <CategoryFilter
-        categories={categories}
+    <aside
+      className={`filters-container p-xs ${
+        isFiltersTabVisible ? "active" : ""
+      }`}
+    >
+      <FilterHeader
         filterDispatch={filterDispatch}
+        setIsFiltersTabVisible={setIsFiltersTabVisible}
+        isFiltersTabVisible={isFiltersTabVisible}
       />
-      <RatingFilter rating={rating} filterDispatch={filterDispatch} />
-      <SortFilter sortBy={sortBy} filterDispatch={filterDispatch} />
-      <OtherFilters removeOutOfStock={removeOutOfStock} fastDeliveryOnly={fastDeliveryOnly} filterDispatch={filterDispatch}  />
+      <div className="mobile-filters-menu">
+        <PriceFilter
+          maxPriceRange={maxPriceRange}
+          filterDispatch={filterDispatch}
+        />
+        <CategoryFilter
+          categories={categories}
+          filterDispatch={filterDispatch}
+        />
+        <RatingFilter rating={rating} filterDispatch={filterDispatch} />
+        <SortFilter sortBy={sortBy} filterDispatch={filterDispatch} />
+        <OtherFilters
+          removeOutOfStock={removeOutOfStock}
+          fastDeliveryOnly={fastDeliveryOnly}
+          filterDispatch={filterDispatch}
+        />
       </div>
     </aside>
   );
