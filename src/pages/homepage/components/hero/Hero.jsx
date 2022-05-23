@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { heroBanner } from "../../../../images";
 import "./Hero.css";
 
-export default function Hero(){
+export function Hero(){
     return (
         <header className="hero-section">
         <div className="hero-details">

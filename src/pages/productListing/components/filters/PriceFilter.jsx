@@ -1,6 +1,6 @@
 
 
-export default function PriceFilter({ maxPriceRange, filterDispatch }) {
+export function PriceFilter({ maxPriceRange, filterDispatch }) {
 
   const handleMaxPriceRangeChange = (e) => {
     filterDispatch({ type: "PRICE_RANGE", payload: e.target.value });

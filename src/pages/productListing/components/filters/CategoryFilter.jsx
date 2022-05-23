@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getCategoriesService } from "../../../../services";
 import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
-export default function CategoryFilter({ categories, filterDispatch }) {
+export function CategoryFilter({ categories, filterDispatch }) {
   const [loader, setLoader] = useState(true);
   const [categoryData, setCategoryData] = useState([]);
 

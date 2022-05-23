@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./ErrorPage.css";
 
-export default function ErrorPage() {
+export function ErrorPage() {
   return (
     <div className="error-page flex flex-center">
       <div className="error-content flex flex-column flex-center">

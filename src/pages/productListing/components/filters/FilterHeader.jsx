@@ -1,4 +1,4 @@
-export default function FilterHeader({ filterDispatch, setIsFiltersTabVisible, isFiltersTabVisible }) {
+export function FilterHeader({ filterDispatch, setIsFiltersTabVisible, isFiltersTabVisible }) {
   const handleReset = () => {
     filterDispatch({ type: "RESET" });
   };

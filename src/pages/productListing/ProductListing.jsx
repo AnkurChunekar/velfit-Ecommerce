@@ -1,13 +1,13 @@
 import { useEffect, useState, Fragment } from "react";
 import { useFilter } from "../../context";
-import Filters from "./components/Filters";
-import PaginationRow from "./components/PaginationRow";
+import { Filters } from "./components/Filters";
+import { PaginationRow } from "./components/PaginationRow";
 import { Card, CircularLoader } from "../../components";
 import { getCurrentPageProducts, getFilteredProducts } from "../../helpers";
 import { getAllProductsService } from "../../services";
 import "./ProductListing.css";
 
-export default function ProductListing() {
+export function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
   const { filterState, filterDispatch } = useFilter();

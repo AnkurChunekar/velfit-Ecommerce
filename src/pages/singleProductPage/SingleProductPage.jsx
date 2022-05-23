@@ -11,7 +11,7 @@ import { isItemInArrayOfObjects } from "../../helpers";
 import { CircularLoader } from "../../components";
 import "./SingleProductPage.css";
 
-export default function SingleProductPage() {
+export function SingleProductPage() {
   const { productID } = useParams();
   const navigate = useNavigate();
   const [productData, setProductData] = useState(false);

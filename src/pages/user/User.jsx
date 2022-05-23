@@ -8,7 +8,7 @@ const tabButtonData = [
   { id: uuid(), tabName: "Orders" },
 ];
 
-export default function User() {
+export function User() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

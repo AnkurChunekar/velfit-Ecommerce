@@ -1,4 +1,4 @@
-export default function OtherFilters({
+export function OtherFilters({
   removeOutOfStock,
   fastDeliveryOnly,
   filterDispatch,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { getArrayOfNumbersTillN } from "../../../helpers/utilityHelpers";
 
-export default function PaginationRow({
+export function PaginationRow({
   currentPage,
   setCurrentPage,
   maxNumberOfPages,
