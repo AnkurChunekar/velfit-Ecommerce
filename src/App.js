@@ -68,6 +68,7 @@ function App() {
               </RequiresAuth>
             }
           >
+            <Route index element={<ProfileTab/>} />
             <Route path="profile" element={<ProfileTab/>} />
             <Route path="addresses" element={<AddressesTab />} />
             <Route path="orders" element={<OrdersTab />} />
