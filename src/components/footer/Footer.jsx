@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
+import { useFilter } from "../../context";
 import "./Footer.css";
 
 export function Footer() {
+  const { filterDispatch } = useFilter();
+
+  const handleCategoriesClick = (e) => {
+    filterDispatch({ type: "SINGLE_CATEGORY", payload: e.target.name });
+  };
+
   return (
     <>
       <footer className="footer">
@@ -11,16 +18,40 @@ export function Footer() {
               <h4>Categories</h4>
               <ul className="list-style-none">
                 <li>
-                  <Link to="/products">Weights</Link>
+                  <Link
+                    onClick={handleCategoriesClick}
+                    name="weights"
+                    to="/products"
+                  >
+                    Weights
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/products">Equipments</Link>
+                  <Link
+                    onClick={handleCategoriesClick}
+                    name="equipments"
+                    to="/products"
+                  >
+                    Equipments
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/products">Accessories</Link>
+                  <Link
+                    onClick={handleCategoriesClick}
+                    name="accessories"
+                    to="/products"
+                  >
+                    Accessories
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/products">Supplements</Link>
+                  <Link
+                    onClick={handleCategoriesClick}
+                    name="supplements"
+                    to="/products"
+                  >
+                    Supplements
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -28,13 +59,13 @@ export function Footer() {
               <h4>Our Shop</h4>
               <ul className="list-style-none">
                 <li>
-                  <Link to="/user">Orders</Link>
+                  <Link to="/user/orders">Orders</Link>
                 </li>
                 <li>
-                  <Link to="/user">Wishlist</Link>
+                  <Link to="/wishlist">Wishlist</Link>
                 </li>
                 <li>
-                  <Link to="/user">Profile</Link>
+                  <Link to="/user/profile">Profile</Link>
                 </li>
               </ul>
             </div>

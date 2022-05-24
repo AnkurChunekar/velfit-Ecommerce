@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllProductsService } from "../../../../services";
-import {
-  kettlebellPI,
-  bcaaPI,
-  onPI,
-  latPulldownPI,
-} from "../../../../images/index";
 import "./Products.css";
 
 export function Products() {
