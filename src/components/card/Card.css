@@ -1,4 +1,6 @@
-.card .card-text-content {
+.card .card-text-content,
+.card .card-text-content .subtitle,
+.card .card-text-content .card-title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
