@@ -39,12 +39,12 @@ export function AddAddressModal({
     const dummyData = {
       _id: uuid(),
       country: "India",
-      name: "John Doe",
-      city: "Mumbai",
-      street: "E045 , B.S Ring Road, Near Taj Hotel - 4th Floor, Osho Kabir",
+      name: "Raj Malhotra",
+      city: "Pune",
+      street: "E049 , R.B Road, Near Char Mahal - 18th Floor, King Tower",
       state: "Maharashtra",
-      zipCode: "784411",
-      mobile: "8877665544",
+      zipCode: "181916",
+      mobile: "987654321",
     };
     setUserInputData(dummyData);
   };
