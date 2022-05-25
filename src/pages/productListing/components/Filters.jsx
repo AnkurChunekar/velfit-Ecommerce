@@ -67,7 +67,7 @@ export function Filters() {
           )}
         </button>
         <button
-          onClick={() => filterDispatch({ type: "RESET" })}
+          onClick={() => {filterDispatch({ type: "RESET" })}}
           className="w-100pc"
         >
           CLEAR

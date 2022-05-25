@@ -61,7 +61,7 @@
   border-top: solid 1px lightgray;
   font-size: 1.8rem;
   height: 55px;
-  z-index: 9;
+  z-index: 7;
 }
 
 .mobile-filter-btn button {
@@ -104,9 +104,8 @@
 
   .filters-container {
     position: fixed;
-    z-index: 2;
     background-color: white;
-    top: 0;
+    top: 71px;
     right: 0;
     left: 0;
     bottom: 55px;
@@ -116,7 +115,7 @@
     width: 100%;
     overflow: hidden;
     border-top: solid 1px lightgray;
-    z-index: 8;
+    z-index: 7;
   }
 
   .filters-container.active {
