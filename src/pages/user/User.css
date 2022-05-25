@@ -85,3 +85,14 @@
   row-gap: 3rem;
 }
 
+/* Profile Tab */
+
+.tab-container.profile .heading {
+  border-bottom: solid 1px gray;
+  width: max-content;
+  margin: 1.5rem 0;
+}
+
+.tab-container.profile .details {
+  margin-left: 2rem;
+}
