@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useCart, useWishlist, useFilter, useAuth } from "../../context";
+import { useCart, useWishlist, useAuth } from "../../context";
 import "./Navbar.css";
 
-export function Navbar() {
+export function Navbar({ productData }) {
   const [isHamMenuVisible, setIsHamMenuVisible] = useState(false);
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -20,24 +20,23 @@ export function Navbar() {
     wishlistState: { wishlist },
   } = useWishlist();
 
-  const { filterDispatch } = useFilter();
-
   const handleHamMenuToggleClick = () => {
-    setIsHamMenuVisible((pv) => !pv);
+    setIsHamMenuVisible((prev) => !prev);
   };
 
   const searchToggleClick = () => {
-    setSearchVisible((prevVisibility) => !prevVisibility);
+    setSearchVisible((prev) => !prev);
+    setSearchInput("");
   };
 
-  const handleUserSearch = () => {
-    searchToggleClick();
-    filterDispatch({ type: "RESET" });
-    filterDispatch({
-      type: "SEARCH_PRODUCT",
-      payload: { searchValue: searchInput },
-    });
-  };
+  const searchedProducts =
+    productData.length > 0
+      ? productData.filter(
+          (item) =>
+            item.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+            item.description.toLowerCase().includes(searchInput.toLowerCase())
+        )
+      : null;
 
   return (
     <>
@@ -88,13 +87,11 @@ export function Navbar() {
           className={`navigation-ham-bg ${isHamMenuVisible ? "active" : ""}`}
         ></div>
         <div className="nav-actions">
-          {pathname === "/products" ? (
-            <button onClick={searchToggleClick} className="search-btn">
-              <span className="icon-container badge-container">
-                <i id="nav-search-icon" className="fas fa-search icon" />
-              </span>
-            </button>
-          ) : null}
+          <button onClick={searchToggleClick} className="search-btn">
+            <span className="icon-container badge-container">
+              <i id="nav-search-icon" className="fas fa-search icon" />
+            </span>
+          </button>
 
           <Link to="/user/profile">
             <span>
@@ -121,26 +118,42 @@ export function Navbar() {
           </Link>
         </div>
       </nav>
-      {/* Search bar starts */}
 
+      {/* Search bar starts */}
       {isSearchVisible ? (
-        <div id="nav-searchbar" className="input-wrapper active">
+        <div id="nav-searchbar" className="nav-searchbar input-wrapper active">
           <div className="search-box flex flex-center">
-            <button className="search-btn" onClick={handleUserSearch}>
-              <i className="fas fa-search" />
-            </button>
+            <i className="fas fa-search" />
             <input
               type="text"
-              placeholder="Type product name and press Enter key..."
+              placeholder="Search for any product here..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              onKeyPress={(e) => {
-                e.key === "Enter" ? handleUserSearch() : null;
-              }}
             />
             <button className="search-btn" onClick={searchToggleClick}>
               <i id="nav-close-icon" className="fas fa-times" />
             </button>
+
+            {/* search Results */}
+            {searchInput.trim() !== "" ? (
+              <ul className="list list-style-none">
+                {searchedProducts.length > 0 ? (
+                  searchedProducts.map((item) => (
+                    <li key={item._id}>
+                      <Link
+                        onClick={searchToggleClick}
+                        to={`/products/${item._id}`}
+                        className="link fw-600"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li className="p-xs">No Products Found</li>
+                )}
+              </ul>
+            ) : null}
           </div>
           <div
             onClick={searchToggleClick}
@@ -149,8 +162,6 @@ export function Navbar() {
           />
         </div>
       ) : null}
-
-      {/* Search bar ends */}
     </>
   );
 }

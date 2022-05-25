@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,9 +18,16 @@ import {
   OrdersTab
 } from "./pages";
 import { Navbar, RequiresAuth } from "./components";
+import { getAllProductsService } from "./services";
 import "./App.css";
 
 function App() {
+  const [productData, setProductData] = useState([]);
+
+  useEffect(() => {
+    getAllProductsService(setProductData);
+  }, []);
+
   return (
     <>
       <ToastContainer
@@ -35,10 +43,10 @@ function App() {
         pauseOnHover
       />
 
-      <Navbar />
+      <Navbar productData={productData} />
       <div className="App">
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage productData={productData} />} />
           <Route path="/products" element={<ProductListing />} />
           <Route path="/products/:productID" element={<SingleProductPage />} />
           <Route path="/login" element={<Login />} />

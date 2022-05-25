@@ -10,23 +10,15 @@ import "./ProductListing.css";
 export function ProductListing() {
   const [productData, setProductData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const { filterState, filterDispatch } = useFilter();
+  const { filterState } = useFilter();
   const [currentPage, setCurrentPage] = useState(1);
-
-  const { searchValue } = filterState;
 
   useEffect(() => {
     getAllProductsService(setProductData, setLoader);
   }, []);
 
   const filteredProducts = getFilteredProducts(productData, filterState);
-
-  const pagedProducts = getCurrentPageProducts(
-    filteredProducts,
-    currentPage,
-    searchValue
-  );
-
+  const pagedProducts = getCurrentPageProducts(filteredProducts, currentPage);
   const maxNumberOfPages = Math.ceil(filteredProducts.length / 6);
 
   return (
@@ -42,27 +34,9 @@ export function ProductListing() {
           ) : (
             <>
               <header className="m-xs m-rl0 center-align-text">
-                {searchValue === "" ? (
-                  <div className="fs-">
-                    Page {maxNumberOfPages < 1 ? maxNumberOfPages : currentPage}{" "}
-                    of {maxNumberOfPages} (Showing {pagedProducts.length} of{" "}
-                    {filteredProducts.length} products)
-                  </div>
-                ) : (
-                  <div className="flex ai-center jc-space-b p-xs">
-                    <p>
-                      You Searched: <b> {searchValue} </b>
-                    </p>
-                    <button
-                      onClick={() => {
-                        filterDispatch({ type: "RESET" });
-                      }}
-                      className="btn btn-secondary"
-                    >
-                      Clear Search
-                    </button>
-                  </div>
-                )}
+                Page {maxNumberOfPages < 1 ? maxNumberOfPages : currentPage} of{" "}
+                {maxNumberOfPages} (Showing {pagedProducts.length} of{" "}
+                {filteredProducts.length} products)
               </header>
               <div className="products-grid">
                 {pagedProducts.length > 0 ? (
@@ -90,13 +64,12 @@ export function ProductListing() {
               </div>
             </>
           )}
-          {searchValue.trim() !== "" ? null : (
-            <PaginationRow
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              maxNumberOfPages={maxNumberOfPages}
-            />
-          )}
+
+          <PaginationRow
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            maxNumberOfPages={maxNumberOfPages}
+          />
         </section>
       </main>
     </>

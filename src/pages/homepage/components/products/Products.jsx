@@ -1,14 +1,7 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllProductsService } from "../../../../services";
 import "./Products.css";
 
-export function Products() {
-  const [productData, setProductData] = useState([]);
-
-  useEffect(() => {
-    getAllProductsService(setProductData);
-  }, []);
+export function Products({ productData }) {
 
   return (
     <section>

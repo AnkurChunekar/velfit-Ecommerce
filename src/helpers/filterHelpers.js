@@ -34,19 +34,9 @@ const getStockData = (data, removeOutOfStock) => {
   return removeOutOfStock ? data.filter((p) => p.inStock) : data;
 };
 
-const searchData = (data, searchValue) => {
-  if (searchValue) {
-    return data.filter((p) =>
-      p.title.toLowerCase().includes(searchValue.trim().toLowerCase())
-    );
-  }
-
-  return data;
-};
-
-const getCurrentPageProducts = (data, currentPage, searchValue) => {
+const getCurrentPageProducts = (data, currentPage) => {
   const productsPerPage = 6;
-  if (data.length < productsPerPage || searchValue.trim() !== "") return data;
+  if (data.length < productsPerPage) return data;
 
   const startIndex = currentPage * productsPerPage - productsPerPage;
   let endIndex = startIndex + productsPerPage;
@@ -72,7 +62,6 @@ const getFilteredProducts = (productData, filterState) => {
     rating,
     removeOutOfStock,
     fastDeliveryOnly,
-    searchValue,
   } = filterState;
 
   const getCategorizedData = categorizeData(productData, categories);
@@ -92,9 +81,7 @@ const getFilteredProducts = (productData, filterState) => {
 
   const sortedData = sortData(stockedData, sortBy);
 
-  const searchedData = searchData(sortedData, searchValue);
-
-  return searchedData;
+  return sortedData;
 };
 
 export { getCurrentPageProducts, getFilteredProducts };
