@@ -8,6 +8,10 @@
   border-right: solid 1px lightgray;
 }
 
+.filters-container header {
+  margin-top: 1.5rem;
+}
+
 .filters-close-btn {
   display: none;
   font-size: var(--font-size-h2);
@@ -47,6 +51,29 @@
   background-color: white;
 }
 
+.mobile-filter-btn {
+  visibility: hidden;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: white;
+  border-top: solid 1px lightgray;
+  font-size: 1.8rem;
+  height: 55px;
+  z-index: 9;
+}
+
+.mobile-filter-btn button {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+
+.mobile-filter-btn button:nth-child(1) {
+  border-right: solid 1px lightgray;
+}
+
 /* filter starts */
 
 .price input[type="range"] {
@@ -71,34 +98,44 @@
     grid-template-columns: 1fr;
   }
 
+  .mobile-filter-btn {
+    visibility: visible;
+  }
+
   .filters-container {
     position: fixed;
     z-index: 2;
     background-color: white;
+    top: 0;
     right: 0;
     left: 0;
-    bottom: -715px;
+    bottom: 55px;
     padding-top: 0;
+    transform: translateY(120%);
+    transition: transform ease-in-out 0.5s;
     width: 100%;
     overflow: hidden;
     border-top: solid 1px lightgray;
+    z-index: 8;
   }
 
   .filters-container.active {
-    top: 50%;
-    bottom: auto;
+    transform: translateY(0%);
+    transition: transform ease-in-out 0.5s;
   }
 
   .filters-container.active .mobile-filters-menu {
     overflow: auto;
+    height: 100%;
+    padding-bottom: 50px;
   }
 
   .filters-container .price {
     max-width: 250px;
   }
 
-  .filters-close-btn {
-    display: inline-block;
+  .filters-container header .btn-link {
+    visibility: hidden;
   }
 }
 

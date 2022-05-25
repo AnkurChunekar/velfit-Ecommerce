@@ -35,7 +35,7 @@
 @media screen and (max-width: 900px) {
   .single-prod-page {
     flex-direction: column;
-    width: fit-content;
+    width: max-content;
   }
 
   .single-prod-page .prod-details {
