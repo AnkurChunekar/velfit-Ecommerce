@@ -46,6 +46,10 @@ a {
   transition: color 0.3s;
 }
 
+.navigation .ham-btn {
+  display: none;
+}
+
 .navigation-ham-menu a:hover {
   color: var(--primary-color);
 }
@@ -62,12 +66,17 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-  .navigation .nav-link {
+  .navigation .nav-link,
+  .navigation .products-link {
     display: none;
   }
 
   .nav-actions .icon {
     padding: 0;
+  }
+
+  .navigation .ham-btn {
+    display: block;
   }
 }
 
@@ -78,7 +87,7 @@ a {
 #nav-searchbar .search-box {
   column-gap: 2rem;
   background-color: var(--plain-white);
-  height: 14%;
+  height: 120px;
 }
 
 #nav-searchbar .search-box input {
@@ -94,7 +103,7 @@ a {
 
 #nav-searchbar .searchbar-bg {
   background-color: rgba(0, 0, 0, 0.6);
-  height: 86%;
+  height: calc(100vh - 120px);
 }
 
 #nav-searchbar {

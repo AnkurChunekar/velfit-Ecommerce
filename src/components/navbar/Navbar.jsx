@@ -42,14 +42,19 @@ export function Navbar() {
   return (
     <>
       <nav className="navigation">
-        <div className="nav-brand">
-          <i
-            className="fas fa-bars ham-icon"
-            id="ham-icon"
-            onClick={handleHamMenuToggleClick}
-          />
+        <div className="nav-brand flex ai-center">
+          <button className="ham-btn btn-unset">
+            <i
+              className="fas fa-bars ham-icon"
+              id="ham-icon"
+              onClick={handleHamMenuToggleClick}
+            />
+          </button>
           <Link to="/" className="brand-name">
             Velfit
+          </Link>
+          <Link to="/products" className="m-xs m-tb0 products-link">
+            Products
           </Link>
         </div>
         <div
@@ -78,7 +83,10 @@ export function Navbar() {
             {token ? "Profile" : "Login"}
           </Link>
         </div>
-        <div className="navigation-ham-bg" />
+        <div
+          onClick={handleHamMenuToggleClick}
+          className={`navigation-ham-bg ${isHamMenuVisible ? "active" : ""}`}
+        ></div>
         <div className="nav-actions">
           {pathname === "/products" ? (
             <button onClick={searchToggleClick} className="search-btn">
