@@ -25,8 +25,8 @@
 .product-listing-page {
   display: grid;
   grid-template-columns: 25rem 1fr;
-  height: 90vh;
-  overflow: hidden;
+  height: calc(100vh - 71px);
+  overflow-y: hidden;
 }
 
 .product-listing .products-grid {
@@ -90,7 +90,6 @@
   }
 
   .filters-container.active .mobile-filters-menu {
-    height: 40vh;
     overflow: auto;
   }
 

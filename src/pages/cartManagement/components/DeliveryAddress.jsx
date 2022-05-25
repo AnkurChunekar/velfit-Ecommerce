@@ -48,7 +48,10 @@ export function DeliveryAddress({ setCurrentCartStep }) {
 
   const handleProceedClick = () => {
     if (selectedAddress) {
-      orderDispatch({type: "UPDATE_DELIVERY_ADDRESS", payload: {selectedAddress}})
+      orderDispatch({
+        type: "UPDATE_DELIVERY_ADDRESS",
+        payload: { selectedAddress },
+      });
       setCurrentCartStep("3");
     } else {
       toast.error("please select Delivery Address");
@@ -67,20 +70,27 @@ export function DeliveryAddress({ setCurrentCartStep }) {
         </Fragment>
       ))}
 
-      <div className="flex ai-center flex-wrap c-gap-1rem p-s p-rl0">
+      <div>
+        <button
+          onClick={() => setIsAddressModalVisible(true)}
+          className="btn btn-dark"
+        >
+          Add Address
+        </button>
+      </div>
+
+      <div className="flex ai-center jc-space-b flex-wrap c-gap-1rem p-s p-rl0">
         <button
           onClick={() => setCurrentCartStep("1")}
           className="btn btn-secondary"
         >
           Back
         </button>
+
         <button
-          onClick={() => setIsAddressModalVisible(true)}
-          className="btn btn-dark"
+          onClick={handleProceedClick}
+          className="btn btn-primary"
         >
-          Add New Address
-        </button>
-        <button onClick={handleProceedClick} className="btn btn-primary m-left-auto">
           Proceed
         </button>
       </div>

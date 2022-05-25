@@ -45,8 +45,8 @@ export function ProductListing() {
                 {searchValue === "" ? (
                   <div className="fs-">
                     Page {maxNumberOfPages < 1 ? maxNumberOfPages : currentPage}{" "}
-                    of {maxNumberOfPages} (Showing {pagedProducts.length}{" "}
-                    products)
+                    of {maxNumberOfPages} (Showing {pagedProducts.length} of{" "}
+                    {filteredProducts.length} products)
                   </div>
                 ) : (
                   <div className="flex ai-center jc-space-b p-xs">
