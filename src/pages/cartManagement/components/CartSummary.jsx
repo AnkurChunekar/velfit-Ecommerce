@@ -7,7 +7,7 @@ const CartSummary = ({
   selectedCoupon,
   price,
   setCurrentCartStep,
-  finalCouponedPrice
+  finalCouponedPrice,
 }) => {
   return (
     <div className="cart-management-page">
@@ -36,11 +36,16 @@ const CartSummary = ({
               onClick={couponModalToggleClick}
               className="apply-coupon-btn"
             >
-              <i className="fa-solid fa-tag"></i> {selectedCoupon ? `Coupon Applied - ${selectedCoupon}%` : "Apply Coupons"  } 
+              <i className="fa-solid fa-tag"></i>{" "}
+              {selectedCoupon
+                ? `Coupon Applied - ${selectedCoupon}%`
+                : "Apply Coupons"}
             </button>
           </li>
           <li>
-            <span>Price ({cart.length} items)</span>
+            <span>
+              Price ({cart.length} {cart.length > 1 ? "items" : "item"})
+            </span>
             <span>₹ {price} </span>
           </li>
           <li>
@@ -67,7 +72,10 @@ const CartSummary = ({
             </span>
           </li>
           <li>
-            <button onClick={() => setCurrentCartStep("2")} className="btn btn-primary checkout-btn">
+            <button
+              onClick={() => setCurrentCartStep("2")}
+              className="btn btn-primary checkout-btn"
+            >
               Proceed to Checkout
             </button>
           </li>
