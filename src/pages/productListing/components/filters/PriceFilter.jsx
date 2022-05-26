@@ -25,7 +25,7 @@ export function PriceFilter({ maxPriceRange, filterDispatch }) {
         onChange={handleMaxPriceRangeChange}
       />
       <p className="m-xxs m-rl0">
-        Maxiumum Upto: ₹ {maxPriceRange} <span id="slider-value" />
+        Maximum Upto: ₹ {maxPriceRange} <span id="slider-value" />
       </p>
     </div>
   );
