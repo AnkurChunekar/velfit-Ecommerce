@@ -36,7 +36,7 @@ const CartSummary = ({
               onClick={couponModalToggleClick}
               className="apply-coupon-btn"
             >
-              <i className="fa-solid fa-tag"></i> Apply Coupons
+              <i className="fa-solid fa-tag"></i> {selectedCoupon ? `Coupon Applied - ${selectedCoupon}%` : "Apply Coupons"  } 
             </button>
           </li>
           <li>

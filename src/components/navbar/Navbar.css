@@ -8,7 +8,7 @@ a {
 .navigation {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 8;
   padding: var(--spacing-md1);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -25,6 +25,17 @@ a {
   width: 100%;
   z-index: 100;
   row-gap: 3rem;
+}
+
+.navigation .navigation-ham-menu {
+  display: flex;
+  transform: translateX(-110%);
+  transition: transform ease-in-out 0.5s;
+}
+
+.navigation .navigation-ham-menu.active {
+  transform: translateX(0%);
+  transition: transform ease-in-out 0.5s;
 }
 
 .navigation-ham-bg {
@@ -46,6 +57,10 @@ a {
   transition: color 0.3s;
 }
 
+.navigation .ham-btn {
+  display: none;
+}
+
 .navigation-ham-menu a:hover {
   color: var(--primary-color);
 }
@@ -62,12 +77,17 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-  .navigation .nav-link {
+  .navigation .nav-link,
+  .navigation .products-link {
     display: none;
   }
 
   .nav-actions .icon {
     padding: 0;
+  }
+
+  .navigation .ham-btn {
+    display: block;
   }
 }
 
@@ -75,33 +95,38 @@ a {
 
 /* Nav searchbar starts  */
 
-#nav-searchbar .search-box {
-  column-gap: 2rem;
-  background-color: var(--plain-white);
-  height: 14%;
+.nav-searchbar {
+  position: relative;
 }
 
-#nav-searchbar .search-box input {
+.nav-searchbar .search-box {
+  column-gap: 2rem;
+  background-color: var(--plain-white);
+  height: 100px;
+}
+
+.nav-searchbar .search-box input {
   border: none;
   width: 65%;
+  max-width: 720px;
   outline: none;
 }
 
-#nav-searchbar .search-box i {
+.nav-searchbar .search-box i {
   cursor: pointer;
   font-size: 2rem;
 }
 
-#nav-searchbar .searchbar-bg {
+.nav-searchbar .searchbar-bg {
   background-color: rgba(0, 0, 0, 0.6);
-  height: 86%;
+  height: calc(100vh - 100px);
 }
 
-#nav-searchbar {
+.nav-searchbar {
   display: none;
 }
 
-#nav-searchbar.active {
+.nav-searchbar.active {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -110,6 +135,28 @@ a {
   left: 0;
   bottom: 0;
   z-index: 11;
+}
+
+.nav-searchbar .list {
+  position: absolute;
+  background-color: white;
+  border: solid lightgray 1px;
+  top: 100px;
+  max-width: 770px;
+  width: 75%;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+}
+
+.nav-searchbar .list .link {
+  width: 100%;
+  padding: 1rem;
+  display: inline-block;
+  flex-grow: 1;
+}
+
+.nav-searchbar .list .link:hover {
+  background-color: lightgray;
 }
 
 /* Nav searchbar ends */

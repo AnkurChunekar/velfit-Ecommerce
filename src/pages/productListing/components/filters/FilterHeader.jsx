@@ -4,13 +4,10 @@ export function FilterHeader({ filterDispatch, setIsFiltersTabVisible, isFilters
   };
 
   return (
-    <header className="flex ai-center jc-space-b m-s m-rl0">
+    <header className="flex ai-center jc-space-b">
       <h3 className="fs-4 fw-600">Filters</h3>
       <button className="btn btn-link" onClick={handleReset}>
         Clear
-      </button>
-      <button className="filters-close-btn" onClick={() => setIsFiltersTabVisible(pv => !pv)}>
-        <i className={`fa-solid fa-circle-chevron-${isFiltersTabVisible ? "down" : "up"}`} />{" "}
       </button>
     </header>
   );

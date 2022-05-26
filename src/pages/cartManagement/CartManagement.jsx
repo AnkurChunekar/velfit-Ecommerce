@@ -19,11 +19,13 @@ export function CartManagement() {
     orderDispatch,
   } = useOrder();
 
-  const { cartState: {cart} } = useCart();
+  const {
+    cartState: { cart },
+  } = useCart();
   const { price } = cartPriceCalculator(cart);
   const [isCouponModalVisibile, setIsCouponModalVisible] = useState(false);
   const [currentCartStep, setCurrentCartStep] = useState("1");
-    const { authState } = useAuth();
+  const { authState } = useAuth();
   const token = authState.token || localStorage.getItem("token");
 
   // Coupon Functionalities
@@ -101,7 +103,7 @@ export function CartManagement() {
         <div className="center-align-text m-xxxl">
           <h1 className="m-lg"> Cart is Empty. </h1>
           <Link to="/products">
-            <button className="btn btn-primary"> Continue Shopping </button>
+            <button className="btn btn-primary">Continue Shopping</button>
           </Link>
         </div>
       )}

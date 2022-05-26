@@ -23,34 +23,27 @@ export function ProfileTab() {
   return (
     <div className="tab-container profile">
       <h2 className="fw-600 fs-4 m-s m-rl0 center-align-text"> My Profile </h2>
-
-      <div className="input-wrapper m-xxs m-rl0">
-        <label className="text"> Full Name </label>
-        <input
-          disabled
-          value={user.firstName + " " + user.lastName}
-          className="input p-xxs m-xxs m-rl0 bd-rad-sm"
-        />
+      
+      <div>
+        <p className="heading fs-4">Details</p>
+        <p className="m-xs m-rl0">
+          Name
+          <span className="details">
+            {user.firstName + " " + user.lastName}
+          </span>
+        </p>
+        <p className="m-xs m-rl0">
+          Email
+          <span className="details">{user.email}</span>
+        </p>
       </div>
 
-      <div className="input-wrapper m-xxs m-rl0">
-        <label className="text"> Email </label>
-        <input
-          disabled
-          value={user.email}
-          className="input p-xxs m-xxs m-rl0 bd-rad-sm"
-        />
+      <div>
+        <p className="heading fs-4">Settings</p>
+        <button onClick={handleLogoutClick} className="btn btn-danger">
+          Logout
+        </button>
       </div>
-
-      <h2 className="fw-600 fs-5 m-s m-rl0"> Settings </h2>
-
-
-      <button
-        onClick={handleLogoutClick}
-        className="btn btn-danger"
-      >
-        Logout
-      </button>
     </div>
   );
 }

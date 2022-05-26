@@ -13,7 +13,6 @@ const FilterProvider = ({ children }) => {
     fastDeliveryOnly: false,
     maxPriceRange: 10000,
     categories: [],
-    searchValue: "",
   };
 
   const [filterState, filterDispatch] = useReducer(filterReducer, initialstate);

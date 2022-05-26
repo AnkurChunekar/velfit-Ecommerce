@@ -4,13 +4,13 @@ import { Categories } from "./components/categories/Categories";
 import { Products } from "./components/products/Products";
 import "./Homepage.css";
 
-export function Homepage() {
+export function Homepage({ productData }) {
   return (
     <>
       <Hero />
       <main className="homepage-main-section">
         <Categories />
-        <Products />
+        <Products productData={productData} />
       </main>
       <Footer />
     </>

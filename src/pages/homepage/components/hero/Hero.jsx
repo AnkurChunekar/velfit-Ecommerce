@@ -11,7 +11,7 @@ export function Hero(){
             Shop for Quality Fitness Equipments, Supplements and Accessories at
             best prices and discounts.
           </p>
-          <Link to="./products" > <button className="btn btn-primary btn-lg">Explore Now</button></Link>
+          <Link to="./products" > <button className="btn btn-primary btn-lg">Shop Now</button></Link>
         </div>
         <div className="hero-img-container">
           <img

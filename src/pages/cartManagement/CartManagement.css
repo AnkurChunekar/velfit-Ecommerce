@@ -101,7 +101,8 @@
 /* Delivery Address */
 
 .delivery-address {
-  max-width: 396px;
+  max-width: 400px;
+  width: 100%;
   margin: 2rem auto;
 }
 

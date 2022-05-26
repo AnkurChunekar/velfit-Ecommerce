@@ -1,11 +1,9 @@
-
-
 .homepage-main-section .card,
 .card .card-image img {
   border-radius: 0;
 }
 
-.homepage-main-section  .card .card-image img {
+.homepage-main-section .card .card-image img {
   border: none;
 }
 
@@ -17,4 +15,10 @@
 .card .price {
   display: block;
   font-weight: 600;
+}
+
+@media screen and (max-width: 495px) {
+  .grid-container.home-products {
+    grid-template-columns: 1fr;
+  }
 }

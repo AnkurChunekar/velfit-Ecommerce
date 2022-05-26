@@ -102,8 +102,6 @@ export function SingleProductPage() {
             <i className="fas fa-star"></i>
             <span className="rating-info"> {productData.rating} </span>
           </div>
-          <span className="gray-text"> | 32 reviews </span>
-          <span className="gray-text"> | 154 orders </span>
         </div>
 
         <p className="flex flex-column prod-features rgap-1rem">
