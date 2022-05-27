@@ -23,7 +23,7 @@ const removeFromWishlistService = async ({
     }
   } catch (error) {
     setIsWishlistBtnLoading(false);
-    toast.error(error.response.data.errors[0]);
+    toast.error("Error Occured, Please try again.");
     console.error(error);
   } 
 };

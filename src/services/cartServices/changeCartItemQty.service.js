@@ -18,7 +18,7 @@ const changeCartItemQtyService = async ({ setLoader, token, cartDispatch, change
             throw new Error(response.status, "<-- error code");
         }
     } catch (error) {
-        toast.error(error.response.data.errors[0])
+        toast.error("Error Occured, Please try again.")
         console.error(error)
     } finally {
         setLoader(false);

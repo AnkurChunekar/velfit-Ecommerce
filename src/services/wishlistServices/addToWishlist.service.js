@@ -25,7 +25,7 @@ const addToWishlistService = async ({
       throw new Error(response.status, "<-- error code");
     }
   } catch (error) {
-    toast.error(error.response.data.errors[0]);
+    toast.error("Error Occured, Please try again.");
     console.error(error);
   } finally {
     setIsWishlistBtnLoading(false);
