@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useCart, useWishlist, useAuth } from "../../context";
 import "./Navbar.css";
 
@@ -7,9 +7,9 @@ export function Navbar({ productData }) {
   const [isHamMenuVisible, setIsHamMenuVisible] = useState(false);
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-
-  const { pathname } = useLocation();
+  const [searchedProducts, setSearchedProducts] = useState(null);
   const { authState } = useAuth();
+  const timerId = useRef();
   const token = authState.token || localStorage.getItem("token");
 
   const {
@@ -29,14 +29,22 @@ export function Navbar({ productData }) {
     setSearchInput("");
   };
 
-  const searchedProducts =
-    productData.length > 0
-      ? productData.filter(
-          (item) =>
-            item.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-            item.description.toLowerCase().includes(searchInput.toLowerCase())
-        )
-      : null;
+  useEffect(() => {
+    clearTimeout(timerId.current);
+    timerId.current = setTimeout(() => {
+      const result =
+        productData.length > 0 && searchInput.trim() !== ""
+          ? productData.filter(
+              (item) =>
+                item.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+                item.description
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase())
+            )
+          : null;
+      setSearchedProducts(result);
+    }, 300);
+  }, [searchInput]);
 
   return (
     <>
@@ -135,7 +143,7 @@ export function Navbar({ productData }) {
             </button>
 
             {/* search Results */}
-            {searchInput.trim() !== "" ? (
+            {searchInput.trim() !== "" && searchedProducts ? (
               <ul className="list list-style-none">
                 {searchedProducts.length > 0 ? (
                   searchedProducts.map((item) => (

@@ -42,8 +42,8 @@ export function Login() {
   const handleGuestLoginClick = (e) => {
     e.preventDefault();
     setUserData({
-      email: "johndoe@gmail.com",
-      password: "johnDoe123",
+      email: "shellyburton@gmail.com",
+      password: "shellyburton123",
       rememberUser: true,
     });
   };
@@ -58,7 +58,7 @@ export function Login() {
             labelText="Email"
             id="email"
             name="email"
-            placeholder="johndoe@gmail.com"
+            placeholder="shellyburton@gmail.com"
             userData={userData}
             setUserData={setUserData}
             type="email"

@@ -60,7 +60,7 @@ export function Signup() {
             labelText="Email"
             id="email"
             name="email"
-            placeholder="johndoe@gmail.com"
+            placeholder="shellyburton@gmail.com"
             userData={userData}
             setUserData={setUserData}
             type="email"

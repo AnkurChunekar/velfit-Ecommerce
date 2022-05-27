@@ -131,11 +131,15 @@ export function SingleProductPage() {
         <div className="fs-4 fw-600"> ₹{productData.price} /- </div>
 
         <button
-          disabled={addToCartLoading}
+          disabled={addToCartLoading || !productData.inStock}
           onClick={addToCartClick}
           className="btn btn-primary w-100pc"
         >
-          {inCart ? "Go" : "Add"} To Cart
+          {productData.inStock
+            ? inCart
+              ? "Go To Cart"
+              : "Add To Cart"
+            : "Out Of Stock"}
           <i className="fa-solid fa-cart-shopping m-xxxs"></i>
         </button>
         <button

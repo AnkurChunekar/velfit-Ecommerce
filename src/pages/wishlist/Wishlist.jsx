@@ -26,7 +26,9 @@ export function Wishlist() {
                 <Card
                   product={product}
                   cardImage={product.image}
-                  className="card-w-dismiss"
+                  className={`card-w-dismiss ${
+                    product.inStock ? "" : "disabled"
+                  }`}
                   title={product.title}
                   description={product.description}
                   price={product.price}
