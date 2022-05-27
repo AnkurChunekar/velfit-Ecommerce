@@ -34,7 +34,7 @@ export function Signup() {
   return (
     <>
       <main className="main-container flex flex-center">
-        <form className="authentication-container flex flex-column ai-left p-md2 m-xs">
+        <form onSubmit={handleSubmitClick} className="authentication-container flex flex-column ai-left p-md2 m-xs">
           <h1 className="title m-s m-rl0 fs-3 fw-600">Sign up</h1>
           <div className="flex c-gap-1rem">
             <TextInput
@@ -90,7 +90,6 @@ export function Signup() {
           <button
             type="submit"
             className="btn btn-primary m-xxs m-rl0"
-            onClick={handleSubmitClick}
           >
             Sign Up
           </button>

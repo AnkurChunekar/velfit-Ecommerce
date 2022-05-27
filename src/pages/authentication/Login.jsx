@@ -40,7 +40,6 @@ export function Login() {
   };
 
   const handleGuestLoginClick = (e) => {
-    e.preventDefault();
     setUserData({
       email: "shellyburton@gmail.com",
       password: "shellyburton123",
@@ -51,7 +50,10 @@ export function Login() {
   return (
     <>
       <main className="main-container flex ai-start jc-center">
-        <form className="authentication-container flex flex-column ai-left p-md2 m-xs">
+        <form
+          onSubmit={handleLoginClick}
+          className="authentication-container flex flex-column ai-left p-md2 m-xs"
+        >
           <h1 className="title m-s m-rl0 fs-3 fw-600">Log in</h1>
 
           <TextInput
@@ -89,11 +91,7 @@ export function Login() {
             <label htmlFor="remember-me">Remember Me</label>
           </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary m-xxs m-rl0"
-            onClick={handleLoginClick}
-          >
+          <button type="submit" className="btn btn-primary m-xxs m-rl0">
             LOGIN
           </button>
           <p className="m-xxs m-rl0 center-align-text gray-text">
@@ -104,10 +102,11 @@ export function Login() {
             .
           </p>
           <button
+            type="button"
             onClick={handleGuestLoginClick}
             className="primary-color-text center-align-text m-xxs m-rl0 transparent-bg"
           >
-            Use Guest Credentials.
+            Add Guest Credentials.
           </button>
         </form>
       </main>

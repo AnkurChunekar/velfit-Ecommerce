@@ -17,6 +17,8 @@ export function PasswordInput({
           placeholder={placeholder}
           name={name}
           value={userData[name]}
+          required
+          minLength={8}
           onChange={(e) => setUserData({ ...userData, [name]: e.target.value })} />
         <div
           className="p-xxs gray-text input-btn"
