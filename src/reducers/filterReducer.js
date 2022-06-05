@@ -1,13 +1,13 @@
-const filterReducer = (state, action) => {
-  const initialState = {
-    sortBy: null,
-    rating: null,
-    removeOutOfStock: false,
-    fastDeliveryOnly: false,
-    maxPriceRange: 10000,
-    categories: [],
-  };
+const initialFilterState = {
+  sortBy: null,
+  rating: null,
+  removeOutOfStock: false,
+  fastDeliveryOnly: false,
+  maxPriceRange: 10000,
+  categories: [],
+};
 
+const filterReducer = (state, action) => {
   switch (action.type) {
     case "SORT_BY":
       return { ...state, sortBy: action.payload };
@@ -22,7 +22,7 @@ const filterReducer = (state, action) => {
       }
       return { ...state, categories: [...state.categories, action.payload] };
     case "SINGLE_CATEGORY":
-      return { ...initialState, categories: [action.payload] };
+      return { ...initialFilterState, categories: [action.payload] };
     case "PRICE_RANGE":
       return { ...state, maxPriceRange: action.payload };
     case "REMOVE_OUT_OF_STOCK":
@@ -30,10 +30,10 @@ const filterReducer = (state, action) => {
     case "FAST_DELIVERY_ONLY":
       return { ...state, fastDeliveryOnly: !state.fastDeliveryOnly };
     case "RESET":
-      return initialState;
+      return initialFilterState;
     default:
       return state;
   }
 };
 
-export { filterReducer };
+export { filterReducer, initialFilterState };
