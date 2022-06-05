@@ -25,7 +25,7 @@ export const signupService = async (
         JSON.stringify({ firstName, lastName, email })
       );
       authDispatch({
-        type: "SIGN_UP",
+        type: "SIGNUP",
         payload: {
           user: response.data.createdUser,
           token: response.data.encodedToken,
