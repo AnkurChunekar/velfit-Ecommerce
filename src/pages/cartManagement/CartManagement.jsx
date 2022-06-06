@@ -4,7 +4,7 @@ import { useCart, useOrder, useAuth } from "../../context";
 import { getAddressesService } from "../../services";
 import {
   cartPriceCalculator,
-  handleCouponDiscount,
+  calculateCouponedPrice,
 } from "../../helpers/cartHelpers";
 import { CouponModal } from "../../components";
 import { CartSummary } from "./components/CartSummary";
@@ -34,7 +34,7 @@ export function CartManagement() {
     setIsCouponModalVisible((isCouponModalVisibile) => !isCouponModalVisibile);
   };
 
-  const finalCouponedPrice = handleCouponDiscount(price, selectedCoupon);
+  const finalCouponedPrice = calculateCouponedPrice(price, selectedCoupon);
 
   useEffect(() => {
     if (price < 5000 || (price < 10000 && selectedCoupon !== 10)) {
