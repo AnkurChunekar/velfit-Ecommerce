@@ -23,6 +23,7 @@ const categorizeData = (data, categories) => {
 };
 
 const rateData = (data, rating) => {
+  if(rating === null) return data;
   return data.filter((p) => p.rating >= rating);
 };
 
@@ -64,12 +65,12 @@ const getFilteredProducts = (productData, filterState) => {
     fastDeliveryOnly,
   } = filterState;
 
-  const getCategorizedData = categorizeData(productData, categories);
+  const categorizedData = categorizeData(productData, categories);
 
-  const getRatedData = rateData(getCategorizedData, rating);
+  const ratedData = rateData(categorizedData, rating);
 
   const getPriceRangedData = filterProductsUptoPriceRange(
-    getRatedData,
+    ratedData,
     maxPriceRange
   );
 
@@ -85,3 +86,11 @@ const getFilteredProducts = (productData, filterState) => {
 };
 
 export { getCurrentPageProducts, getFilteredProducts };
+export {
+  categorizeData,
+  rateData,
+  filterProductsUptoPriceRange,
+  getOnlyFastDeliveryData,
+  getStockData,
+  sortData,
+};
