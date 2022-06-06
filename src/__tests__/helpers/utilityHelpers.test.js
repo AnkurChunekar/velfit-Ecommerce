@@ -2,7 +2,7 @@ import {
   isItemInArrayOfObjects,
   capitalizeFirstWordOfString,
   deepCloneObject,
-  getArrayOfNumbersTillN,
+  getArrayOfNumbers,
 } from "../../helpers";
 
 describe("testing utility helpers", () => {
@@ -50,5 +50,9 @@ describe("testing utility helpers", () => {
       surname: "chunekar",
     });
     expect(deepCloneObject(obj)).not.toBe(obj);
+  });
+
+  test("should return an array containing numbers from start to end both specified in arguments", () => {
+    expect(getArrayOfNumbers(5, 10)).toEqual([5, 6, 7, 8, 9, 10]);
   });
 });

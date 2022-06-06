@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { getArrayOfNumbersTillN } from "../../../helpers/utilityHelpers";
+import { getArrayOfNumbers } from "../../../helpers/utilityHelpers";
 
 export function PaginationRow({
   currentPage,
   setCurrentPage,
   maxNumberOfPages,
 }) {
-  const numberOfPagesArr = getArrayOfNumbersTillN(1, maxNumberOfPages);
+  const numberOfPagesArr = getArrayOfNumbers(1, maxNumberOfPages);
 
   useEffect(() => {
     if (currentPage > maxNumberOfPages && maxNumberOfPages !== 0) {
