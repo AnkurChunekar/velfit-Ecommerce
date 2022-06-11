@@ -1,6 +1,7 @@
 import { authReducer, initialAuthState } from "../../reducers";
 
 describe("testing auth reducer", () => {
+  // Test for Signup
   test("should add user and token data value when SIGN_UP is dispatched", () => {
     const action = {
       type: "SIGNUP",
@@ -12,6 +13,7 @@ describe("testing auth reducer", () => {
     expect(authReducer(initialAuthState, action)).toEqual(finalState);
   });
 
+  // Test for Login
   test("should add user and token data value when LOGIN is dispatched", () => {
     const action = {
       type: "LOGIN",
@@ -23,6 +25,7 @@ describe("testing auth reducer", () => {
     expect(authReducer(initialAuthState, action)).toEqual(finalState);
   });
 
+  // Test for Logout
   test("should remove user and token data value when LOG_OUT is dispatched", () => {
     const initialState = { user: { name: "ankur" }, token: "123456" };
     const action = { type: "LOGOUT" };

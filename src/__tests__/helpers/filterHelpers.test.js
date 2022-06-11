@@ -89,14 +89,13 @@ describe("testing filter helpers", () => {
       { id: "3", isDeliveredFast: true, title: "protien" },
       { id: "4", isDeliveredFast: false, title: "rope" },
     ];
-    
+
     const result = [
       { id: "1", isDeliveredFast: true, title: "dumbbels" },
       { id: "3", isDeliveredFast: true, title: "protien" },
     ];
     expect(getOnlyFastDeliveryData(data, true)).toEqual(result);
   });
-  
 
   // Test for getStockData
   test("should return products whose inStock property is set to true", () => {
@@ -143,7 +142,7 @@ describe("testing filter helpers", () => {
     expect(getCurrentPageProducts(data, 2)).toEqual(result);
   });
 
-    // Test for getFilteredProducts
+  // Test for getFilteredProducts
   test("should return products whose inStock property is set to true", () => {
     const data = [
       {
@@ -188,7 +187,6 @@ describe("testing filter helpers", () => {
       },
     ];
 
-    // patta cut 4, 1, 3
     const filterState = {
       sortBy: "LOW_TO_HIGH",
       rating: null,

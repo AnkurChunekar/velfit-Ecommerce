@@ -1,6 +1,7 @@
 import { wishlistReducer, initialWishlistState } from "../../reducers";
 
 describe("testing wishlist reducer", () => {
+  // Test for RESET
   test("should reset the wishlist state when RESET is dispatched", () => {
     const initialState = { wishlist: [{ title: "Men Shirt", id: "1234" }] };
     const action = { type: "RESET" };
@@ -9,6 +10,7 @@ describe("testing wishlist reducer", () => {
     expect(wishlistReducer(initialState, action)).toEqual(finalState);
   });
 
+  // Test for UPDATE WISHLIST
   test("should update the wishlist array with new items", () => {
     const action = {
       type: "UPDATE_WISHLIST",

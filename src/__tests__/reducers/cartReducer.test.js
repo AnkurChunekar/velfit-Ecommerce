@@ -1,6 +1,7 @@
 import { cartReducer, initialCartState } from "../../reducers";
 
 describe("testing cart reducer", () => {
+  // Test for RESET
   test("should reset the cart state when RESET is dispatched", () => {
     const initialState = { cart: [{ title: "Men Shirt", id: "1234" }] };
     const action = { type: "RESET" };
@@ -8,7 +9,7 @@ describe("testing cart reducer", () => {
 
     expect(cartReducer(initialState, action)).toEqual(finalState);
   });
-
+  // Test for UPDATE CART
   test("should update the cart array with new items", () => {
     const action = {
       type: "UPDATE_CART",
