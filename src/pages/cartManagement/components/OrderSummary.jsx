@@ -61,13 +61,17 @@ const OrderSummary = ({
               },
             },
           });
-          cart.map((product) => {
-            removeFromCartService({
+          cart.map(async (product) => {
+            const response = await removeFromCartService({
               token,
-              cartDispatch,
               product,
-              finalOrder: true,
             });
+            if (response.status === 200) {
+              cartDispatch({
+                type: "UPDATE_CART",
+                payload: { cart: response.data.cart },
+              });
+            }
           });
           toast.success("Order Placed Successfully");
           navigate("/user/orders");

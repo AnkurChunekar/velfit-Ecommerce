@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
+
 import { useCart, useAuth, useWishlist } from "../../context";
 import {
   removeFromCartService,
@@ -16,13 +18,14 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const { cartDispatch } = useCart();
 
   const handleDeleteFromCart = async () => {
-    const requestObj = {
-      token,
-      cartDispatch,
-      product,
-    };
+    const response = await removeFromCartService({ token, product });
 
-    removeFromCartService(requestObj);
+    if (response.status === 200) {
+      cartDispatch({
+        type: "UPDATE_CART",
+        payload: { cart: response.data.cart },
+      });
+    } else toast.error(response.message);
   };
 
   // Wishlist Functionalities
