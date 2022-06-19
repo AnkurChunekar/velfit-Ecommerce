@@ -93,12 +93,17 @@ export function SingleProductPage() {
 
         if (window.location.pathname === "/cart") handleDeleteFromCart();
       } else {
-        removeFromWishlistService({
-          product: productData,
-          token,
-          wishlistDispatch,
-          setIsWishlistBtnLoading,
-        });
+        const response = await removeFromWishlistService(token, productData);
+
+        if (response.status === 200) {
+          wishlistDispatch({
+            type: "UPDATE_WISHLIST",
+            payload: { wishlist: response.data.wishlist },
+          });
+          toast.success("Removed from Wishlist");
+        } else toast.error(response.message);
+
+        setIsWishlistBtnLoading(false);
       }
     } else {
       navigate("/login");
