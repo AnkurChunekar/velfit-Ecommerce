@@ -72,7 +72,18 @@ export function AddressesTab() {
   const token = authState.token || localStorage.getItem("token");
 
   useEffect(() => {
-    getAddressesService(orderDispatch, token);
+    if (addresses.length < 1) {
+      (async () => {
+        const response = await getAddressesService(token);
+
+        if (response.status === 200) {
+          orderDispatch({
+            type: "UPDATE_ADDRESSES",
+            payload: { addresses: response.data.address },
+          });
+        } else toast.error(response.message);
+      })();
+    }
   }, []);
 
   const [isAddressModalVisible, setIsAddressModalVisible] = useState(false);
