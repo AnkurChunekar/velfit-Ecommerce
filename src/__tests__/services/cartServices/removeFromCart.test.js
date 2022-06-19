@@ -1,4 +1,4 @@
-import { changeCartItemQtyService } from "../../../services";
+import { removeFromCartService } from "../../../services";
 import axios from "axios";
 
 jest.mock("axios");
@@ -17,8 +17,8 @@ const product = {
 
 const token = "1";
 
-describe("testing change cart quantity service", () => {
-  test("should product quantity and return the response if API call succeeds", async () => {
+describe("testing remove from cart service", () => {
+  test("should return the response if API call succeeds", async () => {
     const mockData = {
       data: {
         cart: [product],
@@ -26,8 +26,8 @@ describe("testing change cart quantity service", () => {
       status: 201,
     };
 
-    axios.post.mockResolvedValue(mockData);
-    const response = await changeCartItemQtyService({ product, token, changeType: "increment" });
+    axios.delete.mockResolvedValue(mockData);
+    const response = await removeFromCartService({ product, token });
 
     const expectedData = {
       data: {
@@ -40,12 +40,12 @@ describe("testing change cart quantity service", () => {
   });
 
   test("should return the deafult error message when API call fails", async () => {
-    axios.post.mockRejectedValue({
+    axios.delete.mockRejectedValue({
       isAxiosError: false,
       message: "some error occured",
     });
 
-    const response = await changeCartItemQtyService({ product, token, changeType: "increment" });
+    const response = await removeFromCartService({ product, token });
     expect(response).toEqual({ message: "Something went wrong!" });
   });
 });
