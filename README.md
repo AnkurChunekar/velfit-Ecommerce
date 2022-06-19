@@ -55,6 +55,7 @@ Velfit Store is one stop shop for all your Fitness Supplements, Weights, Equipme
 
 - [ReactJS](https://reactjs.org/)
 - [React Router](https://reactrouter.com/)
+- [Jest](https://jestjs.io)
 - [Velocity UI](https://velocity-ui.netlify.app/)
 - [Mockbee](https://www.mockbe.netlify.app/)
 - [React Toastify](https://fkhadra.github.io/react-toastify/)
@@ -84,6 +85,7 @@ Velfit Store is one stop shop for all your Fitness Supplements, Weights, Equipme
   - Price Range
   - Sort Products By Price and Rating
 - Payment Integration ([Razorpay API](https://razorpay.com/)).
+- Unit Testing for all Services, Helpers and Reducers using Jest.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
