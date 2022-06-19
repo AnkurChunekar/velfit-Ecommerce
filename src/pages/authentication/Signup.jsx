@@ -20,21 +20,44 @@ export function Signup() {
   const location = useLocation();
   const { authDispatch } = useAuth();
 
-  const handleSubmitClick = (e) => {
+  const signupUser = async () => {
+    const response = await signupService(userData);
+
+    if (response.status === 201) {
+      const { firstName, lastName, email } = response.data.createdUser;
+      localStorage.setItem("token", response.data.encodedToken);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ firstName, lastName, email })
+      );
+      authDispatch({
+        type: "SIGNUP",
+        payload: {
+          user: response.data.createdUser,
+          token: response.data.encodedToken,
+        },
+      });
+      toast.success("Signup Successfull!");
+      navigate(location?.state?.from?.pathname || "/", { replace: true });
+    } else toast.error(response.message);
+  };
+
+  const handleSubmitClick = async (e) => {
     e.preventDefault();
     if (!checkIfAllInputsAreNotEmpty(userData)) {
-     toast.error("Inputs cannot be Empty");
+      toast.error("Inputs cannot be Empty");
     } else if (userData.password !== userData.confirmPassword) {
       setUserData({ ...userData, passwordsDifferent: true });
-    } else {
-      signupService(userData, authDispatch, navigate, location);
-    }
+    } else signupUser();
   };
 
   return (
     <>
       <main className="main-container flex flex-center">
-        <form onSubmit={handleSubmitClick} className="authentication-container flex flex-column ai-left p-md2 m-xs">
+        <form
+          onSubmit={handleSubmitClick}
+          className="authentication-container flex flex-column ai-left p-md2 m-xs"
+        >
           <h1 className="title m-s m-rl0 fs-3 fw-600">Sign up</h1>
           <div className="flex c-gap-1rem">
             <TextInput
@@ -87,10 +110,7 @@ export function Signup() {
           <p className="m-xxs m-rl0 gray-text fs-6">
             By signing up, you agree to our terms and conditions.
           </p>
-          <button
-            type="submit"
-            className="btn btn-primary m-xxs m-rl0"
-          >
+          <button type="submit" className="btn btn-primary m-xxs m-rl0">
             Sign Up
           </button>
           <p className="m-xxs m-rl0 center-align-text gray-text">
