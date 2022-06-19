@@ -1,16 +1,16 @@
 import axios from "axios";
 
-const getCategoriesService = async (setCategoryData, setLoader = () => {}) => {
+const getCategoriesService = async () => {
   try {
-    const response = await axios.get("/api/categories");
-    if (response.status === 200) {
-      setCategoryData(response.data.categories);
-      setLoader(false);
-    } else {
-      throw new Error("Error occcured while fetching categories");
-    }
+    return await axios.get("/api/categories");
   } catch (error) {
-    console.error(error);
+    if (axios.isAxiosError(error)) {
+      if (error && error.response) {
+        return error.response.data;
+      }
+    }
+
+    return { message: "Something went wrong!" };
   }
 };
 
