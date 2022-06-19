@@ -49,7 +49,7 @@ export function AddAddressModal({
     setUserInputData(dummyData);
   };
 
-  const saveAddressClick = () => {
+  const saveAddressClick = async () => {
     if (!checkIfAllInputsAreNotEmpty(userInputData)) {
       toast.error("Please Provide all the inputs");
       return;
@@ -66,7 +66,18 @@ export function AddAddressModal({
       });
       setEditAddressObj({ isEditMode: false, _id: null });
     } else {
-      addNewAddressService({ token, address: userInputData, orderDispatch });
+      const response = await addNewAddressService({
+        token,
+        address: userInputData,
+      });
+
+      if (response.status === 201) {
+        orderDispatch({
+          type: "UPDATE_ADDRESSES",
+          payload: { addresses: response.data.address },
+        });
+        toast.success("New Address Added");
+      } else toast.error(response.message);
     }
   };
 
