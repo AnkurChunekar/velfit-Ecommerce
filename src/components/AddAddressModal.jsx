@@ -1,6 +1,7 @@
 import { useState, Fragment } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
+
 import { useOrder, useAuth } from "../context";
 import { checkIfAllInputsAreNotEmpty } from "../helpers";
 import { addressModalInputData } from "../constants";
@@ -57,14 +58,23 @@ export function AddAddressModal({
 
     setIsAddressModalVisible(false);
     setUserInputData(initialUserInputState);
+
     if (editAddressObj.isEditMode) {
-      editAddressService({
+      setEditAddressObj({ isEditMode: false, _id: null });
+
+      const response = await editAddressService({
         token,
         address: userInputData,
         _id: editAddressObj._id,
-        orderDispatch,
       });
-      setEditAddressObj({ isEditMode: false, _id: null });
+
+      if (response.status === 200) {
+        orderDispatch({
+          type: "UPDATE_ADDRESSES",
+          payload: { addresses: response.addresses },
+        });
+        toast.success("Address Edited Successfully");
+      } else toast.error(response.message);
     } else {
       const response = await addNewAddressService({
         token,
