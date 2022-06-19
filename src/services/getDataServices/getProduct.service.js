@@ -1,16 +1,15 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
-export const getProductService = async (productID, setProductData) => {
+export const getProductService = async (productID) => {
   try {
-    const response = await axios.get(`/api/products/${productID}`);
-    if (response.status === 200) {
-      setProductData(response.data.product);
-    } else {
-      throw new Error("Error Occured!");
-    }
+    return await axios.get(`/api/products/${productID}`);
   } catch (error) {
-    console.error(error);
-    toast.error("Error Occured! Please Try Refreshing.");
+    if (axios.isAxiosError(error)) {
+      if (error && error.response) {
+        return error.response.data;
+      }
+    }
+
+    return { message: "Something went wrong!" };
   }
 };

@@ -34,7 +34,11 @@ export function SingleProductPage() {
   } = useWishlist();
 
   useEffect(() => {
-    getProductService(productID, setProductData);
+    (async () => {
+      const response = await getProductService(productID, setProductData);
+      if (response.status === 200) setProductData(response.data.product);
+      else toast.error("Error Occured, Please Try Again.");
+    })();
   }, [productID]);
 
   const inCart = isItemInArrayOfObjects(
