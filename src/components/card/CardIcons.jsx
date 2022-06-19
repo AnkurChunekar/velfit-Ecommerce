@@ -32,7 +32,7 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
   const [isAddToWishlistLoading, setIsAddToWishlistLoading] = useState(false);
   const { wishlistDispatch } = useWishlist();
 
-  const handleAddOrRemoveFromWishlist = () => {
+  const handleAddOrRemoveFromWishlist = async () => {
     if (token) {
       setIsAddToWishlistLoading(true);
       if (inWishlist) {
@@ -43,19 +43,21 @@ export function CardIcons({ isFastDelivered, className, product, inWishlist }) {
           setIsWishlistBtnLoading: setIsAddToWishlistLoading,
         });
       } else {
-        addToWishlistService({
-          token,
-          product,
-          wishlistDispatch,
-          setIsWishlistBtnLoading: setIsAddToWishlistLoading,
-        });
-        if (window.location.pathname === "/cart") {
-          handleDeleteFromCart();
-        }
+        const response = await addToWishlistService(token, product);
+
+        if (response.status === 201) {
+          wishlistDispatch({
+            type: "UPDATE_WISHLIST",
+            payload: { wishlist: response.data.wishlist },
+          });
+          toast.success("Added to Wishlist");
+        } else toast.error(response.message);
+
+        setIsAddToWishlistLoading(false);
+
+        if (window.location.pathname === "/cart") handleDeleteFromCart();
       }
-    } else {
-      navigate("/login");
-    }
+    } else navigate("/login");
   };
 
   return (

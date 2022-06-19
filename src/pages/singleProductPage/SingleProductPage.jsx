@@ -75,16 +75,23 @@ export function SingleProductPage() {
     }
   };
 
-  const wishlistToggleClick = () => {
+  const wishlistToggleClick = async () => {
     if (token) {
       setIsWishlistBtnLoading(true);
       if (!inWishlist) {
-        addToWishlistService({
-          product: productData,
-          token,
-          wishlistDispatch,
-          setIsWishlistBtnLoading,
-        });
+        const response = await addToWishlistService(token, productData);
+
+        if (response.status === 201) {
+          wishlistDispatch({
+            type: "UPDATE_WISHLIST",
+            payload: { wishlist: response.data.wishlist },
+          });
+          toast.success("Added to Wishlist");
+        } else toast.error(response.message);
+
+        setIsWishlistBtnLoading(false);
+
+        if (window.location.pathname === "/cart") handleDeleteFromCart();
       } else {
         removeFromWishlistService({
           product: productData,
