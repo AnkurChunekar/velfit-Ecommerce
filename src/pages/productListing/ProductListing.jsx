@@ -14,7 +14,12 @@ export function ProductListing() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    getAllProductsService(setProductData, setLoader);
+    (async () => {
+      const response = await getAllProductsService(setProductData);
+      if (response.status === 200) setProductData(response.data.products);
+      else toast.error("Error Occured! Please Try Again.");
+      setLoader(false);
+    })();
   }, []);
 
   const filteredProducts = getFilteredProducts(productData, filterState);

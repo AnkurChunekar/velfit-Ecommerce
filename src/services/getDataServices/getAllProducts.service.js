@@ -1,14 +1,15 @@
 import axios from "axios";
 
-export const getAllProductsService = async (setProductData, setLoader = () => {}) => {
+export const getAllProductsService = async () => {
   try {
-    const response = await axios.get("/api/products");
-    if (response.status === 200) {
-      setProductData(response.data.products);
-    }
+    return await axios.get("/api/products");
   } catch (error) {
-    console.error(error);
-  } finally {
-    setLoader(false);
+    if (axios.isAxiosError(error)) {
+      if (error && error.response) {
+        return error.response.data;
+      }
+    }
+
+    return { message: "Something went wrong!" };
   }
 };
