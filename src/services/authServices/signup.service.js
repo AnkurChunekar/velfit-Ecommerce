@@ -1,12 +1,6 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
-export const signupService = async (
-  userData,
-  authDispatch,
-  navigate,
-  location
-) => {
+export const signupService = async (userData) => {
   try {
     const { firstName, lastName, email, password } = userData;
 
@@ -16,28 +10,14 @@ export const signupService = async (
       email,
       password,
     });
-
-    if (response.status === 201) {
-      const { firstName, lastName, email } = response.data.createdUser;
-      localStorage.setItem("token", response.data.encodedToken);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ firstName, lastName, email })
-      );
-      authDispatch({
-        type: "SIGN_UP",
-        payload: {
-          user: response.data.createdUser,
-          token: response.data.encodedToken,
-        },
-      });
-      toast.success("Signup Successfull!");
-      navigate(location?.state?.from?.pathname || "/", { replace: true });
-    } else {
-      throw new Error("Error Occured, Please Try again.");
-    }
+    return response;
   } catch (error) {
-    toast.error("Error Occured!, Please Try Again.");
-    console.error(error);
+    if (axios.isAxiosError(error)) {
+      if (error && error.response) {
+        return error.response.data;
+      }
+    }
+
+    return { message: "Something went wrong!" };
   }
 };

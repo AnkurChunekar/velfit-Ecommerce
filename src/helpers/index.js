@@ -4,4 +4,5 @@ export {
   isItemInArrayOfObjects,
   deepCloneObject,
   capitalizeFirstWordOfString,
+  getArrayOfNumbers,
 } from "./utilityHelpers";

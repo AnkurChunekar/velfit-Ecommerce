@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Mockman from "mockman-js";
 import {
@@ -15,7 +15,7 @@ import {
   SingleProductPage,
   ProfileTab,
   AddressesTab,
-  OrdersTab
+  OrdersTab,
 } from "./pages";
 import { Navbar, RequiresAuth } from "./components";
 import { getAllProductsService } from "./services";
@@ -25,14 +25,18 @@ function App() {
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
-    getAllProductsService(setProductData);
+    (async () => {
+      const response = await getAllProductsService(setProductData);
+      if (response.status === 200) setProductData(response.data.products);
+      else toast.error("Error Occured! Please Try Again.");
+    })();
   }, []);
 
   return (
     <>
       <ToastContainer
         position="bottom-right"
-        autoClose={3000}
+        autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}
         theme={"dark"}
@@ -76,8 +80,8 @@ function App() {
               </RequiresAuth>
             }
           >
-            <Route index element={<ProfileTab/>} />
-            <Route path="profile" element={<ProfileTab/>} />
+            <Route index element={<ProfileTab />} />
+            <Route path="profile" element={<ProfileTab />} />
             <Route path="addresses" element={<AddressesTab />} />
             <Route path="orders" element={<OrdersTab />} />
           </Route>

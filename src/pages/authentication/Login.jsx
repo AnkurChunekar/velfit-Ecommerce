@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { useAuth, useCart, useWishlist, useOrder } from "../../context";
 import { loginService } from "../../services";
 import { TextInput, PasswordInput } from "./components";
 import "./Auth.css";
-import { toast } from "react-toastify";
 
 export function Login() {
   const [userData, setUserData] = useState({
@@ -21,21 +22,45 @@ export function Login() {
   const { orderDispatch } = useOrder();
   const { wishlistDispatch } = useWishlist();
 
-  const handleLoginClick = (e) => {
+  const handleLoginClick = async (e) => {
     e.preventDefault();
 
     if (userData.email.trim() === "" && userData.password.trim() === "") {
       toast.error("Email and Password cannot be empty!");
     } else {
-      loginService({
-        userData,
-        authDispatch,
-        cartDispatch,
-        wishlistDispatch,
-        orderDispatch,
-        navigate,
-        location,
-      });
+      const response = await loginService(userData);
+
+      if (response.status === 200) {
+        if (userData.rememberUser) {
+          const { firstName, lastName, email } = response.data.foundUser;
+          localStorage.setItem("token", response.data.encodedToken);
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ firstName, lastName, email })
+          );
+        }
+        authDispatch({
+          type: "LOGIN",
+          payload: {
+            user: response.data.foundUser,
+            token: response.data.encodedToken,
+          },
+        });
+        cartDispatch({
+          type: "UPDATE_CART",
+          payload: { cart: response.data.foundUser.cart },
+        });
+        wishlistDispatch({
+          type: "UPDATE_WISHLIST",
+          payload: { wishlist: response.data.foundUser.wishlist },
+        });
+        orderDispatch({
+          type: "UPDATE_ADDRESSES",
+          payload: { addresses: response.data.foundUser.address },
+        });
+        toast.success("Login Successfull!");
+        navigate(location?.state?.from?.pathname || "/", { replace: true });
+      } else toast.error(response.message);
     }
   };
 

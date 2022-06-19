@@ -1,9 +1,16 @@
 import { useState, Fragment, useEffect } from "react";
+import { toast } from "react-toastify";
+
 import { useOrder, useAuth } from "../../../context";
 import { AddAddressModal } from "../../../components/AddAddressModal";
 import { deleteAddressService, getAddressesService } from "../../../services";
 
-function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj, token }) {
+function Address({
+  addressObj,
+  setIsAddressModalVisible,
+  setEditAddressObj,
+  token,
+}) {
   const { orderDispatch } = useOrder();
   const {
     _id,
@@ -16,8 +23,15 @@ function Address({ addressObj, setIsAddressModalVisible, setEditAddressObj, toke
     mobile = "",
   } = addressObj;
 
-  const deleteAddressClick = () => {
-    deleteAddressService({ token, _id, orderDispatch });
+  const deleteAddressClick = async () => {
+    const response = await deleteAddressService({ token, _id });
+    if (response.status === 200) {
+      orderDispatch({
+        type: "UPDATE_ADDRESSES",
+        payload: { addresses: response.addresses },
+      });
+      toast.success("Address Deleted Successfully");
+    } else toast.error(response.message);
   };
 
   const editAddressClick = () => {
@@ -58,7 +72,18 @@ export function AddressesTab() {
   const token = authState.token || localStorage.getItem("token");
 
   useEffect(() => {
-    getAddressesService(orderDispatch, token);
+    if (addresses.length < 1) {
+      (async () => {
+        const response = await getAddressesService(token);
+
+        if (response.status === 200) {
+          orderDispatch({
+            type: "UPDATE_ADDRESSES",
+            payload: { addresses: response.data.address },
+          });
+        } else toast.error(response.message);
+      })();
+    }
   }, []);
 
   const [isAddressModalVisible, setIsAddressModalVisible] = useState(false);

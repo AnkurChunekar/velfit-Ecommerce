@@ -1,7 +1,6 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
-const editAddressService = async ({ address, token, orderDispatch, _id }) => {
+const editAddressService = async ({ address, token, _id }) => {
   try {
     const response = await axios.post(
       `/api/user/address/${_id}`,
@@ -10,18 +9,15 @@ const editAddressService = async ({ address, token, orderDispatch, _id }) => {
         headers: { authorization: token },
       }
     );
-    if (response.status === 200) {
-      orderDispatch({
-        type: "UPDATE_ADDRESSES",
-        payload: { addresses: response.data.address },
-      });
-      toast.success("Address Edited Successfully");
-    } else {
-      throw new Error("Error Occured, Please Try again.");
-    }
+    return { addresses: response.data.address, status: response.status };
   } catch (error) {
-    console.error(error);
-    toast.error("Error Occured, Please Try again.");
+    if (axios.isAxiosError(error)) {
+      if (error && error.response) {
+        return error.response.data;
+      }
+    }
+
+    return { message: "Something went wrong!" };
   }
 };
 

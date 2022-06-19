@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { useCart, useOrder, useAuth } from "../../context";
 import { getAddressesService } from "../../services";
 import {
   cartPriceCalculator,
-  handleCouponDiscount,
+  calculateCouponedPrice,
 } from "../../helpers/cartHelpers";
 import { CouponModal } from "../../components";
 import { CartSummary } from "./components/CartSummary";
@@ -34,7 +36,7 @@ export function CartManagement() {
     setIsCouponModalVisible((isCouponModalVisibile) => !isCouponModalVisibile);
   };
 
-  const finalCouponedPrice = handleCouponDiscount(price, selectedCoupon);
+  const finalCouponedPrice = calculateCouponedPrice(price, selectedCoupon);
 
   useEffect(() => {
     if (price < 5000 || (price < 10000 && selectedCoupon !== 10)) {
@@ -44,7 +46,16 @@ export function CartManagement() {
 
   useEffect(() => {
     if (addresses.length < 1) {
-      getAddressesService(orderDispatch, token);
+      (async () => {
+        const response = await getAddressesService(token);
+
+        if (response.status === 200) {
+          orderDispatch({
+            type: "UPDATE_ADDRESSES",
+            payload: { addresses: response.data.address },
+          });
+        } else toast.error(response.message);
+      })();
     }
   }, []);
 

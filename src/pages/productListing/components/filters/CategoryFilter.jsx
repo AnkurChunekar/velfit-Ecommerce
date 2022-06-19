@@ -3,11 +3,14 @@ import { getCategoriesService } from "../../../../services";
 import { capitalizeFirstWordOfString } from "../../../../helpers/utilityHelpers";
 
 export function CategoryFilter({ categories, filterDispatch }) {
-  const [loader, setLoader] = useState(true);
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    getCategoriesService(setCategoryData, setLoader);
+    (async () => {
+      const response = await getCategoriesService();
+      if (response.status === 200) setCategoryData(response.data.categories);
+      else toast.error("Error Occured! Please Try Again.");
+    })();
   }, []);
 
   const handleCategoryClick = (e) => {

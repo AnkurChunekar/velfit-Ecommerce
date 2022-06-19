@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { useAuth, useCart, useWishlist } from "../../context";
 import { getProductService } from "../../services";
 import {
@@ -32,7 +34,11 @@ export function SingleProductPage() {
   } = useWishlist();
 
   useEffect(() => {
-    getProductService(productID, setProductData);
+    (async () => {
+      const response = await getProductService(productID, setProductData);
+      if (response.status === 200) setProductData(response.data.product);
+      else toast.error("Error Occured, Please Try Again.");
+    })();
   }, [productID]);
 
   const inCart = isItemInArrayOfObjects(
@@ -45,41 +51,59 @@ export function SingleProductPage() {
     (item) => item._id === productData._id
   );
 
-  const addToCartClick = () => {
+  const addToCart = async () => {
+    const response = await addToCartService({ product: productData, token });
+
+    if (response.status === 201) {
+      cartDispatch({
+        type: "UPDATE_CART",
+        payload: { cart: response.data.cart },
+      });
+      toast.success("Added to Cart");
+    } else toast.error(response.message);
+
+    setAddToCartLoading(false);
+  };
+
+  const addToCartHandler = () => {
     if (token) {
       setAddToCartLoading(true);
-      if (!inCart) {
-        addToCartService({
-          product: productData,
-          token,
-          cartDispatch,
-          setLoader: setAddToCartLoading,
-        });
-      } else {
-        navigate("/cart");
-      }
+      if (!inCart) addToCart();
+      else navigate("/cart");
     } else {
       navigate("/login");
     }
   };
 
-  const wishlistToggleClick = () => {
+  const wishlistToggleClick = async () => {
     if (token) {
       setIsWishlistBtnLoading(true);
       if (!inWishlist) {
-        addToWishlistService({
-          product: productData,
-          token,
-          wishlistDispatch,
-          setIsWishlistBtnLoading,
-        });
+        const response = await addToWishlistService(token, productData);
+
+        if (response.status === 201) {
+          wishlistDispatch({
+            type: "UPDATE_WISHLIST",
+            payload: { wishlist: response.data.wishlist },
+          });
+          toast.success("Added to Wishlist");
+        } else toast.error(response.message);
+
+        setIsWishlistBtnLoading(false);
+
+        if (window.location.pathname === "/cart") handleDeleteFromCart();
       } else {
-        removeFromWishlistService({
-          product: productData,
-          token,
-          wishlistDispatch,
-          setIsWishlistBtnLoading,
-        });
+        const response = await removeFromWishlistService(token, productData);
+
+        if (response.status === 200) {
+          wishlistDispatch({
+            type: "UPDATE_WISHLIST",
+            payload: { wishlist: response.data.wishlist },
+          });
+          toast.success("Removed from Wishlist");
+        } else toast.error(response.message);
+
+        setIsWishlistBtnLoading(false);
       }
     } else {
       navigate("/login");
@@ -132,7 +156,7 @@ export function SingleProductPage() {
 
         <button
           disabled={addToCartLoading || !productData.inStock}
-          onClick={addToCartClick}
+          onClick={addToCartHandler}
           className="btn btn-primary w-100pc"
         >
           {productData.inStock

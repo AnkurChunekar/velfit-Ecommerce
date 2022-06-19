@@ -4,6 +4,7 @@ import { useFilter } from "../../../../context";
 import { getCategoriesService } from "../../../../services";
 import { CircularLoader } from "../../../../components";
 import "./Categories.css";
+import { toast } from "react-toastify";
 
 export function Categories() {
   const [categoryData, setCategoryData] = useState([]);
@@ -12,7 +13,12 @@ export function Categories() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCategoriesService(setCategoryData, setLoader);
+    (async () => {
+      const response = await getCategoriesService();
+      if (response.status === 200) setCategoryData(response.data.categories);
+      else toast.error("Error Occured! Please Try Again.");
+      setLoader(false);
+    })();
   }, []);
 
   const handleCategoryClick = (categoryName) => {
